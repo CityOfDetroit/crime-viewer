@@ -34,4 +34,4 @@ This is listening for changes in `src/main.js` and will automatically rebuild, s
 
 ### Deploy
 
-Run `npm run deploy`. This pipes `src/main.js` through Uglify to minify it, writes to `build/bundle.js`, and then publishes to gh-pages.
+Run `npm run deploy`. This pipes `src/main.js` through Uglify to minify it, writes to `build/bundle.js`, and then publishes to gh-pages (kinda, still figuring this piece out).
