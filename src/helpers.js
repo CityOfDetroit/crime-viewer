@@ -1,6 +1,6 @@
 const Helpers = {
   example: function(string) {
-  	return string;
+    return string;
   }
 }
 
