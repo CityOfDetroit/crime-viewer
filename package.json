@@ -1,0 +1,33 @@
+{
+  "name": "crime-viewer",
+  "version": "1.0.0",
+  "description": "View, filter and summarize incident data from the police department.",
+  "main": "index.js",
+  "scripts": {
+    "watch": "watchify src/main.js -t babelify -o build/bundle.js -v",
+    "build": "browserify src/main.js -t babelify | uglifyjs > build/bundle.js",
+    "deploy": "npm run build&&gh-pages -d build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CityOfDetroit/crime-viewer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CityOfDetroit/crime-viewer/issues"
+  },
+  "homepage": "https://github.com/CityOfDetroit/crime-viewer#readme",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
+    "mapbox-gl": "^0.38.0",
+    "slideout": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.0",
+    "babelify": "^7.3.0"
+  }
+}
