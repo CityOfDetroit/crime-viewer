@@ -1,5 +1,7 @@
 var mapboxgl = require('mapbox-gl');
+var moment = require('moment')
 import Helpers from './helpers.js';
+import Socrata from './socrata.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -10,4 +12,17 @@ var map = new mapboxgl.Map({
     zoom: 9
 })
 
-console.log(Helpers.example("hey yo"));
+// Socrata details
+const ds = "9i6z-cm98"
+let params = {
+  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(14)}'`,
+  "$limit": 50000
+}
+
+// make the URL
+let url = Socrata.makeUrl(ds, params)
+
+// get the data
+fetch(url).then(r => r.json())
+  .then(data => console.log(data))
+  .catch(e => console.log("Booo"))
