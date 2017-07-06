@@ -22,7 +22,33 @@ let params = {
 // make the URL
 let url = Socrata.makeUrl(ds, params)
 
-// get the data
-fetch(url).then(r => r.json())
-  .then(data => console.log(data))
-  .catch(e => console.log("Booo"))
+map.on('load', function() {
+  console.log('map is loaded')
+  // get the data
+  fetch(url).then(r => r.json())
+    .then(data => {
+      console.log(data);
+
+      // add the source
+      map.addSource('incidents', {
+        "type": "geojson",
+        "data": data
+      });
+
+      // add a simple layer
+      map.addLayer({
+        "id": "incidents_point",
+        "source": "incidents",
+        "type": "circle",
+        "layout": {
+          "visibility": "visible"
+        },
+        "paint": {
+          "circle-color": "red"
+        }
+
+      })
+
+    })
+    .catch(e => console.log("Booo"));
+})
