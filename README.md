@@ -28,7 +28,7 @@ npm install
 
 ### Build
 
-Run `npm run watch` and open index.html in your browser. 
+Run `npm run watch` and open `public/index.html` in your browser.
 
 This is listening for changes in `src/main.js` and will automatically rebuild, so you just need to refresh your browswer to see changes.
 
