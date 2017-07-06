@@ -30,7 +30,12 @@ npm install
 
 Run `npm run watch` and open `public/index.html` in your browser.
 
-This is listening for changes in `src/main.js` and will automatically rebuild, so you just need to refresh your browswer to see changes.
+This is listening for changes in `src/main.js` and will automatically rebuild, so you just need to refresh your browser to see changes.
+
+- Python 3.x: `npm run watch & python -m http.server 9966`
+- Python 2.x: `npm run watch & python -m SimpleHTTPServer 9966`
+
+will watch & serve the page at `http://localhost:9966/public/`
 
 ### Deploy
 
