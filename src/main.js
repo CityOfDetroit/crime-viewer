@@ -5,6 +5,7 @@ var _ = require('lodash');
 import Helpers from './helpers.js';
 import Socrata from './socrata.js';
 import Stats from './stats.js';
+import Colors from './colors.js'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -19,14 +20,14 @@ var map = new mapboxgl.Map({
 // Socrata details
 const ds = "9i6z-cm98"
 let params = {
-  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(30)}'`,
+  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(14)}'`,
   "$limit": 50000
 }
 
 // make the URL
 let url = Socrata.makeUrl(ds, params)
 
-// load the map 
+// load the map
 map.on('load', function() {
   console.log('map is loaded');
 
@@ -59,21 +60,7 @@ map.on('load', function() {
           "circle-color": {
             property: 'state_offense_code',
             type: 'categorical',
-            stops: [
-              ['1301', 'rgb(104,0,116)'],
-              ['2900', 'rgb(202,194,49)'],
-              ['2401', 'rgb(1,60,163)'],
-              ['1302', 'rgb(0,162,95)'],
-              ['2201', 'rgb(212,39,79)'],
-              ['2303', 'rgb(0,146,212)'],
-              ['2305', 'rgb(0,146,212)'],
-              ['2306', 'rgb(0,146,212)'],
-              ['2307', 'rgb(0,146,212)'],
-              ['1201', 'rgb(178,29,28)'],
-              ['2601', 'rgb(239,166,255)'],
-              ['2602', 'rgb(239,166,255)'],
-              ['2603', 'rgb(239,166,255)']
-            ]
+            stops: Colors.crimeStops
           },
           "circle-radius": {
             'base': 1.25,
