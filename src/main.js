@@ -36,9 +36,10 @@ map.on('load', function() {
       console.log(data);
 
       // calculate some summary stats
+      let totalIncidents = Stats.countFeatures(data.features);
       let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
-      let incidentsByNeighborhood = Stats.countByKey(data.features, 'properties.neighborhood');
-      console.log(incidentsByCategory, incidentsByNeighborhood);
+      let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
+      console.log(totalIncidents, incidentsByCategory, incidentsByCouncilDistrict);
 
       // add the source
       map.addSource('incidents', {
