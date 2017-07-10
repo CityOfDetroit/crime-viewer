@@ -1,12 +1,14 @@
 var mapboxgl = require('mapbox-gl');
 var moment = require('moment');
 var _ = require('lodash');
+var $ = require('jquery')
 
 import Helpers from './helpers.js';
 import Socrata from './socrata.js';
 import Stats from './stats.js';
 import Colors from './colors.js';
 import Filter from './filter.js';
+import Locate from './locate.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -31,7 +33,6 @@ let url = Socrata.makeUrl(ds, params)
 
 // load the map
 map.on('load', function() {
-  console.log('map is loaded');
 
   // get the data
   fetch(url).then(r => r.json())
@@ -98,6 +99,8 @@ map.on('load', function() {
           var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
           console.log(features)
       });
+
+      console.log(Locate.geocodeAddress('4061 Porter'))
 
     })
     .catch(e => console.log("Booo"));
