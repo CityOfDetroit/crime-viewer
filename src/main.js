@@ -5,7 +5,8 @@ var _ = require('lodash');
 import Helpers from './helpers.js';
 import Socrata from './socrata.js';
 import Stats from './stats.js';
-import Colors from './colors.js'
+import Colors from './colors.js';
+import Filter from './filter.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -20,12 +21,13 @@ var map = new mapboxgl.Map({
 // Socrata details
 const ds = "9i6z-cm98"
 let params = {
-  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(14)}'`,
+  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(7)}'`,
   "$limit": 50000
 }
 
 // make the URL
 let url = Socrata.makeUrl(ds, params)
+
 
 // load the map
 map.on('load', function() {
@@ -79,6 +81,23 @@ map.on('load', function() {
         }
 
       })
+
+      // the filter should be an object with:
+      // properties as keys
+      // an array of values to match as the value
+      const filterObject = {
+        'state_offense_code': ['3803', '1301', '2900', '2401'],
+        'precinct': ['12', '09', '07', '02']
+      }
+
+      let theFilter = Filter.makeMapboxFilter(filterObject)
+      console.log(Filter.makeMapboxFilter(filterObject))
+      map.setFilter("incidents_point", theFilter)
+
+      map.on('mousedown', function (e) {
+          var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
+          console.log(features)
+      });
 
     })
     .catch(e => console.log("Booo"));
