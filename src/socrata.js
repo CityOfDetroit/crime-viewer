@@ -5,6 +5,13 @@ const Socrata = {
       ret.push(p + '=' + encodeURIComponent(params[p]));
     const qs = ret.join('&')
     return `https://data.detroitmi.gov/resource/${ds}.geojson?${qs}`
+  },
+
+  fetchData: function(url){
+    return fetch(url).then((r) => {
+      var res = r.json()
+      return res
+    })
   }
 }
 

@@ -34,10 +34,8 @@ let url = Socrata.makeUrl(ds, params)
 // load the map
 map.on('load', function() {
 
-  // get the data
-  fetch(url).then(r => r.json())
-    .then(data => {
-      console.log(data);
+  Socrata.fetchData(url).then(data => {
+    console.log(data)
 
       // calculate some summary stats
       let totalIncidents = Stats.countFeatures(data.features);
