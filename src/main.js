@@ -9,6 +9,7 @@ import Stats from './stats.js';
 import Colors from './colors.js';
 import Filter from './filter.js';
 import Locate from './locate.js';
+import Boundary from './boundary.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -42,6 +43,10 @@ map.on('load', function() {
       let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
       let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
       console.log(totalIncidents, incidentsByCategory, incidentsByCouncilDistrict);
+
+
+      // add the boundary
+      Boundary.addBoundary(map, Boundary.boundaries[0]);
 
       // add the source
       map.addSource('incidents', {
