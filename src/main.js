@@ -98,6 +98,14 @@ map.on('load', function() {
           console.log(features)
       });
 
+      map.on('mouseenter', 'incidents_point', function (e) {
+          map.getCanvas().style.cursor = 'pointer'
+      });
+
+      map.on('mouseout', 'incidents_point', function (e) {
+          map.getCanvas().style.cursor = ''
+      });
+
       console.log(Locate.geocodeAddress('4061 Porter'))
 
     })
