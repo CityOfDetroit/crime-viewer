@@ -1,4 +1,5 @@
 var assert = require('assert');
+var should = require('should');
 
 import Stats from '../src/stats';
 
@@ -14,6 +15,15 @@ describe("Stats", function() {
     { council_district: 2, crime_id: 823456789, offense_category: "DAMAGE TO PROPERTY" },
   ];
 
+  describe("sampleData", function() {
+    it("should be of type array", function() {
+      sample_geojson_features.should.be.an.instanceOf(Array);
+    });
+    it("should have nested objects", function() {
+      sample_geojson_features[0].should.be.an.instanceOf(Object);
+    });
+  });
+  
   describe("countFeatures", function() {
     it("should return the length of an array of data", function() {
       assert.equal(8, Stats.countFeatures(sample_geojson_features));
@@ -22,8 +32,7 @@ describe("Stats", function() {
 
   describe("countByKey", function() {
     it("should return the count of each unique value of a specific key", function() {
-      /* still need to debug formatting here for this one to pass */
-      assert.equal({ 1: 2, 2: 1, 3: 1, 4: 1, 5: 2, 7: 1 }, Stats.countByKey(sample_geojson_features, "council_district"));
+      assert.deepEqual({ 1: 2, 2: 1, 3: 1, 4: 1, 5: 2, 7: 1 }, Stats.countByKey(sample_geojson_features, "council_district"));
     });
   });
 });
