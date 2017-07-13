@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const Stats = {
-  /*
+  /**
    * Counts number of features on the map
    * @param {array}
    * @returns {int}
@@ -10,7 +10,7 @@ const Stats = {
     return arr.length;
   },
 
-  /*
+  /**
    * Counts number of times a unique value occurs for a specified key
    * @param {array}
    * @param {string} - name of key in object
