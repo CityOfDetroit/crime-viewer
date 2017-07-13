@@ -1,7 +1,9 @@
 var mapboxgl = require('mapbox-gl');
 var moment = require('moment');
 var _ = require('lodash');
-var $ = require('jquery')
+var Slideout = require('slideout');
+global.jQuery = require('jquery');
+require('jq-accordion');
 
 import Helpers from './helpers.js';
 import Socrata from './socrata.js';
@@ -29,7 +31,6 @@ let params = {
 
 // make the URL
 let url = Socrata.makeUrl(ds, params)
-
 
 // load the map
 map.on('load', function() {
@@ -102,4 +103,29 @@ map.on('load', function() {
 
     })
     .catch(e => console.log("Booo"));
-})
+});
+
+jQuery(document).ready(function() {
+  //Tab Switch Function
+  jQuery('.tabs .tab-links a').on('click', function(e)  {
+      var currentAttrValue = jQuery(this).attr('href');
+    
+    // Show/Hide Tabs
+    jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
+
+      // Change/remove current tab to active
+      jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+
+      e.preventDefault();
+  });
+
+  //initialize accordion
+  jQuery('#filters-accordion [data-accordion]').accordion();
+
+  var slideout = new Slideout({
+    'panel': document.getElementById('map'),
+    'menu': document.getElementById('menu'),
+    'padding': 256,
+    'tolerance': 70
+  });
+});

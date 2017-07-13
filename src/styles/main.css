@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body { 
   margin: 0; 
   padding: 0; 
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 #map { 
@@ -8,4 +11,119 @@ body {
   top: 0; 
   bottom: 0; 
   width:  100%; 
+}
+
+#menu{
+   position: relative;
+   z-index: 1000;
+   float: left;
+   background: white;
+   height: 100vh !important;
+   -webkit-box-shadow: -25px -10px 15px 25px #777;
+   -moz-box-shadow: -25px -10px 15px 25px #777;
+   box-shadow: -25px -10px 15px 25px #777;
+}
+
+#menu .logo > *{
+   float:left;
+}
+
+#menu .logo img{
+   width: 65px;
+   padding: 1px;
+}
+
+.search input{
+   box-sizing: border-box;
+   border: 0px;
+   font-size: 13px;
+   background-color: white;
+   background-image: url(../img/searchicon.png);
+   background-position: 10px 4px;
+   background-repeat: no-repeat;
+   padding: 8px 20px 8px 40px;
+   -webkit-transition: width .4s ease-in-out;
+   transition: width .4s ease-in-out;
+   width: 100%;
+   border-top:2px #e4e4e4 solid;
+}
+
+.filter-checkbox {
+	width: 10px;
+	position: relative;
+	float:left;
+	margin-right: 15px;
+	margin-top: -2px;
+}
+
+.filter-checkbox input{
+	margin-top:4px;
+}
+
+.filter-checkbox label {
+	cursor: pointer;
+	position: absolute;
+	width: 11px;
+	height: 11px;
+	top: 4px;
+  	left: 3px;
+	background: #eee;
+	border:1px solid #ddd;
+}
+.filter-checkbox label:after {
+	opacity: 0;
+	content: '';
+	position: absolute;
+	width: 9px;
+	height: 5px;
+	background: transparent;
+	top: 0px;
+	left: 0px;
+	border: 3px solid #333;
+	border-top: none;
+	border-right: none;
+	transform: rotate(-45deg);
+}
+.filter-checkbox label:hover::after {
+	opacity: 0.5;
+}
+
+.filter-checkbox input[type=checkbox]:checked + label:after {
+	opacity: 1;
+}
+
+.color-circle{
+	width:11px;
+	height: 11px;
+	border-radius: 50%;
+	float: right;
+	border: 1px solid rgba(50, 50, 50, 0.8);
+	margin-top:2px;
+}
+
+#violent-check-color{
+	background: #ec5e5e;
+}
+#property-check-color{
+	background: #ede55f;
+}
+#other-check-color{
+	background: #a15fed;
+}
+
+@media screen and (min-width: 800px) {
+   #menu{
+       width: 30%;
+       min-width: 325px;
+       max-width: 400px;
+   }
+   #menu .logo{
+       padding:3px 10px;
+   }
+
+   #menu .logo h1{
+       width: 235px;
+       font-weight: bold;
+       font-size: 20px;
+   }
 }

@@ -1,14 +1,154 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8' />
-  <title></title>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.2/mapbox-gl.css' rel='stylesheet' />
-  <link href='../src/styles/main.css' rel='stylesheet' />
+	<meta charset='utf-8'>
+	<title></title>
+	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.2/mapbox-gl.css' rel='stylesheet'>
+	<link href='../src/styles/jquery.accordion.css' rel='stylesheet'>
+	<link href='../src/styles/accordion.css' rel='stylesheet'>
+	<link href='../src/styles/tabs.css' rel='stylesheet'>
+	<link href='../src/styles/main.css' rel='stylesheet'>
+	<link href="../src/img/favicon.ico" rel="icon" sizes="16x16" type="image"><!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+        <![endif]-->
 </head>
 <body>
-  <div id='map'></div>
-  <script src="../build/bundle.js"></script>
+	<nav id="menu">
+		<div class="logo">
+			<img src="../src/img/grayscale.png">
+			<h1>DETROIT<br>
+			Neighborhood Compstat</h1>
+		</div>
+		<div class="search">
+			<input name="search" placeholder="Search for an Address" type="text">
+		</div>
+		<div class="tabs">
+			<ul class="tab-links">
+				<li class="active">
+					<a href="#tab1">Filters</a>
+				</li>
+				<li>
+					<a href="#tab2">Data</a>
+				</li>
+				<li>
+					<a href="#tab3">About</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab active" id="tab1">
+					<section data-accordion-group="" id="filters-accordion">
+						<section data-accordion="">
+							<button data-control="" class="accordion-header" id="categories-accordion">Categories</button>
+							<div data-content="" class="accordion-content">
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+									<div class="filter-checkbox">
+										<input type ="checkbox" id="violent-check" name=""/>
+										<label for="violent-check"></label>
+									</div>
+									Violent Crime<span id="violent-check-color" class="color-circle"></span></button>
+									<div data-content="">
+										<article>
+											Kill
+										</article>
+										<article>
+											Gun
+										</article>
+									</div>
+								</article>
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+									<div class="filter-checkbox">
+										<input type ="checkbox" id="property-check" name=""/>
+										<label for="property-check"></label>
+									</div>Property Crime<span id="property-check-color" class="color-circle"></span></button>
+									<div data-content="" class="accordion-content">
+										<article>
+											B&E
+										</article>
+										<article>
+											Stolen Car
+										</article>
+									</div>
+								</article>
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+									<div class="filter-checkbox">
+										<input type ="checkbox" id="other-check" name=""/>
+										<label for="other-check"></label>
+									</div>Other Crime<span id="other-check-color" class="color-circle"></span></button>
+									<div data-content="" class="accordion-content">
+										<article>
+											Mail Fraud
+										</article>
+										<article>
+											Graffiti
+										</article>
+									</div>
+								</article>
+							</div>
+						</section>
+						<section data-accordion="">
+							<button data-control="" class="accordion-header" id="time-accordion">Time</button>
+							<div data-content="" class="accordion-content">
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+							</div>
+						</section>
+						<section data-accordion="">
+							<button data-control="" class="accordion-header" id="area-accordion">Area</button>
+							<div data-content="" class="accordion-content">
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+								<article>
+									Item
+								</article>
+							</div>
+						</section>
+					</section>
+				</div>
+				<div class="tab" id="tab2">
+					<p>Tab #2 content goes here!</p>
+					<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+				</div>
+				<div class="tab" id="tab3">
+					<p>Tab #3 content goes here!</p>
+					<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+				</div>
+			</div>
+		</div>
+	</nav><!--Map-->
+	<div id='map'></div>
+	<script src="../build/bundle.js"></script>
 </body>
 </html>

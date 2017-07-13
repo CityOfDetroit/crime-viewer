@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/CityOfDetroit/crime-viewer",
   "dependencies": {
+    "jq-accordion": "^1.0.1",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "mapbox-gl": "^0.38.0",
@@ -32,5 +33,8 @@
     "babel-preset-env": "^1.6.0",
     "babelify": "^7.3.0",
     "gh-pages": "^1.0.0"
+  },
+  "browser": {
+    "jq-accordion": "./node_modules/jq-accordion/dist/js/jquery.accordion.js"
   }
 }
