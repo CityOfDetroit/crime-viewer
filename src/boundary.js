@@ -39,6 +39,9 @@ const Boundary = {
               }
           }
         });
+    },
+    changeBoundary: function(map, boundary) {
+        map.getSource('boundary').setData(boundary['url'])
     }
 }
 
