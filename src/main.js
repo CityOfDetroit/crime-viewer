@@ -114,8 +114,10 @@ map.on('load', function() {
           map.getCanvas().style.cursor = ''
       });
 
-      console.log(Locate.geocodeAddress('4061 Porter'))
-
+      Locate.geocodeAddress('4061 Porter').then(result => {
+        Locate.panToLatLng(result, map)
+      })
+      
     })
     .catch(e => console.log("Booo"));
 });
