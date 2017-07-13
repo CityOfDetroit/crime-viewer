@@ -100,7 +100,9 @@ map.on('load', function() {
 
       map.on('mousedown', function (e) {
           var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
-          console.log(features)
+          if(features.length > 0){
+            console.log(features)
+          }
       });
 
       map.on('mouseenter', 'incidents_point', function (e) {
