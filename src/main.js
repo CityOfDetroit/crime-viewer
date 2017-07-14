@@ -27,7 +27,7 @@ var map = new mapboxgl.Map({
 // Socrata details
 const ds = "9i6z-cm98"
 let params = {
-  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(7)}'`,
+  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(21)}'`,
   "$limit": 50000
 }
 
@@ -92,18 +92,6 @@ map.on('load', function() {
 
       })
 
-      // the filter should be an object with:
-      // properties as keys
-      // an array of values to match as the value
-      const filterObject = {
-        'state_offense_code': ['3803', '1301', '2900', '2401'],
-        'precinct': ['12', '09', '07', '02']
-      }
-
-      let theFilter = Filter.makeMapboxFilter(filterObject)
-      console.log(Filter.makeMapboxFilter(filterObject))
-      map.setFilter("incidents_point", theFilter)
-
       map.on('mousedown', function (e) {
           var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
           if(features.length > 0){
@@ -119,15 +107,24 @@ map.on('load', function() {
           map.getCanvas().style.cursor = ''
       });
 
-      Locate.geocodeAddress('4061 Porter').then(result => {
-        Locate.panToLatLng(result, map)
-      })
-      
+      // quick filter refresh in lieu of actual button
+      document.onkeypress = function (e) {
+        if(e.keyCode == 96){
+          let filter = Filter.makeMapboxFilter(Filter.readInput())
+          map.setFilter('incidents_point', filter)
+        }
+      };
+
+      // Locate.geocodeAddress('4061 Porter').then(result => {
+      //   Locate.panToLatLng(result, map)
+      // })
+    
     })
-    .catch(e => console.log("Booo"));
+    .catch(e => console.log("Booo", e));
 });
 
 jQuery(document).ready(function() {
+  
   //Tab Switch Function
   jQuery('.tabs .tab-links a').on('click', function(e)  {
       var currentAttrValue = jQuery(this).attr('href');
