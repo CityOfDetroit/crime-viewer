@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Chartist from 'chartist';
+import moment from 'moment';
 
 import Helpers from './helpers.js';
 
@@ -85,6 +86,44 @@ const Stats = {
     };
 
     return new Chartist.Bar(chartClass, data, options);
+  },
+
+  /** 
+   * Display details of point on the map
+   * @param {array} - list of features (we only display the first right now)
+   * @param {string} - html div id
+   * @returns {}
+   */
+  printPointDetails: function(features, divId) {
+    let detail = document.getElementById(divId);
+
+    detail.innerHTML = '';
+
+    let h3 = document.createElement("h3");
+    h3.innerHTML = "POINT DETAILS"
+    detail.appendChild(h3);
+
+    let p = document.createElement("p");
+    p.innerHTML = "<strong>" + "Incident: " + "</strong>" + features[0].properties.offense_category;
+    detail.appendChild(p);
+
+    let p2 = document.createElement("p");
+    p2.innerHTML = "<strong>" + "Date & Time: " + "</strong>" + moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a");
+    detail.appendChild(p2);
+
+    let p3 = document.createElement("p");
+    p3.innerHTML = "<strong>" + "Address: " + "</strong>" + features[0].properties.address;
+    detail.appendChild(p3);
+
+    let p4 = document.createElement("p");
+    p4.innerHTML = "<strong>" + "Neighborhood: " + "</strong>" + features[0].properties.neighborhood;
+    detail.appendChild(p4);
+
+    let p5 = document.createElement("p");
+    p5.innerHTML = "<strong>" + "Precinct: " + "</strong>" + features[0].properties.precinct;
+    detail.appendChild(p5);
+
+    return detail;
   }
 }
 

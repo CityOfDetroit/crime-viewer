@@ -1,0 +1,15 @@
+#details {
+  height: 250px;
+  width: 90%;
+  position: absolute;
+  bottom: 10px;
+}
+
+#details h3 {
+  text-decoration: none;
+  font-size: 1em;
+}
+
+#details p {
+  font-size: small;
+}
