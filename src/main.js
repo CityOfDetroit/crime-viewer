@@ -115,10 +115,13 @@ map.on('load', function() {
         }
       };
 
-      // Locate.geocodeAddress('4061 Porter').then(result => {
-      //   Locate.panToLatLng(result, map)
-      // })
-    
+      document.getElementById('locate').addEventListener('keypress', e => {
+        if(e.key == 'Enter'){
+        Locate.geocodeAddress(e.target.value).then(result => {
+          Locate.panToLatLng(result, map)
+        })}
+      })
+
     })
     .catch(e => console.log("Booo", e));
 });
