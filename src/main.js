@@ -9,10 +9,10 @@ require('jq-accordion');
 import Helpers from './helpers.js';
 import Socrata from './socrata.js';
 import Stats from './stats.js';
-import Colors from './colors.js';
 import Filter from './filter.js';
 import Locate from './locate.js';
 import Boundary from './boundary.js';
+import Data from './data.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -60,6 +60,16 @@ map.on('load', function() {
         "data": data
       });
 
+      // make colors from Data.offenses
+      let colors = []
+      Object.entries(Data.offenses).forEach(([k, v]) => {
+        v.forEach(c => {
+          c.state_codes.forEach(o => {
+            colors.push([o, c.color])
+          })
+        })
+      })
+
       // add a layer
       map.addLayer({
         "id": "incidents_point",
@@ -72,7 +82,7 @@ map.on('load', function() {
           "circle-color": {
             property: 'state_offense_code',
             type: 'categorical',
-            stops: Colors.crimeStops
+            stops: colors
           },
           "circle-radius": {
             'base': 1.25,

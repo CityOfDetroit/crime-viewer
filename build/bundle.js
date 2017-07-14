@@ -56954,18 +56954,6 @@ exports.default = Boundary;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var Colors = {
-  crimeStops: [['1301', 'rgb(104,0,116)'], ['2900', 'rgb(0,111,49)'], ['2401', 'rgb(1,60,163)'], ['1302', 'rgb(0,162,95)'], ['2201', 'rgb(212,39,79)'], ['2303', 'rgb(0,146,212)'], ['2305', 'rgb(0,146,212)'], ['2306', 'rgb(0,146,212)'], ['2307', 'rgb(0,146,212)'], ['1201', 'rgb(178,29,28)'], ['2601', 'rgb(239,166,255)'], ['2602', 'rgb(239,166,255)'], ['2603', 'rgb(239,166,255)'], ['3501', 'rgb(23, 43, 22)']]
-};
-
-exports.default = Colors;
-
-},{}],12:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 var Data = {
   council_districts: [{ number: 1, name: 'District 1' }, { number: 2, name: 'District 2' }, { number: 3, name: 'District 3' }, { number: 4, name: 'District 4' }, { number: 5, name: 'District 5' }, { number: 6, name: 'District 6' }, { number: 7, name: 'District 7' }],
 
@@ -57022,7 +57010,7 @@ var Data = {
 
 exports.default = Data;
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57094,7 +57082,7 @@ var Filter = {
 
 exports.default = Filter;
 
-},{"./data.js":12}],14:[function(require,module,exports){
+},{"./data.js":11}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57122,7 +57110,7 @@ var Helpers = {
 
 exports.default = Helpers;
 
-},{"lodash":6,"moment":8}],15:[function(require,module,exports){
+},{"lodash":6,"moment":8}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57160,9 +57148,11 @@ var Locate = {
 
 exports.default = Locate;
 
-},{"jquery":5}],16:[function(require,module,exports){
+},{"jquery":5}],15:[function(require,module,exports){
 (function (global){
 'use strict';
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _helpers = require('./helpers.js');
 
@@ -57176,10 +57166,6 @@ var _stats = require('./stats.js');
 
 var _stats2 = _interopRequireDefault(_stats);
 
-var _colors = require('./colors.js');
-
-var _colors2 = _interopRequireDefault(_colors);
-
 var _filter = require('./filter.js');
 
 var _filter2 = _interopRequireDefault(_filter);
@@ -57191,6 +57177,10 @@ var _locate2 = _interopRequireDefault(_locate);
 var _boundary = require('./boundary.js');
 
 var _boundary2 = _interopRequireDefault(_boundary);
+
+var _data = require('./data.js');
+
+var _data2 = _interopRequireDefault(_data);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57247,6 +57237,20 @@ map.on('load', function () {
       "data": data
     });
 
+    // make colors from Data.offenses
+    var colors = [];
+    Object.entries(_data2.default.offenses).forEach(function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          k = _ref2[0],
+          v = _ref2[1];
+
+      v.forEach(function (c) {
+        c.state_codes.forEach(function (o) {
+          colors.push([o, c.color]);
+        });
+      });
+    });
+
     // add a layer
     map.addLayer({
       "id": "incidents_point",
@@ -57259,7 +57263,7 @@ map.on('load', function () {
         "circle-color": {
           property: 'state_offense_code',
           type: 'categorical',
-          stops: _colors2.default.crimeStops
+          stops: colors
         },
         "circle-radius": {
           'base': 1.25,
@@ -57345,7 +57349,7 @@ jQuery(document).ready(function () {
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./boundary.js":10,"./colors.js":11,"./filter.js":13,"./helpers.js":14,"./locate.js":15,"./socrata.js":17,"./stats.js":18,"jq-accordion":4,"jquery":5,"lodash":6,"mapbox-gl":7,"moment":8,"slideout":9}],17:[function(require,module,exports){
+},{"./boundary.js":10,"./data.js":11,"./filter.js":12,"./helpers.js":13,"./locate.js":14,"./socrata.js":16,"./stats.js":17,"jq-accordion":4,"jquery":5,"lodash":6,"mapbox-gl":7,"moment":8,"slideout":9}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57381,7 +57385,7 @@ var Socrata = {
 
 exports.default = Socrata;
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57486,4 +57490,4 @@ var Stats = {
 
 exports.default = Stats;
 
-},{"./helpers.js":14,"chartist":1,"lodash":6}]},{},[16]);
+},{"./helpers.js":13,"chartist":1,"lodash":6}]},{},[15]);
