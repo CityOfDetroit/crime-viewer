@@ -31,6 +31,9 @@
   line-height: 24px;
   color: black;
 }
+.dow-checkbox + label:hover::before {
+    color:#aaaaaa;
+}
 
 #dow-1-check + label::before{
     content: 'Sun';
