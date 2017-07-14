@@ -181,23 +181,99 @@
 							</div>
 						</section>
 						<section data-accordion="">
-							<button data-control="" class="accordion-header" id="area-accordion">Area</button>
+							<button data-control="" class="accordion-header" id="categories-accordion">Area</button>
 							<div data-content="" class="accordion-content">
-								<article>
-									<input type="radio" id="area-neighborhood" name="currentArea" value="neighborhood">
-									<label for="area-neighborhood">Neighborhood</label>
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+										<div>
+											<input type="radio" id="area-council-district" name="currentArea" value="council_district">
+											<label for="area-council-district">Council Districts</label>
+										</div>
+									</button>
+									<div data-content="">
+										<article>
+											<input type="checkbox" id="district-1-check" name=""/>
+											<label for="district-1-check"></label>District 1
+										</article>
+										<article>
+											<input type="checkbox" id="district-2-check" name=""/>
+											<label for="district-2-check"></label>District 2
+										</article>
+										<article>
+											<input type="checkbox" id="district-3-check" name=""/>
+											<label for="district-3-check"></label>District 3
+										</article>
+										<article>
+											<input type="checkbox" id="district-4-check" name=""/>
+											<label for="district-4-check"></label>District 4
+										</article>
+										<article>
+											<input type="checkbox" id="district-5-check" name=""/>
+											<label for="district-5-check"></label>District 5
+										</article>
+										<article>
+											<input type="checkbox" id="district-6-check" name=""/>
+											<label for="district-6-check"></label>District 6
+										</article>
+										<article>
+											<input type="checkbox" id="district-7-check" name=""/>
+											<label for="district-7-check"></label>District 7
+										</article>
+									</div>
 								</article>
-								<article>
-									<input type="radio" id="area-councildistrict" name="currentArea" value="council_district">
-									<label for="area-councildistrict">Council District</label>
-								</article>
-								<article>
-									<input type="radio" id="area-precinct" name="currentArea" value="precinct">
-									<label for="area-precinct">Police Precinct</label>
-								</article>
-								<article>
-									<input type="radio" id="area-zipcode" name="currentArea" value="zip_code">
-									<label for="area-zipcode">Zip Code</label>
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+										<div>
+											<input type="radio" id="area-precinct" name="currentArea" value="precinct">
+											<label for="area-precinct">Precincts</label>
+										</div>
+									</button>
+									<div data-content="">
+										<article>
+											<input type="checkbox" id="precinct-2-check" name=""/>
+											<label for="precinct-2-check"></label>2nd Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-3-check" name=""/>
+											<label for="precinct-3-check"></label>3rd Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-4-check" name=""/>
+											<label for="precinct-4-check"></label>4th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-5-check" name=""/>
+											<label for="precinct-5-check"></label>5th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-6-check" name=""/>
+											<label for="precinct-6-check"></label>6th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-7-check" name=""/>
+											<label for="precinct-7-check"></label>7th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-8-check" name=""/>
+											<label for="precinct-8-check"></label>8th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-9-check" name=""/>
+											<label for="precinct-9-check"></label>9th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-10-check" name=""/>
+											<label for="precinct-10-check"></label>10th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-11-check" name=""/>
+											<label for="precinct-11-check"></label>11th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-12-check" name=""/>
+											<label for="precinct-12-check"></label>12th Precinct
+										</article>
+									</div>
 								</article>
 							</div>
 						</section>
@@ -213,6 +289,8 @@
 					<table>
 						<tbody id="tbody"></tbody>
 					</table>
+					<p class="chart-title"><strong>Download the Data</strong></p>
+					<p>You can further view and download the raw crime incident data that powers this tool by visiting <a target="_blank" href="https://data.detroitmi.gov/">Detroit's Open Data Portal</a>. Find it under <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">DPD: All Crime Incidents, December 6, 2016 - Present</a>.</p>
 				</div>
 				<div class="tab" id="tab3">
 					<p><strong>Welcome to Neighborhoood Compstat!</strong></p>
