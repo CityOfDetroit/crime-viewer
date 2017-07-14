@@ -25,6 +25,7 @@ body:after{
   -webkit-transform:rotate(-45deg);
   transform:rotate(-45deg);
   z-index: 2500;
+  box-shadow: 1px 3px 10px #333;
 }
 
 #map { 
