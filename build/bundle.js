@@ -57350,7 +57350,10 @@ map.on('load', function () {
 
 jQuery(document).ready(function () {
 
+  //responsively adjust height of tab content
   var currentHeight = jQuery('#menu').height() - jQuery('.logo').height() - jQuery('.search').height() - jQuery('.tab-links').height();
+
+  //initiate scrollbar
   jQuery('.scrollbar-macosx').scrollbar();
   jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
   jQuery(window).resize(function () {
@@ -57374,10 +57377,12 @@ jQuery(document).ready(function () {
   //initialize accordion
   jQuery('#filters-accordion [data-accordion]').accordion();
 
+  //close disclaimer box
   jQuery('.disclaimer-close img').click(function () {
     jQuery('.disclaimer').fadeOut();
   });
 
+  //initiate slideout
   var slideout = new Slideout({
     'panel': document.getElementById('map'),
     'menu': document.getElementById('menu'),
