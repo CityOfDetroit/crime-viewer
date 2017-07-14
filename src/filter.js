@@ -26,6 +26,23 @@ const Filter = {
         })
       }
     })
+
+    // days of week
+    Data.days_of_week.forEach(i => {
+      let elem = document.getElementById(`dow-${i.number}-check`)
+      if(elem.checked){
+        filterObject['day_of_week'].push(i.number.toString())
+      }
+    })
+
+    // time of day
+    Data.parts_of_day.forEach(i => {
+      let elem = document.getElementById(`${i.name.toLowerCase()}-check`)
+      if(elem.checked){
+        filterObject['hour_of_day'] = filterObject['hour_of_day'].concat(i.hours.map(i => i.toString()))
+      }
+    })
+
     return filterObject
   },
 
