@@ -41,6 +41,8 @@ const Stats = {
     let numRows = Object.keys(summaryStats).length;
     let tbody = document.getElementById(tblId);
 
+    tbody.innerHTML = '';
+
     // make a table row for every key/value pair
     for (var key in summaryStats) {
       let tr = "<tr>";         
@@ -68,7 +70,8 @@ const Stats = {
 
     // don't hard code this in the future
     let labeledproperties = properties.map(function(e) {
-      return "D" + e;
+      return e;
+      // return "D" + e;
     });
 
     let data = {

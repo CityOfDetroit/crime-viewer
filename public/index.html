@@ -117,22 +117,10 @@
 							<button data-control="" class="accordion-header" id="time-accordion">Time</button>
 							<div data-content="" class="accordion-content">
 								<article>
-									Item
+									Day of Week
 								</article>
 								<article>
-									Item
-								</article>
-								<article>
-									Item
-								</article>
-								<article>
-									Item
-								</article>
-								<article>
-									Item
-								</article>
-								<article>
-									Item
+									Hour of Day
 								</article>
 							</div>
 						</section>
@@ -140,22 +128,20 @@
 							<button data-control="" class="accordion-header" id="area-accordion">Area</button>
 							<div data-content="" class="accordion-content">
 								<article>
-									Item
+									<input type="radio" id="area-neighborhood" name="currentArea" value="neighborhood">
+									<label for="area-neighborhood">Neighborhood</label>
 								</article>
 								<article>
-									Item
+									<input type="radio" id="area-councildistrict" name="currentArea" value="council_district">
+									<label for="area-councildistrict">Council District</label>
 								</article>
 								<article>
-									Item
+									<input type="radio" id="area-precinct" name="currentArea" value="precinct">
+									<label for="area-precinct">Police Precinct</label>
 								</article>
 								<article>
-									Item
-								</article>
-								<article>
-									Item
-								</article>
-								<article>
-									Item
+									<input type="radio" id="area-zipcode" name="currentArea" value="zip_code">
+									<label for="area-zipcode">Zip Code</label>
 								</article>
 							</div>
 						</section>
@@ -165,7 +151,7 @@
 					</div>
 				</div>
 				<div class="tab" id="tab2">
-				    <p class="chart-title"><strong>Total Incidents by Council District</strong></p>
+				    <p class="chart-title"><strong>Total Incidents by Selected Area</strong></p>
 					<div class="ct-chart"></div>
 					<p class="chart-title"><strong>Total Incidents by Offense Type</strong></p>
 					<table>
