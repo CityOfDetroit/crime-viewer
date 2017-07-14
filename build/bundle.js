@@ -57128,7 +57128,7 @@ var $ = require('jquery');
 var Locate = {
   /* take an address and return a promise */
   geocodeAddress: function geocodeAddress(address) {
-    var geocodeURL = 'http://gis.detroitmi.gov/arcgis/rest/services/DoIT/CompositeGeocoder/GeocodeServer/findAddressCandidates?';
+    var geocodeURL = 'https://gis.detroitmi.gov/arcgis/rest/services/DoIT/CompositeGeocoder/GeocodeServer/findAddressCandidates?';
     var params = {
       'Street': '',
       'City': '',

@@ -3,7 +3,7 @@ var $ = require('jquery')
 const Locate = {
   /* take an address and return a promise */
   geocodeAddress: function(address) {
-    const geocodeURL = 'http://gis.detroitmi.gov/arcgis/rest/services/DoIT/CompositeGeocoder/GeocodeServer/findAddressCandidates?'
+    const geocodeURL = 'https://gis.detroitmi.gov/arcgis/rest/services/DoIT/CompositeGeocoder/GeocodeServer/findAddressCandidates?'
     let params = {
       'Street': '',
       'City': '',
