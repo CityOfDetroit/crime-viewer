@@ -112,16 +112,6 @@ body {
 	background: #a15fed;
 }
 
-#details{
-  height: 230px;
-  position: absolute;
-  bottom: 10px;
-}
-
-#details h3{
-  text-decoration: underline;
-}
-
 @media screen and (min-width: 800px) {
    #menu{
        width: 30%;

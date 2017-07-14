@@ -106,7 +106,7 @@ map.on('load', function() {
       map.on('mousedown', function (e) {
           var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
           if(features.length > 0){
-            console.log(features)
+            Stats.printPointDetails(features, 'details');
           }
       });
 
@@ -154,7 +154,6 @@ jQuery(document).ready(function() {
   jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
   jQuery(window).resize(function () {
     currentHeight = jQuery('#menu').height() - jQuery('.logo').height() - jQuery('.search').height() - jQuery('.tab-links').height();
-    console.log(currentHeight);
     jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
   });
   
