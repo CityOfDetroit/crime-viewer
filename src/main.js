@@ -5,6 +5,7 @@ var Slideout = require('slideout');
 
 global.jQuery = require('jquery');
 require('jq-accordion');
+require('jquery.scrollbar');
 
 import Helpers from './helpers.js';
 import Socrata from './socrata.js';
@@ -124,9 +125,19 @@ map.on('load', function() {
 
     })
     .catch(e => console.log("Booo", e));
+
 });
 
 jQuery(document).ready(function() {
+
+  var currentHeight = jQuery('#menu').height() - jQuery('.logo').height() - jQuery('.search').height() - jQuery('.tab-links').height();
+  jQuery('.scrollbar-macosx').scrollbar();
+  jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
+  jQuery(window).resize(function () {
+    currentHeight = jQuery('#menu').height() - jQuery('.logo').height() - jQuery('.search').height() - jQuery('.tab-links').height();
+    console.log(currentHeight);
+    jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
+  });
   
   //Tab Switch Function
   jQuery('.tabs .tab-links a').on('click', function(e)  {
@@ -143,6 +154,11 @@ jQuery(document).ready(function() {
 
   //initialize accordion
   jQuery('#filters-accordion [data-accordion]').accordion();
+
+  jQuery('.disclaimer-close img').click(function(){
+    jQuery('.disclaimer').fadeOut();
+  });
+
 
   var slideout = new Slideout({
     'panel': document.getElementById('map'),

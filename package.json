@@ -25,6 +25,7 @@
     "chartist": "^0.11.0",
     "jq-accordion": "^1.0.1",
     "jquery": "^3.2.1",
+    "jquery.scrollbar": "^0.2.11",
     "lodash": "^4.17.4",
     "mapbox-gl": "^0.38.0",
     "moment": "^2.18.1",
@@ -38,6 +39,7 @@
     "should": "^11.2.1"
   },
   "browser": {
-    "jq-accordion": "./node_modules/jq-accordion/dist/js/jquery.accordion.js"
+    "jq-accordion": "./node_modules/jq-accordion/dist/js/jquery.accordion.js",
+    "jquery.scrollbar": "./node_modules/jquery.scrollbar/jquery.scrollbar.min.js"
   }
 }

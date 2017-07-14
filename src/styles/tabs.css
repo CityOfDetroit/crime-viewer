@@ -50,16 +50,22 @@ li.active a, li.active a:hover {
    color: white;
 }
 
+#tab3{
+   padding-right: 30px;
+}
+
 /*----- Content of Tabs -----*/
 .tab-content {
    padding:15px;
    border-radius:3px;
-   /*box-shadow:-1px 1px 1px rgba(0,0,0,0.15);*/
    background:#fff;
+   width: 100%;
+   margin: 0 auto;
 }
 
 .tab {
    display:none;
+   padding: 15px;
 }
 
 .tab.active {
