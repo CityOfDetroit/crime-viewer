@@ -43,6 +43,20 @@ const Filter = {
       }
     })
 
+    Data.council_districts.forEach(i => {
+      let elem = document.getElementById(`district-${i.number}-check`)
+      if(elem.checked){
+        filterObject['council_district'].push(i.number.toString())
+      }
+    })
+
+    Data.precincts.forEach(i => {
+      let elem = document.getElementById(`precinct-${parseInt(i.number)}-check`)
+      if(elem.checked){
+        filterObject['precinct'].push(i.number.toString())
+      }
+    })
+
     return filterObject
   },
 

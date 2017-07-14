@@ -57053,6 +57053,20 @@ var Filter = {
       }
     });
 
+    _data2.default.council_districts.forEach(function (i) {
+      var elem = document.getElementById('district-' + i.number + '-check');
+      if (elem.checked) {
+        filterObject['council_district'].push(i.number.toString());
+      }
+    });
+
+    _data2.default.precincts.forEach(function (i) {
+      var elem = document.getElementById('precinct-' + parseInt(i.number) + '-check');
+      if (elem.checked) {
+        filterObject['precinct'].push(i.number.toString());
+      }
+    });
+
     return filterObject;
   },
 
@@ -57219,8 +57233,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzM
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/light-v9',
-  center: [-83.091, 42.350],
-  zoom: 9
+  center: [-83.131, 42.350],
+  zoom: 10.75
 });
 
 // Socrata details
