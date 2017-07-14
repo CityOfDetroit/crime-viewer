@@ -57053,6 +57053,20 @@ var Filter = {
       }
     });
 
+    _data2.default.council_districts.forEach(function (i) {
+      var elem = document.getElementById('district-' + i.number + '-check');
+      if (elem.checked) {
+        filterObject['council_district'].push(i.number.toString());
+      }
+    });
+
+    _data2.default.precincts.forEach(function (i) {
+      var elem = document.getElementById('precinct-' + parseInt(i.number) + '-check');
+      if (elem.checked) {
+        filterObject['precinct'].push(i.number.toString());
+      }
+    });
+
     return filterObject;
   },
 
