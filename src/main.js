@@ -2,6 +2,7 @@ var mapboxgl = require('mapbox-gl');
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
+
 global.jQuery = require('jquery');
 require('jq-accordion');
 
@@ -45,6 +46,8 @@ map.on('load', function() {
       let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
       console.log(totalIncidents, incidentsByCategory, incidentsByCouncilDistrict);
 
+      // populate a table in the Data tab  
+      Stats.printAsTable(incidentsByCategory, 'tbody');
 
       // add the boundary
       Boundary.addBoundary(map, Boundary.boundaries[0]);
@@ -143,4 +146,5 @@ jQuery(document).ready(function() {
     'padding': 256,
     'tolerance': 70
   });
+
 });
