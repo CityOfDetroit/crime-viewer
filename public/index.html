@@ -9,9 +9,8 @@
 	<link href='../src/styles/accordion.css' rel='stylesheet'>
 	<link href='../src/styles/tabs.css' rel='stylesheet'>
 	<link href='../src/styles/main.css' rel='stylesheet'>
-	<link href="../src/img/favicon.ico" rel="icon" sizes="16x16" type="image"><!--[if lt IE 9]>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-        <![endif]-->
+	<link href='../src/styles/tables.css' rel='stylesheet'>
+	<link href="../src/img/favicon.ico" rel="icon" sizes="16x16" type="image">
 </head>
 <body>
 	<nav id="menu">
@@ -138,12 +137,21 @@
 					</section>
 				</div>
 				<div class="tab" id="tab2">
-					<p>Tab #2 content goes here!</p>
-					<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+					<p><strong>Summary Statistics</strong></p>
+					<table>
+					    <th>Total Incidents by Offense Type</th>
+						<tbody id="tbody"></tbody>
+					</table>
 				</div>
 				<div class="tab" id="tab3">
-					<p>Tab #3 content goes here!</p>
-					<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+					<p><strong>Welcome to Neighborhoood Compstat!</strong></p>
+					<p>Short for “Computer Statistics,” CompStat is a method for reviewing crime statistics that has been used by law enforcement agencies for over twenty years. On a regular basis, commanding officers typically meet to review activity by precinct and develop solutions to target resources with the purpose of addressing crime problems and improving police performance.</p>
+					<p>The Neighborhood CompStat tool hopes to do the same. By putting information in the hands of residents, we hope to facilitate a conversation about what is happening on a neighborhood level and the city at large. That way, we can develop solutions together towards a safer community.</p>
+					<p><strong>About the Data</strong></p>
+					<p>This data reflects reported criminal offenses that have occurred in the City of Detroit since December 6, 2016. Offense data was extracted from the Detroit Police Department's records management system. This data set contains the most recent data available and is updated anytime DPD sends official crime records contributing to the Michigan Incident Crime Reporting (MICR) or the National Incident Based Reporting systems (reflected by the IBR Date field). It should be noted that some incidents involve the commission of multiple offenses, such as a domestic assault where property was also vandalized. Accordingly, the data describe all offenses associated with all reported incidents.</p>
+					<!-- <p><strong>Anonymization</strong></p>
+					<p>DPD works with the Department of Innovation and Technology (DoIT) to de-identify location information for both 911 calls and reported crimes to protect victim and caller information. Each record has two sets of location information - address and XY coordinates. The address field represents the location of the incident, and the XY coordinates are populated based on the geo-verified location of that address.</p>
+					<p>The anonymization process systematically takes the point of the original XY coordinates and places them randomly within 180 feet along the street from the original point. If the point appears on either side of the street, it does so randomly, and it is not an indication of where the original event occurred. The XY coordinate fields provided in this dataset are the new, anonymized location. To mask the address field where there is a street number provided by the caller, the last two digits of the address field are removed and replaced with “00.”</p> -->
 				</div>
 			</div>
 		</div>
