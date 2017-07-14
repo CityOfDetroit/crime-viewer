@@ -44,10 +44,12 @@ map.on('load', function() {
       let totalIncidents = Stats.countFeatures(data.features);
       let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
       let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
-      console.log(totalIncidents, incidentsByCategory, incidentsByCouncilDistrict);
 
       // populate a table in the Data tab  
       Stats.printAsTable(incidentsByCategory, 'tbody');
+      
+      // populate a bar chart in the Data tab
+      Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
       // add the boundary
       Boundary.addBoundary(map, Boundary.boundaries[0]);
