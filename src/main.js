@@ -41,109 +41,112 @@ map.on('load', function() {
 
   Socrata.fetchData(url).then(data => {
     console.log(data)
-      // calculate some summary stats
-      let totalIncidents = Stats.countFeatures(data.features);
-      let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
-      let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
+    data.features = Filter.getUniqueFeatures(data.features, 'report_number')
+    // calculate some summary stats
+    let totalIncidents = Stats.countFeatures(data.features);
+    let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
+    let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
 
-      // populate a table in the Data tab  
-      Stats.printAsTable(incidentsByCategory, 'tbody');
-      
-      // populate a bar chart in the Data tab
-      Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
+    // populate a table in the Data tab  
+    Stats.printAsTable(incidentsByCategory, 'tbody');
+    
+    // populate a bar chart in the Data tab
+    Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
-      // add the boundary
-      Boundary.addBoundary(map, Boundary.boundaries.council_district);
+    // add the boundary
+    Boundary.addBoundary(map, Boundary.boundaries.council_district);
 
-      // add the source
-      map.addSource('incidents', {
-        "type": "geojson",
-        "data": data
-      });
+    // add the source
+    map.addSource('incidents', {
+      "type": "geojson",
+      "data": data
+    });
 
-      // make colors from Data.offenses
-      let colors = []
-      Object.entries(Data.offenses).forEach(([k, v]) => {
-        v.forEach(c => {
-          c.state_codes.forEach(o => {
-            colors.push([o, c.color])
-          })
+    // make colors from Data.offenses
+    let colors = []
+    Object.entries(Data.offenses).forEach(([k, v]) => {
+      v.forEach(c => {
+        c.state_codes.forEach(o => {
+          colors.push([o, c.color])
         })
       })
-
-      // add a layer
-      map.addLayer({
-        "id": "incidents_point",
-        "source": "incidents",
-        "type": "circle",
-        "layout": {
-          "visibility": "visible"
-        },
-        "paint": {
-          "circle-color": {
-            property: 'state_offense_code',
-            type: 'categorical',
-            stops: colors
-          },
-          "circle-radius": {
-            'base': 1.25,
-            'stops': [[8,2.5], [19,9]]
-          },
-          "circle-opacity": {
-            'stops': [[9, 0.5], [19, 1]]
-          },
-          "circle-stroke-color": 'rgba(255,255,255,1)',
-          "circle-stroke-opacity": {
-            'stops': [[9, 0.25], [18, 0.75]]
-          },
-          "circle-stroke-width": {
-            'stops': [[9,0.5], [19,3]]
-          }
-        }
-
-      })
-
-      map.on('mousedown', function (e) {
-          var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
-          if(features.length > 0){
-            Stats.printPointDetails(features, 'details');
-          }
-      });
-
-      map.on('mouseenter', 'incidents_point', function (e) {
-          map.getCanvas().style.cursor = 'pointer'
-      });
-
-      map.on('mouseout', 'incidents_point', function (e) {
-          map.getCanvas().style.cursor = ''
-      });
-
-      // quick filter refresh in lieu of actual button
-      document.onkeypress = function (e) {
-        if(e.keyCode == 96){
-          let mapFilter = Filter.makeMapboxFilter(Filter.readInput())
-          map.setFilter('incidents_point', mapFilter)
-          let filteredData = map.querySourceFeatures('incidents', {filter: mapFilter})
-          let incidentsByCategory = Stats.countByKey(Filter.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');
-          Stats.printAsTable(incidentsByCategory, 'tbody');
-        }
-      };
-
-      document.getElementById('locate').addEventListener('keypress', e => {
-        if(e.key == 'Enter'){
-        Locate.geocodeAddress(e.target.value).then(result => {
-          Locate.panToLatLng(result, map)
-        })}
-      })
-
-      jQuery('input[type=radio][name=currentArea]').change(function(){
-        Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-        let incidentsByCurrentArea = Stats.countByKey(data.features, `properties.${this.value}`)
-        Stats.printAsChart(incidentsByCurrentArea, '.ct-chart');
-      })
-
     })
-    .catch(e => console.log("Booo", e));
+
+    // add a layer
+    map.addLayer({
+      "id": "incidents_point",
+      "source": "incidents",
+      "type": "circle",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "circle-color": {
+          property: 'state_offense_code',
+          type: 'categorical',
+          stops: colors
+        },
+        "circle-radius": {
+          'base': 1.25,
+          'stops': [[8,2.5], [19,9]]
+        },
+        "circle-opacity": {
+          'stops': [[9, 0.5], [19, 1]]
+        },
+        "circle-stroke-color": 'rgba(255,255,255,1)',
+        "circle-stroke-opacity": {
+          'stops': [[9, 0.25], [18, 0.75]]
+        },
+        "circle-stroke-width": {
+          'stops': [[9,0.5], [19,3]]
+        }
+      }
+    })
+
+    map.on('mousedown', function (e) {
+        var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
+        if(features.length > 0){
+          Stats.printPointDetails(features, 'details');
+        }
+    });
+
+    map.on('mouseenter', 'incidents_point', function (e) {
+        map.getCanvas().style.cursor = 'pointer'
+    });
+
+    map.on('mouseout', 'incidents_point', function (e) {
+        map.getCanvas().style.cursor = ''
+    });
+
+    // quick filter refresh in lieu of actual button
+    document.onkeypress = function (e) {
+      if(e.keyCode == 96){
+        let mapFilter = Filter.makeMapboxFilter(Filter.readInput())
+        map.setFilter('incidents_point', mapFilter)
+        let filteredData = map.querySourceFeatures('incidents', {filter: mapFilter})
+        let incidentsByCategory = Stats.countByKey(Filter.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');
+        Stats.printAsTable(incidentsByCategory, 'tbody');
+        // log data that's in the map
+        let visibleData = map.queryRenderedFeatures({layers: ['incidents_point'], filter: mapFilter})
+        console.log(visibleData)
+      }
+    };
+
+    document.getElementById('locate').addEventListener('keypress', e => {
+      if(e.key == 'Enter'){
+      Locate.geocodeAddress(e.target.value).then(result => {
+        Locate.panToLatLng(result, map)
+      })}
+    })
+
+    jQuery('input[type=radio][name=currentArea]').change(function(){
+      Boundary.changeBoundary(map, Boundary.boundaries[this.value])
+      let incidentsByCurrentArea = Stats.countByKey(data.features, `properties.${this.value}`)
+      Stats.printAsChart(incidentsByCurrentArea, '.ct-chart');
+    })
+
+  })
+  .catch(e => console.log("Booo", e));
 
 });
 

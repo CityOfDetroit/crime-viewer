@@ -57252,6 +57252,7 @@ map.on('load', function () {
 
   _socrata2.default.fetchData(url).then(function (data) {
     console.log(data);
+    data.features = _filter2.default.getUniqueFeatures(data.features, 'report_number');
     // calculate some summary stats
     var totalIncidents = _stats2.default.countFeatures(data.features);
     var incidentsByCategory = _stats2.default.countByKey(data.features, 'properties.offense_category');
@@ -57315,7 +57316,6 @@ map.on('load', function () {
           'stops': [[9, 0.5], [19, 3]]
         }
       }
-
     });
 
     map.on('mousedown', function (e) {
@@ -57341,6 +57341,9 @@ map.on('load', function () {
         var filteredData = map.querySourceFeatures('incidents', { filter: mapFilter });
         var _incidentsByCategory = _stats2.default.countByKey(_filter2.default.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');
         _stats2.default.printAsTable(_incidentsByCategory, 'tbody');
+        // log data that's in the map
+        var visibleData = map.queryRenderedFeatures({ layers: ['incidents_point'], filter: mapFilter });
+        console.log(visibleData);
       }
     };
 
