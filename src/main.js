@@ -52,7 +52,7 @@ map.on('load', function() {
       Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
       // add the boundary
-      Boundary.addBoundary(map, Boundary.boundaries[0]);
+      Boundary.addBoundary(map, Boundary.boundaries.councildistricts);
 
       // add the source
       map.addSource('incidents', {
@@ -122,6 +122,10 @@ map.on('load', function() {
         })}
       })
 
+      jQuery('input[type=radio][name=currentArea]').change(function(){
+        Boundary.changeBoundary(map, Boundary.boundaries[this.value])
+      })
+
     })
     .catch(e => console.log("Booo", e));
 });
@@ -140,6 +144,8 @@ jQuery(document).ready(function() {
 
       e.preventDefault();
   });
+
+
 
   //initialize accordion
   jQuery('#filters-accordion [data-accordion]').accordion();

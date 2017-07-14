@@ -56910,7 +56910,12 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var Boundary = {
-    boundaries: [{ 'name': 'council_districts', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Council_Districts/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' }, { 'name': 'precincts', 'url': '' }, { 'name': 'neighborhoods', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' }, { 'name': 'zip_codes', 'url': '' }],
+    boundaries: {
+        councildistricts: { 'name': 'Council Districts', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Council_Districts/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
+        neighborhoods: { 'name': 'Neighborhoods', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
+        zipcodes: { 'name': 'Zip Codes', 'url': 'https://data.detroitmi.gov/resource/f439-mtjv.geojson' },
+        precincts: { 'name': 'Police Precincts', 'url': 'https://data.detroitmi.gov/resource/mena-2vrg.geojson' }
+    },
     addBoundary: function addBoundary(map, boundary) {
         map.addSource('boundary', {
             "type": "geojson",
@@ -56926,7 +56931,7 @@ var Boundary = {
                 "line-join": "round"
             },
             "paint": {
-                "line-color": "#189aca",
+                "line-color": "red",
                 "line-opacity": {
                     stops: [[8, 0.5], [11, 0.2], [16, 0.04], [18, 0.01]]
                 },
@@ -57234,7 +57239,7 @@ map.on('load', function () {
     _stats2.default.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
     // add the boundary
-    _boundary2.default.addBoundary(map, _boundary2.default.boundaries[0]);
+    _boundary2.default.addBoundary(map, _boundary2.default.boundaries.councildistricts);
 
     // add the source
     map.addSource('incidents', {
@@ -57303,6 +57308,10 @@ map.on('load', function () {
           _locate2.default.panToLatLng(result, map);
         });
       }
+    });
+
+    jQuery('input[type=radio][name=currentArea]').change(function () {
+      _boundary2.default.changeBoundary(map, _boundary2.default.boundaries[this.value]);
     });
   }).catch(function (e) {
     return console.log("Booo", e);
