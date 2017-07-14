@@ -1,0 +1,76 @@
+/*Day of Week checkbox styles*/
+#dow-filter-input{
+    padding-left: 45px;
+}
+#dow-filter-input article{
+    float: left;
+    padding: 6px;
+}
+.dow-checkbox{
+  display: none;
+}
+.dow-checkbox label::before, .dow-checkbox:checked + label::after {
+    top: 50%;
+    left: 0px;
+    margin-top: -13px;
+    position: absolute;
+    cursor: pointer;
+}
+.dow-checkbox + label {
+    display: inline-block;
+    position: relative;
+    font-size: 1.2em;
+    vertical-align: top;
+    cursor: pointer;
+    font-weight: bold;
+}
+.dow-checkbox + label::before {
+  color: #cccccc;
+}
+.dow-checkbox + label::after {
+  line-height: 24px;
+  color: black;
+}
+
+#dow-1-check + label::before{
+    content: 'Sun';
+}
+#dow-1-check:checked + label::after{
+    content: 'Sun';
+}
+#dow-2-check + label::before{
+    content: 'Mon';
+}
+#dow-2-check:checked + label::after{
+    content: 'Mon';
+}
+#dow-3-check + label::before{
+    content: 'Tue';
+}
+#dow-3-check:checked + label::after{
+    content: 'Tue';
+}
+#dow-4-check + label::before{
+    content: 'Wed';
+}
+#dow-4-check:checked + label::after{
+    content: 'Wed';
+}
+#dow-5-check + label::before{
+    content: 'Thu';
+}
+#dow-5-check:checked + label::after{
+    content: 'Thu';
+}
+#dow-6-check + label::before{
+    content: 'Fri';
+}
+#dow-6-check:checked + label::after{
+    content: 'Fri';
+}
+#dow-7-check + label::before{
+    content: 'Sat';
+}
+#dow-7-check:checked + label::after{
+    content: 'Sat';
+}
