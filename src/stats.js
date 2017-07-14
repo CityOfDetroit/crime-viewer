@@ -30,17 +30,25 @@ const Stats = {
    * @returns {}
    */
   printAsTable: function(summaryStats, tblId) {
+    // drop a key/value pair if the key is "null"
     summaryStats = _.omit(summaryStats, "null");
+
+    // order from largest to smallest values
+    summaryStats = _.fromPairs(_.sortBy(_.toPairs(summaryStats), function(a) {
+      return a[1];
+    }).reverse());
 
     let numRows = Object.keys(summaryStats).length;
     let tbody = document.getElementById(tblId);
 
+    // make a table row for every key/value pair
     for (var key in summaryStats) {
       let tr = "<tr>";         
       tr += "<td>" + Helpers.toSentenceCase(key) + "</td>" + "<td>" + summaryStats[key] + "</td></tr>";
       
       tbody.innerHTML += tr;
     }
+    
     return tbody;
   },
 
