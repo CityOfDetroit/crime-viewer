@@ -29,6 +29,24 @@ const Filter = {
     return filterObject
   },
 
+  getUniqueFeatures: function(array, comparatorProperty) {
+    var existingFeatureKeys = {};
+    // Because features come from tiled vector data, feature geometries may be split
+    // or duplicated across tile boundaries and, as a result, features may appear
+    // multiple times in query results.
+    var uniqueFeatures = array.filter(function(el) {
+        if (existingFeatureKeys[el.properties[comparatorProperty]]) {
+            return false;
+        } else {
+            existingFeatureKeys[el.properties[comparatorProperty]] = true;
+            return true;
+        }
+    });
+    // sort them alphabetically
+    return uniqueFeatures
+    // return _.sortBy(uniqueFeatures, [function(f) { return f.properties.name; }]);
+  },
+
   /* make a mapbox-gl filter from an object of filters */
   // API ref: https://www.mapbox.com/mapbox-gl-js/style-spec/#types-filter
   makeMapboxFilter: function(obj) {

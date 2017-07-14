@@ -27,8 +27,9 @@ var map = new mapboxgl.Map({
 // Socrata details
 const ds = "9i6z-cm98"
 let params = {
-  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(21)}'`,
-  "$limit": 50000
+  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(90)}'`,
+  "$limit": 50000,
+  "$select": "crime_id,location,address,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
 }
 
 // make the URL
@@ -39,7 +40,6 @@ map.on('load', function() {
 
   Socrata.fetchData(url).then(data => {
     console.log(data)
-
       // calculate some summary stats
       let totalIncidents = Stats.countFeatures(data.features);
       let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
@@ -52,7 +52,7 @@ map.on('load', function() {
       Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
       // add the boundary
-      Boundary.addBoundary(map, Boundary.boundaries.councildistricts);
+      Boundary.addBoundary(map, Boundary.boundaries.council_district);
 
       // add the source
       map.addSource('incidents', {
@@ -120,8 +120,11 @@ map.on('load', function() {
       // quick filter refresh in lieu of actual button
       document.onkeypress = function (e) {
         if(e.keyCode == 96){
-          let filter = Filter.makeMapboxFilter(Filter.readInput())
-          map.setFilter('incidents_point', filter)
+          let mapFilter = Filter.makeMapboxFilter(Filter.readInput())
+          map.setFilter('incidents_point', mapFilter)
+          let filteredData = map.querySourceFeatures('incidents', {filter: mapFilter})
+          let incidentsByCategory = Stats.countByKey(Filter.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');
+          Stats.printAsTable(incidentsByCategory, 'tbody');
         }
       };
 
@@ -134,6 +137,8 @@ map.on('load', function() {
 
       jQuery('input[type=radio][name=currentArea]').change(function(){
         Boundary.changeBoundary(map, Boundary.boundaries[this.value])
+        let incidentsByCurrentArea = Stats.countByKey(data.features, `properties.${this.value}`)
+        Stats.printAsChart(incidentsByCurrentArea, '.ct-chart');
       })
 
     })

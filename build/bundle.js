@@ -56911,10 +56911,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 var Boundary = {
     boundaries: {
-        councildistricts: { 'name': 'Council Districts', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Council_Districts/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
-        neighborhoods: { 'name': 'Neighborhoods', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
-        zipcodes: { 'name': 'Zip Codes', 'url': 'https://data.detroitmi.gov/resource/f439-mtjv.geojson' },
-        precincts: { 'name': 'Police Precincts', 'url': 'https://data.detroitmi.gov/resource/mena-2vrg.geojson' }
+        council_district: { 'name': 'Council Districts', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Council_Districts/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
+        neighborhood: { 'name': 'Neighborhoods', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
+        zip_code: { 'name': 'Zip Codes', 'url': 'https://data.detroitmi.gov/resource/f439-mtjv.geojson' },
+        precinct: { 'name': 'Police Precincts', 'url': 'https://data.detroitmi.gov/resource/mena-2vrg.geojson' }
     },
     addBoundary: function addBoundary(map, boundary) {
         map.addSource('boundary', {
@@ -57052,6 +57052,24 @@ var Filter = {
       }
     });
     return filterObject;
+  },
+
+  getUniqueFeatures: function getUniqueFeatures(array, comparatorProperty) {
+    var existingFeatureKeys = {};
+    // Because features come from tiled vector data, feature geometries may be split
+    // or duplicated across tile boundaries and, as a result, features may appear
+    // multiple times in query results.
+    var uniqueFeatures = array.filter(function (el) {
+      if (existingFeatureKeys[el.properties[comparatorProperty]]) {
+        return false;
+      } else {
+        existingFeatureKeys[el.properties[comparatorProperty]] = true;
+        return true;
+      }
+    });
+    // sort them alphabetically
+    return uniqueFeatures;
+    // return _.sortBy(uniqueFeatures, [function(f) { return f.properties.name; }]);
   },
 
   /* make a mapbox-gl filter from an object of filters */
@@ -57205,8 +57223,9 @@ var map = new mapboxgl.Map({
 // Socrata details
 var ds = "9i6z-cm98";
 var params = {
-  "$where": 'incident_timestamp >= \'' + _helpers2.default.xDaysAgo(21) + '\'',
-  "$limit": 50000
+  "$where": 'incident_timestamp >= \'' + _helpers2.default.xDaysAgo(90) + '\'',
+  "$limit": 50000,
+  "$select": "crime_id,location,address,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
 
   // make the URL
 };var url = _socrata2.default.makeUrl(ds, params);
@@ -57216,7 +57235,6 @@ map.on('load', function () {
 
   _socrata2.default.fetchData(url).then(function (data) {
     console.log(data);
-
     // calculate some summary stats
     var totalIncidents = _stats2.default.countFeatures(data.features);
     var incidentsByCategory = _stats2.default.countByKey(data.features, 'properties.offense_category');
@@ -57229,7 +57247,7 @@ map.on('load', function () {
     _stats2.default.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
     // add the boundary
-    _boundary2.default.addBoundary(map, _boundary2.default.boundaries.councildistricts);
+    _boundary2.default.addBoundary(map, _boundary2.default.boundaries.council_district);
 
     // add the source
     map.addSource('incidents', {
@@ -57301,8 +57319,11 @@ map.on('load', function () {
     // quick filter refresh in lieu of actual button
     document.onkeypress = function (e) {
       if (e.keyCode == 96) {
-        var filter = _filter2.default.makeMapboxFilter(_filter2.default.readInput());
-        map.setFilter('incidents_point', filter);
+        var mapFilter = _filter2.default.makeMapboxFilter(_filter2.default.readInput());
+        map.setFilter('incidents_point', mapFilter);
+        var filteredData = map.querySourceFeatures('incidents', { filter: mapFilter });
+        var _incidentsByCategory = _stats2.default.countByKey(_filter2.default.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');
+        _stats2.default.printAsTable(_incidentsByCategory, 'tbody');
       }
     };
 
@@ -57316,6 +57337,8 @@ map.on('load', function () {
 
     jQuery('input[type=radio][name=currentArea]').change(function () {
       _boundary2.default.changeBoundary(map, _boundary2.default.boundaries[this.value]);
+      var incidentsByCurrentArea = _stats2.default.countByKey(data.features, 'properties.' + this.value);
+      _stats2.default.printAsChart(incidentsByCurrentArea, '.ct-chart');
     });
   }).catch(function (e) {
     return console.log("Booo", e);
@@ -57444,6 +57467,8 @@ var Stats = {
     var numRows = Object.keys(summaryStats).length;
     var tbody = document.getElementById(tblId);
 
+    tbody.innerHTML = '';
+
     // make a table row for every key/value pair
     for (var key in summaryStats) {
       var tr = "<tr>";
@@ -57471,7 +57496,8 @@ var Stats = {
 
     // don't hard code this in the future
     var labeledproperties = properties.map(function (e) {
-      return "D" + e;
+      return e;
+      // return "D" + e;
     });
 
     var data = {
