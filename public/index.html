@@ -5,11 +5,13 @@
 	<title></title>
 	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.2/mapbox-gl.css' rel='stylesheet'>
+	<link href="../src/styles/chartist.css" rel="stylesheet">
 	<link href='../src/styles/jquery.accordion.css' rel='stylesheet'>
 	<link href='../src/styles/accordion.css' rel='stylesheet'>
 	<link href='../src/styles/tabs.css' rel='stylesheet'>
 	<link href='../src/styles/main.css' rel='stylesheet'>
 	<link href='../src/styles/tables.css' rel='stylesheet'>
+	<link href='../src/styles/charts.css' rel='stylesheet'>
 	<link href="../src/img/favicon.ico" rel="icon" sizes="16x16" type="image">
 </head>
 <body>
@@ -158,9 +160,10 @@
 					</section>
 				</div>
 				<div class="tab" id="tab2">
-					<p><strong>Summary Statistics</strong></p>
+				    <p class="chart-title"><strong>Total Incidents by Council District</strong></p>
+					<div class="ct-chart"></div>
+					<p class="chart-title"><strong>Total Incidents by Offense Type</strong></p>
 					<table>
-					    <th>Total Incidents by Offense Type</th>
 						<tbody id="tbody"></tbody>
 					</table>
 				</div>
