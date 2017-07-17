@@ -57148,6 +57148,108 @@ exports.default = Helpers;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _data = require('./data.js');
+
+var _data2 = _interopRequireDefault(_data);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function computeColors() {
+    var colors = [];
+    Object.entries(_data2.default.offenses).forEach(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            k = _ref2[0],
+            v = _ref2[1];
+
+        v.forEach(function (c) {
+            c.state_codes.forEach(function (o) {
+                colors.push([o, c.color]);
+            });
+        });
+    });
+    return colors;
+}
+
+var Init = {
+    initialLoad: function initialLoad(map, data) {
+        // add the source
+        map.addSource('incidents', {
+            "type": "geojson",
+            "data": data
+        });
+        // add a layer
+        map.addLayer({
+            "id": "incidents_point",
+            "source": "incidents",
+            "type": "circle",
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "circle-color": {
+                    property: 'state_offense_code',
+                    type: 'categorical',
+                    stops: computeColors()
+                },
+                "circle-radius": {
+                    'base': 1.25,
+                    'stops': [[8, 2.5], [19, 9]]
+                },
+                "circle-opacity": {
+                    'stops': [[9, 0.5], [19, 1]]
+                },
+                "circle-stroke-color": 'rgba(255,255,255,1)',
+                "circle-stroke-opacity": {
+                    'stops': [[9, 0.25], [18, 0.75]]
+                },
+                "circle-stroke-width": {
+                    'stops': [[9, 0.5], [19, 3]]
+                }
+            }
+        });
+        map.addLayer({
+            "id": "incidents_highlighted",
+            "source": "incidents",
+            "type": "circle",
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "circle-color": {
+                    property: 'state_offense_code',
+                    type: 'categorical',
+                    stops: computeColors()
+                },
+                "circle-radius": {
+                    'base': 1.25,
+                    'stops': [[8, 2.5], [19, 9]]
+                },
+                "circle-opacity": {
+                    'stops': [[9, 0.5], [19, 1]]
+                },
+                "circle-stroke-color": 'rgba(0,0,0,1)',
+                "circle-stroke-opacity": {
+                    'stops': [[9, 0.25], [18, 0.75]]
+                },
+                "circle-stroke-width": {
+                    'stops': [[9, 1.5], [19, 6]]
+                }
+            }
+        });
+    }
+};
+
+exports.default = Init;
+
+},{"./data.js":12}],16:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var $ = require('jquery');
@@ -57182,11 +57284,9 @@ var Locate = {
 
 exports.default = Locate;
 
-},{"jquery":6}],16:[function(require,module,exports){
+},{"jquery":6}],17:[function(require,module,exports){
 (function (global){
 'use strict';
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _helpers = require('./helpers.js');
 
@@ -57215,6 +57315,10 @@ var _boundary2 = _interopRequireDefault(_boundary);
 var _data = require('./data.js');
 
 var _data2 = _interopRequireDefault(_data);
+
+var _init = require('./init.js');
+
+var _init2 = _interopRequireDefault(_init);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57267,56 +57371,7 @@ map.on('load', function () {
     // add the boundary
     _boundary2.default.addBoundary(map, _boundary2.default.boundaries.council_district);
 
-    // add the source
-    map.addSource('incidents', {
-      "type": "geojson",
-      "data": data
-    });
-
-    // make colors from Data.offenses
-    var colors = [];
-    Object.entries(_data2.default.offenses).forEach(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2),
-          k = _ref2[0],
-          v = _ref2[1];
-
-      v.forEach(function (c) {
-        c.state_codes.forEach(function (o) {
-          colors.push([o, c.color]);
-        });
-      });
-    });
-
-    // add a layer
-    map.addLayer({
-      "id": "incidents_point",
-      "source": "incidents",
-      "type": "circle",
-      "layout": {
-        "visibility": "visible"
-      },
-      "paint": {
-        "circle-color": {
-          property: 'state_offense_code',
-          type: 'categorical',
-          stops: colors
-        },
-        "circle-radius": {
-          'base': 1.25,
-          'stops': [[8, 2.5], [19, 9]]
-        },
-        "circle-opacity": {
-          'stops': [[9, 0.5], [19, 1]]
-        },
-        "circle-stroke-color": 'rgba(255,255,255,1)',
-        "circle-stroke-opacity": {
-          'stops': [[9, 0.25], [18, 0.75]]
-        },
-        "circle-stroke-width": {
-          'stops': [[9, 0.5], [19, 3]]
-        }
-      }
-    });
+    _init2.default.initialLoad(map, data);
 
     map.on('mousedown', function (e) {
       var features = map.queryRenderedFeatures(e.point, { layers: ['incidents_point'] });
@@ -57409,7 +57464,7 @@ jQuery(document).ready(function () {
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./boundary.js":11,"./data.js":12,"./filter.js":13,"./helpers.js":14,"./locate.js":15,"./socrata.js":17,"./stats.js":18,"jq-accordion":4,"jquery":6,"jquery.scrollbar":5,"lodash":7,"mapbox-gl":8,"moment":9,"slideout":10}],17:[function(require,module,exports){
+},{"./boundary.js":11,"./data.js":12,"./filter.js":13,"./helpers.js":14,"./init.js":15,"./locate.js":16,"./socrata.js":18,"./stats.js":19,"jq-accordion":4,"jquery":6,"jquery.scrollbar":5,"lodash":7,"mapbox-gl":8,"moment":9,"slideout":10}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57445,7 +57500,7 @@ var Socrata = {
 
 exports.default = Socrata;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57595,4 +57650,4 @@ var Stats = {
 
 exports.default = Stats;
 
-},{"./helpers.js":14,"chartist":1,"lodash":7,"moment":9}]},{},[16]);
+},{"./helpers.js":14,"chartist":1,"lodash":7,"moment":9}]},{},[17]);

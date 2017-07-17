@@ -14,6 +14,7 @@ import Filter from './filter.js';
 import Locate from './locate.js';
 import Boundary from './boundary.js';
 import Data from './data.js';
+import Init from './init.js'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -56,53 +57,8 @@ map.on('load', function() {
     // add the boundary
     Boundary.addBoundary(map, Boundary.boundaries.council_district);
 
-    // add the source
-    map.addSource('incidents', {
-      "type": "geojson",
-      "data": data
-    });
-
-    // make colors from Data.offenses
-    let colors = []
-    Object.entries(Data.offenses).forEach(([k, v]) => {
-      v.forEach(c => {
-        c.state_codes.forEach(o => {
-          colors.push([o, c.color])
-        })
-      })
-    })
-
-    // add a layer
-    map.addLayer({
-      "id": "incidents_point",
-      "source": "incidents",
-      "type": "circle",
-      "layout": {
-        "visibility": "visible"
-      },
-      "paint": {
-        "circle-color": {
-          property: 'state_offense_code',
-          type: 'categorical',
-          stops: colors
-        },
-        "circle-radius": {
-          'base': 1.25,
-          'stops': [[8,2.5], [19,9]]
-        },
-        "circle-opacity": {
-          'stops': [[9, 0.5], [19, 1]]
-        },
-        "circle-stroke-color": 'rgba(255,255,255,1)',
-        "circle-stroke-opacity": {
-          'stops': [[9, 0.25], [18, 0.75]]
-        },
-        "circle-stroke-width": {
-          'stops': [[9,0.5], [19,3]]
-        }
-      }
-    })
-
+    Init.initialLoad(map, data)
+    
     map.on('mousedown', function (e) {
         var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
         if(features.length > 0){
