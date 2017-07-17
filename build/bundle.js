@@ -57024,11 +57024,14 @@ var Filter = {
       'council_district': []
 
     };
+    var filterHuman = ["Currently viewing"];
     var categoryInputs = ['violent-check', 'property-check', 'other-check'];
     categoryInputs.forEach(function (i) {
       var elem = document.getElementById(i);
+      var human = "";
       if (elem.checked) {
         var type = elem.id.split('-')[0];
+        filterHuman.push(_data2.default.offenses[type][0]['top']);
         _data2.default.offenses[type].forEach(function (o) {
           filterObject['state_offense_code'] = filterObject['state_offense_code'].concat(o['state_codes']);
         });
@@ -57039,6 +57042,7 @@ var Filter = {
     _data2.default.days_of_week.forEach(function (i) {
       var elem = document.getElementById('dow-' + i.number + '-check');
       if (elem.checked) {
+        filterHuman.push('on a ' + i.name);
         filterObject['day_of_week'].push(i.number.toString());
       }
     });
@@ -57047,6 +57051,7 @@ var Filter = {
     _data2.default.parts_of_day.forEach(function (i) {
       var elem = document.getElementById(i.name.toLowerCase() + '-check');
       if (elem.checked) {
+        filterHuman.push('during ' + i.name);
         filterObject['hour_of_day'] = filterObject['hour_of_day'].concat(i.hours.map(function (i) {
           return i.toString();
         }));
@@ -57056,6 +57061,7 @@ var Filter = {
     _data2.default.council_districts.forEach(function (i) {
       var elem = document.getElementById('district-' + i.number + '-check');
       if (elem.checked) {
+        filterHuman.push('in District ' + i.number.toString());
         filterObject['council_district'].push(i.number.toString());
       }
     });
@@ -57063,11 +57069,12 @@ var Filter = {
     _data2.default.precincts.forEach(function (i) {
       var elem = document.getElementById('precinct-' + parseInt(i.number) + '-check');
       if (elem.checked) {
+        filterHuman.push('in precinct ' + i.number.toString());
         filterObject['precinct'].push(i.number.toString());
       }
     });
 
-    return filterObject;
+    return [filterObject, filterHuman.join(", ")];
   },
 
   getUniqueFeatures: function getUniqueFeatures(array, comparatorProperty) {
@@ -57110,7 +57117,7 @@ var Filter = {
   /* return a human-readable string from the current filter object */
   describeFilter: function describeFilter(obj) {
     var start = "Current filters:";
-    return null;
+    return obj;
   }
 };
 
@@ -57409,7 +57416,8 @@ map.on('load', function () {
     // quick filter refresh in lieu of actual button
     document.onkeypress = function (e) {
       if (e.keyCode == 96) {
-        var mapFilter = _filter2.default.makeMapboxFilter(_filter2.default.readInput());
+        var mapFilter = _filter2.default.makeMapboxFilter(_filter2.default.readInput()[0]);
+        console.log(_filter2.default.readInput()[1]);
         map.setFilter('incidents_point', mapFilter);
         var filteredData = map.querySourceFeatures('incidents', { filter: mapFilter });
         var _incidentsByCategory = _stats2.default.countByKey(_filter2.default.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');

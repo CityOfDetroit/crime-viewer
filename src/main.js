@@ -77,9 +77,10 @@ map.on('load', function() {
     // quick filter refresh in lieu of actual button
     document.onkeypress = function (e) {
       if(e.keyCode == 96){
-        let mapFilter = Filter.makeMapboxFilter(Filter.readInput())
-        map.setFilter('incidents_point', mapFilter)
-        let filteredData = map.querySourceFeatures('incidents', {filter: mapFilter})
+        let mapFilter = Filter.makeMapboxFilter(Filter.readInput()[0]);
+        console.log(Filter.readInput()[1]);
+        map.setFilter('incidents_point', mapFilter);
+        let filteredData = map.querySourceFeatures('incidents', {filter: mapFilter});
         let incidentsByCategory = Stats.countByKey(Filter.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');
         Stats.printAsTable(incidentsByCategory, 'tbody');
         // log data that's in the map

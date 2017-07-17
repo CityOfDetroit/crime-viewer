@@ -16,11 +16,16 @@ const Filter = {
       'council_district': [],
 
     }
+    let filterHuman = [
+      "Currently viewing",
+    ]
     const categoryInputs = ['violent-check', 'property-check', 'other-check']
     categoryInputs.forEach(i => {
       let elem = document.getElementById(i)
+      let human = ""
       if(elem.checked) {
         let type = elem.id.split('-')[0]
+        filterHuman.push(Data.offenses[type][0]['top'])
         Data.offenses[type].forEach(o => {
           filterObject['state_offense_code'] = filterObject['state_offense_code'].concat(o['state_codes'])
         })
@@ -31,6 +36,7 @@ const Filter = {
     Data.days_of_week.forEach(i => {
       let elem = document.getElementById(`dow-${i.number}-check`)
       if(elem.checked){
+        filterHuman.push(`on a ${i.name}`)
         filterObject['day_of_week'].push(i.number.toString())
       }
     })
@@ -39,6 +45,7 @@ const Filter = {
     Data.parts_of_day.forEach(i => {
       let elem = document.getElementById(`${i.name.toLowerCase()}-check`)
       if(elem.checked){
+        filterHuman.push(`during ${i.name}`)
         filterObject['hour_of_day'] = filterObject['hour_of_day'].concat(i.hours.map(i => i.toString()))
       }
     })
@@ -46,6 +53,7 @@ const Filter = {
     Data.council_districts.forEach(i => {
       let elem = document.getElementById(`district-${i.number}-check`)
       if(elem.checked){
+        filterHuman.push(`in District ${i.number.toString()}`)
         filterObject['council_district'].push(i.number.toString())
       }
     })
@@ -53,11 +61,12 @@ const Filter = {
     Data.precincts.forEach(i => {
       let elem = document.getElementById(`precinct-${parseInt(i.number)}-check`)
       if(elem.checked){
+        filterHuman.push(`in precinct ${i.number.toString()}`)
         filterObject['precinct'].push(i.number.toString())
       }
     })
 
-    return filterObject
+    return [filterObject, filterHuman.join(", ")]
   },
 
   getUniqueFeatures: function(array, comparatorProperty) {
@@ -94,7 +103,7 @@ const Filter = {
   /* return a human-readable string from the current filter object */
   describeFilter: function(obj) {
     let start = "Current filters:"
-    return null
+    return obj
   }
 }
 
