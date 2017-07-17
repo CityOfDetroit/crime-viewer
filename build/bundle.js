@@ -57009,7 +57009,11 @@ var _data2 = _interopRequireDefault(_data);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Filter = {
-  /* read the UI inputs and make the object */
+  /**
+   * read the filters and do two things: make an object that's easily convertable to Mapbox format,
+   *  and a string which describes the currently selected filters in a way we can display
+   * @return [array] - object for makeMapboxFilter and display string
+   */
   readInput: function readInput() {
     var filterObject = {
       // offense code
@@ -57095,8 +57099,10 @@ var Filter = {
     // return _.sortBy(uniqueFeatures, [function(f) { return f.properties.name; }]);
   },
 
-  /* make a mapbox-gl filter from an object of filters */
-  // API ref: https://www.mapbox.com/mapbox-gl-js/style-spec/#types-filter
+  /**
+   * @param {obj} - a filterObject returned by readInput
+   * @returns {array} - a mapbox-gl Filter
+   */
   makeMapboxFilter: function makeMapboxFilter(obj) {
     // we may want this to be "any"; possibly a toggle somewhere
     var mapboxFilter = ["all"];
@@ -57112,12 +57118,6 @@ var Filter = {
       mapboxFilter.push(inList.concat(v));
     });
     return mapboxFilter;
-  },
-
-  /* return a human-readable string from the current filter object */
-  describeFilter: function describeFilter(obj) {
-    var start = "Current filters:";
-    return obj;
   }
 };
 
@@ -57381,7 +57381,6 @@ map.on('load', function () {
 
   _socrata2.default.fetchData(url).then(function (data) {
     console.log(data);
-    data.features = _filter2.default.getUniqueFeatures(data.features, 'report_number');
     // calculate some summary stats
     var totalIncidents = _stats2.default.countFeatures(data.features);
     var incidentsByCategory = _stats2.default.countByKey(data.features, 'properties.offense_category');

@@ -1,7 +1,11 @@
 import Data from './data.js'
 
 const Filter = {
-  /* read the UI inputs and make the object */
+  /**
+   * read the filters and do two things: make an object that's easily convertable to Mapbox format,
+   *  and a string which describes the currently selected filters in a way we can display
+   * @return [array] - object for makeMapboxFilter and display string
+   */
   readInput: function() {
     let filterObject = {
       // offense code
@@ -87,8 +91,10 @@ const Filter = {
     // return _.sortBy(uniqueFeatures, [function(f) { return f.properties.name; }]);
   },
 
-  /* make a mapbox-gl filter from an object of filters */
-  // API ref: https://www.mapbox.com/mapbox-gl-js/style-spec/#types-filter
+  /**
+   * @param {obj} - a filterObject returned by readInput
+   * @returns {array} - a mapbox-gl Filter
+   */
   makeMapboxFilter: function(obj) {
     // we may want this to be "any"; possibly a toggle somewhere
     let mapboxFilter = ["all"]
@@ -98,12 +104,6 @@ const Filter = {
       mapboxFilter.push(inList.concat(v))
     })
     return mapboxFilter
-  },
-
-  /* return a human-readable string from the current filter object */
-  describeFilter: function(obj) {
-    let start = "Current filters:"
-    return obj
   }
 }
 

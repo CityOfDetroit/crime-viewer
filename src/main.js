@@ -42,7 +42,6 @@ map.on('load', function() {
 
   Socrata.fetchData(url).then(data => {
     console.log(data)
-    data.features = Filter.getUniqueFeatures(data.features, 'report_number')
     // calculate some summary stats
     let totalIncidents = Stats.countFeatures(data.features);
     let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
