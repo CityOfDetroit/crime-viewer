@@ -96,12 +96,14 @@ const Init = {
                 },
                 "circle-stroke-width": {
                     'stops': [
-                        [9, 1.5],
-                        [19, 6]
+                        [9, 2.5],
+                        [19, 8]
                     ]
                 }
             }
         })
+
+        map.setFilter('incidents_highlighted', ["==", "crime_id", "NONE"])
 
     }
 }

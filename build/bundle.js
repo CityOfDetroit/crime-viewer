@@ -57237,10 +57237,12 @@ var Init = {
                     'stops': [[9, 0.25], [18, 0.75]]
                 },
                 "circle-stroke-width": {
-                    'stops': [[9, 1.5], [19, 6]]
+                    'stops': [[9, 2.5], [19, 8]]
                 }
             }
         });
+
+        map.setFilter('incidents_highlighted', ["==", "crime_id", "NONE"]);
     }
 };
 
@@ -57376,6 +57378,8 @@ map.on('load', function () {
     map.on('mousedown', function (e) {
       var features = map.queryRenderedFeatures(e.point, { layers: ['incidents_point'] });
       if (features.length > 0) {
+        console.log(features);
+        map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
         _stats2.default.printPointDetails(features, 'details');
       }
     });

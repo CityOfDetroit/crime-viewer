@@ -62,6 +62,8 @@ map.on('load', function() {
     map.on('mousedown', function (e) {
         var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
         if(features.length > 0){
+          console.log(features)
+          map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id])
           Stats.printPointDetails(features, 'details');
         }
     });
