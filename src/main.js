@@ -14,7 +14,7 @@ import Filter from './filter.js';
 import Locate from './locate.js';
 import Boundary from './boundary.js';
 import Data from './data.js';
-import Init from './init.js'
+import Init from './init.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -54,9 +54,7 @@ map.on('load', function() {
     // populate a bar chart in the Data tab
     Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
-    // add the boundary
-    Boundary.addBoundary(map, Boundary.boundaries.council_district);
-
+    // load the source data and point, highlight styles
     Init.initialLoad(map, data)
     
     map.on('mousedown', function (e) {

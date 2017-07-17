@@ -57157,9 +57157,16 @@ var _data = require('./data.js');
 
 var _data2 = _interopRequireDefault(_data);
 
+var _boundary = require('./boundary.js');
+
+var _boundary2 = _interopRequireDefault(_boundary);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function computeColors() {
+    /**
+     * @returns {array} - An MapboxGL stops array for symbolizing offense codes
+     */
     var colors = [];
     Object.entries(_data2.default.offenses).forEach(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
@@ -57176,6 +57183,12 @@ function computeColors() {
 }
 
 var Init = {
+    /**
+     * Adds a new Mapbox GL source and two styles to the map.
+     * @param {map} - a mapboxgl.Map instance
+     * @param {obj} - a GeoJSON to be displayed on the map
+     * @returns {undefined}
+     */
     initialLoad: function initialLoad(map, data) {
         // add the source
         map.addSource('incidents', {
@@ -57241,14 +57254,17 @@ var Init = {
                 }
             }
         });
-
+        // set a filter on highlighted which won't match anything
         map.setFilter('incidents_highlighted', ["==", "crime_id", "NONE"]);
+
+        // add the boundary
+        _boundary2.default.addBoundary(map, _boundary2.default.boundaries.council_district);
     }
 };
 
 exports.default = Init;
 
-},{"./data.js":12}],16:[function(require,module,exports){
+},{"./boundary.js":11,"./data.js":12}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57370,9 +57386,7 @@ map.on('load', function () {
     // populate a bar chart in the Data tab
     _stats2.default.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
-    // add the boundary
-    _boundary2.default.addBoundary(map, _boundary2.default.boundaries.council_district);
-
+    // load the source data and point, highlight styles
     _init2.default.initialLoad(map, data);
 
     map.on('mousedown', function (e) {
