@@ -1,5 +1,7 @@
 import Data from './data.js';
 import Boundary from './boundary.js';
+import Helpers from './helpers.js'
+const $ = require('jQuery')
 
 function computeColors() {
     /**
@@ -118,6 +120,35 @@ const Init = {
         // add the boundary
         Boundary.addBoundary(map, Boundary.boundaries.council_district);
 
+    },
+    populateSidebar: function() {
+        console.log(Data.offenses)
+        let offenseHtml = `
+        <section data-accordion="">
+        <button data-control="" class="accordion-header" id="categories-accordion">Categories</button>
+        <div id="accordion-attach" data-content="" class="accordion-content">
+        `
+        Object.entries(Data.offenses).forEach(([k,v]) => {
+            offenseHtml += `
+            <article data-accordion="">
+                <button data-control="" class="second-header">
+                <div class="filter-checkbox">
+                    <input type ="checkbox" id="${k}-check" name=""/>
+                    <label for="${k}-check"></label>
+                </div>
+                ${v[0].top}</span></button>
+                <div data-content="">
+                    ${v.map (o => `
+                    <article> 
+                        ${Helpers.toSentenceCase(o.name)}
+                        <span id="${k}-check-color" class="color-circle">
+                    </article>
+                    `)}
+                </div>
+            </article>`
+        })
+        offenseHtml += `</div></section>`
+        $('#filters-accordion').append(offenseHtml)
     }
 }
 

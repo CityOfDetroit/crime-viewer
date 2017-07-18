@@ -29,7 +29,7 @@ var map = new mapboxgl.Map({
 // Socrata details
 const ds = "9i6z-cm98"
 let params = {
-  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(90)}'`,
+  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(7)}'`,
   "$limit": 50000,
   "$select": "crime_id,location,address,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
 }
@@ -107,6 +107,9 @@ map.on('load', function() {
 });
 
 jQuery(document).ready(function() {
+
+  // Populate sidebar
+  Init.populateSidebar()
 
   //responsively adjust height of tab content
   var currentHeight = jQuery('#menu').height() - jQuery('.logo').height() - jQuery('.search').height() - jQuery('.tab-links').height();
