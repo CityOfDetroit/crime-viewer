@@ -57461,7 +57461,7 @@ map.on('load', function () {
         _stats2.default.printAsTable(_incidentsByCategory, 'tbody');
 
         // current area refresh
-        var _incidentsByCouncilDistrict = _stats2.default.countByKey(data.features, 'properties.council_district');
+        var _incidentsByCouncilDistrict = _stats2.default.countByKey(filteredData.features, 'properties.council_district');
         _stats2.default.printAsChart(_incidentsByCouncilDistrict, '.ct-chart');
 
         // log data that's in the view port

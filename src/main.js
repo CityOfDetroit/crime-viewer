@@ -95,7 +95,7 @@ map.on('load', function() {
         Stats.printAsTable(incidentsByCategory, 'tbody');
 
         // current area refresh
-        let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
+        let incidentsByCouncilDistrict = Stats.countByKey(filteredData.features, 'properties.council_district');
         Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
         // log data that's in the view port
