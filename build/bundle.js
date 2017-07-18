@@ -57464,7 +57464,7 @@ map.on('load', function () {
         _stats2.default.printAsChart(_incidentsByCouncilDistrict, '.ct-chart');
 
         // log data that's in the view port
-        var visibleData = _filter2.default.getUniqueFeatures(map.queryRenderedFeatures({ layers: ['incidents_point'], filter: mapFilter }));
+        var visibleData = map.queryRenderedFeatures({ layers: ['incidents_point'] });
       }
     };
 

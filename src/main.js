@@ -98,7 +98,7 @@ map.on('load', function() {
         Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
         // log data that's in the view port
-        let visibleData = Filter.getUniqueFeatures(map.queryRenderedFeatures({layers: ['incidents_point'], filter: mapFilter}))
+        let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']})
       }
     };
 
