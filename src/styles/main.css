@@ -124,16 +124,6 @@ body:after{
 	margin-top:2px;
 }
 
-#violent-check-color{
-	background: #ec5e5e;
-}
-#property-check-color{
-	background: #ede55f;
-}
-#other-check-color{
-	background: #a15fed;
-}
-
 @media screen and (min-width: 800px) {
    #menu{
        width: 30%;

@@ -57284,12 +57284,12 @@ var Init = {
                 v = _ref4[1];
 
             offenseHtml += '\n            <article data-accordion="">\n                <button data-control="" class="second-header">\n                <div class="filter-checkbox">\n                    <input type ="checkbox" id="' + k + '-check" name=""/>\n                    <label for="' + k + '-check"></label>\n                </div>\n                ' + v[0].top + '</span></button>\n                <div data-content="">\n                    ' + v.map(function (o) {
-                return '<article> ' + _helpers2.default.toSentenceCase(o.name) + '<span id="' + k + '-check-color" class="color-circle"></article>';
-            }) + '\n                </div>\n            </article>';
+                return '<article> ' + _helpers2.default.toSentenceCase(o.name) + '<span id="' + k + '-check-color" class="color-circle" style="background:' + o.color + '"></article>';
+            }).join("") + '\n                </div>\n            </article>';
         });
         offenseHtml += '</div></section>';
-        var re = /\,/g;
-        offenseHtml = offenseHtml.replace(re, '');
+        // let re = /\,/g;
+        // offenseHtml = offenseHtml.replace(re, '')
         $('#filters-accordion').append(offenseHtml);
     }
 };

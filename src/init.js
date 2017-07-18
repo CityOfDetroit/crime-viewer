@@ -138,13 +138,13 @@ const Init = {
                 </div>
                 ${v[0].top}</span></button>
                 <div data-content="">
-                    ${v.map (o => `<article> ${Helpers.toSentenceCase(o.name)}<span id="${k}-check-color" class="color-circle"></article>`)}
+                    ${v.map (o => `<article> ${Helpers.toSentenceCase(o.name)}<span id="${k}-check-color" class="color-circle" style="background:${o.color}"></article>`).join("")}
                 </div>
             </article>`
         })
         offenseHtml += `</div></section>`
-        let re = /\,/g;
-        offenseHtml = offenseHtml.replace(re, '')
+        // let re = /\,/g;
+        // offenseHtml = offenseHtml.replace(re, '')
         $('#filters-accordion').append(offenseHtml)
     }
 }
