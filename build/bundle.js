@@ -57435,11 +57435,12 @@ map.on('load', function () {
     // quick filter refresh in lieu of actual button
     document.onkeypress = function (e) {
       if (e.keyCode == 96) {
+        console.log(data);
 
         // construct the filterObject
         var mapFilter = _filter2.default.readInput()[0];
         // make a copy of the Socrata data
-        var filteredData = data;
+        var filteredData = _.cloneDeep(data);
 
         // iterate through the filter object and pare down
         Object.entries(mapFilter).forEach(function (_ref) {
@@ -57465,6 +57466,7 @@ map.on('load', function () {
 
         // log data that's in the view port
         var visibleData = map.queryRenderedFeatures({ layers: ['incidents_point'] });
+        console.log(filteredData);
       }
     };
 

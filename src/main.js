@@ -76,11 +76,12 @@ map.on('load', function() {
     // quick filter refresh in lieu of actual button
     document.onkeypress = function (e) {
       if(e.keyCode == 96){
+        console.log(data)
 
         // construct the filterObject
         let mapFilter = Filter.readInput()[0];
         // make a copy of the Socrata data
-        let filteredData = data
+        let filteredData = _.cloneDeep(data)
 
         // iterate through the filter object and pare down
         Object.entries(mapFilter).forEach(([k,v]) => {
@@ -99,6 +100,7 @@ map.on('load', function() {
 
         // log data that's in the view port
         let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']})
+        console.log(filteredData)
       }
     };
 
