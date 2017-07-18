@@ -57002,13 +57002,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _data = require('./data.js');
 
 var _data2 = _interopRequireDefault(_data);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _ = require('lodash');
 
 var Filter = {
   /**
@@ -57102,30 +57102,21 @@ var Filter = {
   },
 
   /**
-   * @param {obj} - a filterObject returned by readInput
-   * @returns {array} - a mapbox-gl Filter
+   * Given a key and array of values, return features that have given k:v pair
+   * @param {array} data 
+   * @param {string} key 
+   * @param {array} values 
    */
-  makeMapboxFilter: function makeMapboxFilter(obj) {
-    // we may want this to be "any"; possibly a toggle somewhere
-    var mapboxFilter = ["all"];
-    Object.entries(obj).forEach(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2),
-          k = _ref2[0],
-          v = _ref2[1];
-
-      if (v.length < 1) {
-        return;s;
-      }
-      var inList = ["in", k];
-      mapboxFilter.push(inList.concat(v));
+  filterFeatures: function filterFeatures(data, key, values) {
+    return _.filter(data, function (d) {
+      return values.indexOf(eval('d.properties.' + key)) > -1;
     });
-    return mapboxFilter;
   }
 };
 
 exports.default = Filter;
 
-},{"./data.js":13}],15:[function(require,module,exports){
+},{"./data.js":13,"lodash":8}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -57226,7 +57217,7 @@ var Init = {
                 },
                 "circle-radius": {
                     'base': 1.25,
-                    'stops': [[8, 2.5], [19, 9]]
+                    'stops': [[8, 1.5], [19, 6]]
                 },
                 "circle-opacity": {
                     'stops': [[9, 0.5], [19, 1]]
@@ -57275,6 +57266,10 @@ var Init = {
         // add the boundary
         _boundary2.default.addBoundary(map, _boundary2.default.boundaries.council_district);
     },
+    /**
+     * Takes stuff from Data.js and adds them as filters on the sidebar.
+     * @returns {undefined}
+     */
     populateSidebar: function populateSidebar() {
         console.log(_data2.default.offenses);
         var offenseHtml = '\n        <section data-accordion="">\n        <button data-control="" class="accordion-header" id="categories-accordion">Categories</button>\n        <div id="accordion-attach" data-content="" class="accordion-content">\n        ';
@@ -57288,8 +57283,6 @@ var Init = {
             }).join("") + '\n                </div>\n            </article>';
         });
         offenseHtml += '</div></section>';
-        // let re = /\,/g;
-        // offenseHtml = offenseHtml.replace(re, '')
         $('#filters-accordion').append(offenseHtml);
     }
 };
@@ -57337,6 +57330,8 @@ exports.default = Locate;
 },{"jquery":7}],18:[function(require,module,exports){
 (function (global){
 'use strict';
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _helpers = require('./helpers.js');
 
@@ -57394,7 +57389,7 @@ var map = new mapboxgl.Map({
 // Socrata details
 var ds = "9i6z-cm98";
 var params = {
-  "$where": 'incident_timestamp >= \'' + _helpers2.default.xDaysAgo(7) + '\'',
+  "$where": 'incident_timestamp >= \'' + _helpers2.default.xDaysAgo(28) + '\'',
   "$limit": 50000,
   "$select": "crime_id,location,address,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
 
@@ -57440,15 +57435,36 @@ map.on('load', function () {
     // quick filter refresh in lieu of actual button
     document.onkeypress = function (e) {
       if (e.keyCode == 96) {
-        var mapFilter = _filter2.default.makeMapboxFilter(_filter2.default.readInput()[0]);
-        console.log(_filter2.default.readInput()[1]);
-        map.setFilter('incidents_point', mapFilter);
-        var filteredData = map.querySourceFeatures('incidents', { filter: mapFilter });
-        var _incidentsByCategory = _stats2.default.countByKey(_filter2.default.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');
+
+        // construct the filterObject
+        var mapFilter = _filter2.default.readInput()[0];
+        // make a copy of the Socrata data
+        var filteredData = data;
+
+        // iterate through the filter object and pare down
+        Object.entries(mapFilter).forEach(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 2),
+              k = _ref2[0],
+              v = _ref2[1];
+
+          if (v.length < 1) {
+            return;
+          } else {
+            filteredData.features = _filter2.default.filterFeatures(filteredData.features, k, v);
+          }
+        });
+        map.getSource('incidents').setData(filteredData);
+
+        // offense category count refresh
+        var _incidentsByCategory = _stats2.default.countByKey(filteredData.features, 'properties.offense_category');
         _stats2.default.printAsTable(_incidentsByCategory, 'tbody');
-        // log data that's in the map
-        var visibleData = map.queryRenderedFeatures({ layers: ['incidents_point'], filter: mapFilter });
-        console.log(visibleData);
+
+        // current area refresh
+        var _incidentsByCouncilDistrict = _stats2.default.countByKey(data.features, 'properties.council_district');
+        _stats2.default.printAsChart(_incidentsByCouncilDistrict, '.ct-chart');
+
+        // log data that's in the view port
+        var visibleData = _filter2.default.getUniqueFeatures(map.queryRenderedFeatures({ layers: ['incidents_point'], filter: mapFilter }));
       }
     };
 

@@ -1,4 +1,5 @@
 import Data from './data.js'
+const _ = require('lodash')
 
 const Filter = {
   /**
@@ -92,18 +93,15 @@ const Filter = {
   },
 
   /**
-   * @param {obj} - a filterObject returned by readInput
-   * @returns {array} - a mapbox-gl Filter
+   * Given a key and array of values, return features that have given k:v pair
+   * @param {array} data 
+   * @param {string} key 
+   * @param {array} values 
    */
-  makeMapboxFilter: function(obj) {
-    // we may want this to be "any"; possibly a toggle somewhere
-    let mapboxFilter = ["all"]
-    Object.entries(obj).forEach(([k, v]) => {
-      if(v.length < 1) { return; s}
-      let inList = ["in", k]
-      mapboxFilter.push(inList.concat(v))
+  filterFeatures(data, key, values) {
+    return _.filter(data, d => {
+      return values.indexOf(eval(`d.properties.${key}`)) > -1 
     })
-    return mapboxFilter
   }
 }
 

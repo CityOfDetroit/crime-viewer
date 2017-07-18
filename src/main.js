@@ -29,7 +29,7 @@ var map = new mapboxgl.Map({
 // Socrata details
 const ds = "9i6z-cm98"
 let params = {
-  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(7)}'`,
+  "$where": `incident_timestamp >= '${Helpers.xDaysAgo(28)}'`,
   "$limit": 50000,
   "$select": "crime_id,location,address,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
 }
@@ -76,15 +76,29 @@ map.on('load', function() {
     // quick filter refresh in lieu of actual button
     document.onkeypress = function (e) {
       if(e.keyCode == 96){
-        let mapFilter = Filter.makeMapboxFilter(Filter.readInput()[0]);
-        console.log(Filter.readInput()[1]);
-        map.setFilter('incidents_point', mapFilter);
-        let filteredData = map.querySourceFeatures('incidents', {filter: mapFilter});
-        let incidentsByCategory = Stats.countByKey(Filter.getUniqueFeatures(filteredData, 'crime_id'), 'properties.offense_category');
+
+        // construct the filterObject
+        let mapFilter = Filter.readInput()[0];
+        // make a copy of the Socrata data
+        let filteredData = data
+
+        // iterate through the filter object and pare down
+        Object.entries(mapFilter).forEach(([k,v]) => {
+          if(v.length < 1) { return }
+          else { filteredData.features = Filter.filterFeatures(filteredData.features, k, v) }
+        })
+        map.getSource('incidents').setData(filteredData)
+
+        // offense category count refresh
+        let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
         Stats.printAsTable(incidentsByCategory, 'tbody');
-        // log data that's in the map
-        let visibleData = map.queryRenderedFeatures({layers: ['incidents_point'], filter: mapFilter})
-        console.log(visibleData)
+
+        // current area refresh
+        let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
+        Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
+
+        // log data that's in the view port
+        let visibleData = Filter.getUniqueFeatures(map.queryRenderedFeatures({layers: ['incidents_point'], filter: mapFilter}))
       }
     };
 

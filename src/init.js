@@ -48,8 +48,8 @@ const Init = {
                 "circle-radius": {
                     'base': 1.25,
                     'stops': [
-                        [8, 2.5],
-                        [19, 9]
+                        [8, 1.5],
+                        [19, 6]
                     ]
                 },
                 "circle-opacity": {
@@ -121,6 +121,10 @@ const Init = {
         Boundary.addBoundary(map, Boundary.boundaries.council_district);
 
     },
+    /**
+     * Takes stuff from Data.js and adds them as filters on the sidebar.
+     * @returns {undefined}
+     */
     populateSidebar: function() {
         console.log(Data.offenses)
         let offenseHtml = `
@@ -143,8 +147,6 @@ const Init = {
             </article>`
         })
         offenseHtml += `</div></section>`
-        // let re = /\,/g;
-        // offenseHtml = offenseHtml.replace(re, '')
         $('#filters-accordion').append(offenseHtml)
     }
 }
