@@ -40,6 +40,16 @@ let url = Socrata.makeUrl(ds, params)
 // load the map
 map.on('load', function() {
 
+  // add zoom controls
+  map.addControl(new mapboxgl.NavigationControl());
+
+  // disable map rotation using right click + drag and touch rotation gesture
+  map.dragRotate.disable();
+  map.touchZoomRotate.disableRotation();
+
+  // add geolocate control
+  map.addControl(new mapboxgl.GeolocateControl());
+
   Socrata.fetchData(url).then(data => {
     console.log(data)
     // calculate some summary stats
