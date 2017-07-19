@@ -1,7 +1,7 @@
 import Data from './data.js';
 import Boundary from './boundary.js';
-import Helpers from './helpers.js'
-const $ = require('jQuery')
+import Helpers from './helpers.js';
+const $ = require('jquery');
 
 function computeColors() {
     /**
