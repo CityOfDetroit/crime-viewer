@@ -1,14 +1,244 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8' />
-  <title></title>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.2/mapbox-gl.css' rel='stylesheet' />
-  <!-- <link href='../src/styles/main.css' rel='stylesheet' /> -->
+	<meta charset='utf-8'>
+	<title>Detroit Neighborhood Compstat</title>
+	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.2/mapbox-gl.css' rel='stylesheet'>
+	<link href="./styles/chartist.css" rel="stylesheet">
+	<link href='./styles/jquery.accordion.css' rel='stylesheet'>
+	<link href='./styles/jquery.scrollbar.css' rel='stylesheet'>
+	<link href='./styles/tables.css' rel='stylesheet'>
+	<link href='./styles/charts.css' rel='stylesheet'>
+	<link href='./styles/accordion.css' rel='stylesheet'>
+	<link href='./styles/tabs.css' rel='stylesheet'>
+	<link href='./styles/details.css' rel='stylesheet'>
+	<link href='./styles/datetime.css' rel='stylesheet'>
+	<link href='./styles/main.css' rel='stylesheet'>
+	<link href='./styles/print.css' rel='stylesheet'>
+	<link href="./img/favicon.ico" rel="icon" sizes="16x16" type="image">
 </head>
 <body>
-  <div id='map'></div>
-  <script src="bundle.js"></script>
+	<nav id="menu">
+		<div class="logo">
+			<img src="./img/grayscale.png">
+			<h1>DETROIT<br>
+			Neighborhood Compstat</h1>
+		</div>
+		<div class="search">
+			<input id="locate" name="search" placeholder="Search for an Address" type="text">
+		</div>
+		<div class="tabs">
+			<ul class="tab-links">
+				<li class="active">
+					<a href="#tab1">Filters</a>
+				</li>
+				<li>
+					<a href="#tab2">Data</a>
+				</li>
+				<li>
+					<a href="#tab3">About</a>
+				</li>
+			</ul>
+			<div class="tab-content scrollbar-macosx">
+				<div class="tab active" id="tab1">
+					<section data-accordion-group="" id="filters-accordion">
+						<section data-accordion="">
+							<button data-control="" class="accordion-header" id="time-accordion">Time</button>
+							<div data-content="" class="accordion-content">
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+									<div class="filter-checkbox">
+									</div>
+									Day of Week</button>
+									<div data-content="" id="dow-filter-input">
+										<article>
+											<input type="checkbox" class="dow-checkbox" id="dow-1-check" name=""/>
+											<label id="dow-1-label" for="dow-1-check"></label>
+										</article>
+										<article>
+											<input type="checkbox" class="dow-checkbox" id="dow-2-check" name=""/>
+											<label for="dow-2-check"></label>
+										</article>
+										<article>
+											<input type="checkbox" class="dow-checkbox" id="dow-3-check" name=""/>
+											<label for="dow-3-check"></label>
+										</article>
+										<article>
+											<input type="checkbox" class="dow-checkbox" id="dow-4-check" name=""/>
+											<label for="dow-4-check"></label>
+										</article>
+										<article>
+											<input type="checkbox" class="dow-checkbox" id="dow-5-check" name=""/>
+											<label for="dow-5-check"></label>
+										</article>
+										<article>
+											<input type="checkbox" class="dow-checkbox" id="dow-6-check" name=""/>
+											<label for="dow-6-check"></label>
+										</article>
+										<article>
+											<input type="checkbox" class="dow-checkbox" id="dow-7-check" name=""/>
+											<label for="dow-7-check"></label>
+										</article>
+									</div>
+								</article>
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+									<div class="filter-checkbox">
+									</div>
+									Time of Day</button>
+									<div data-content="" id="tod-filter-input">
+										<article>
+											<input type="checkbox" id="morning-check" name=""/>
+											<label for="morning-check"></label>Morning
+										</article>
+										<article>
+											<input type="checkbox" id="afternoon-check" name=""/>
+											<label for="afternoon-check"></label>Afternoon
+										</article>
+										<article>
+											<input type="checkbox" id="evening-check" name=""/>
+											<label for="evening-check"></label>Evening
+										</article>
+										<article>
+											<input type="checkbox" id="overnight-check" name=""/>
+											<label for="overnight-check"></label>Overnight
+										</article>
+									</div>
+								</article>
+							</div>
+						</section>
+						<section data-accordion="">
+							<button data-control="" class="accordion-header" id="area-accordion">Area</button>
+							<div data-content="" class="accordion-content">
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+										<div>
+											<input type="radio" id="area-council-district" name="currentArea" value="council_district">
+											<label for="area-council-district">Council Districts</label>
+										</div>
+									</button>
+									<div data-content="">
+										<article>
+											<input type="checkbox" id="district-1-check" name=""/>
+											<label for="district-1-check"></label>District 1
+										</article>
+										<article>
+											<input type="checkbox" id="district-2-check" name=""/>
+											<label for="district-2-check"></label>District 2
+										</article>
+										<article>
+											<input type="checkbox" id="district-3-check" name=""/>
+											<label for="district-3-check"></label>District 3
+										</article>
+										<article>
+											<input type="checkbox" id="district-4-check" name=""/>
+											<label for="district-4-check"></label>District 4
+										</article>
+										<article>
+											<input type="checkbox" id="district-5-check" name=""/>
+											<label for="district-5-check"></label>District 5
+										</article>
+										<article>
+											<input type="checkbox" id="district-6-check" name=""/>
+											<label for="district-6-check"></label>District 6
+										</article>
+										<article>
+											<input type="checkbox" id="district-7-check" name=""/>
+											<label for="district-7-check"></label>District 7
+										</article>
+									</div>
+								</article>
+								<article data-accordion="">
+									<button data-control="" class="second-header">
+										<div>
+											<input type="radio" id="area-precinct" name="currentArea" value="precinct">
+											<label for="area-precinct">Precincts</label>
+										</div>
+									</button>
+									<div data-content="">
+										<article>
+											<input type="checkbox" id="precinct-2-check" name=""/>
+											<label for="precinct-2-check"></label>2nd Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-3-check" name=""/>
+											<label for="precinct-3-check"></label>3rd Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-4-check" name=""/>
+											<label for="precinct-4-check"></label>4th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-5-check" name=""/>
+											<label for="precinct-5-check"></label>5th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-6-check" name=""/>
+											<label for="precinct-6-check"></label>6th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-7-check" name=""/>
+											<label for="precinct-7-check"></label>7th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-8-check" name=""/>
+											<label for="precinct-8-check"></label>8th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-9-check" name=""/>
+											<label for="precinct-9-check"></label>9th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-10-check" name=""/>
+											<label for="precinct-10-check"></label>10th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-11-check" name=""/>
+											<label for="precinct-11-check"></label>11th Precinct
+										</article>
+										<article>
+											<input type="checkbox" id="precinct-12-check" name=""/>
+											<label for="precinct-12-check"></label>12th Precinct
+										</article>
+									</div>
+								</article>
+							</div>
+						</section>
+					</section>
+					<div id="details">
+						<!-- <h3>Point Details:</h3> -->
+					</div>
+				</div>
+				<div class="tab" id="tab2">
+				    <p class="chart-title"><strong>Total Incidents by Selected Area</strong></p>
+					<div class="ct-chart"></div>
+					<p class="chart-title"><strong>Total Incidents by Offense Type</strong></p>
+					<table>
+						<tbody id="tbody"></tbody>
+					</table>
+					<p class="chart-title"><strong>Download the Data</strong></p>
+					<p>You can further view and download the raw crime incident data that powers this tool by visiting <a target="_blank" href="https://data.detroitmi.gov/">Detroit's Open Data Portal</a>. Find it under <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">DPD: All Crime Incidents, December 6, 2016 - Present</a>.</p>
+				</div>
+				<div class="tab" id="tab3">
+					<p><strong>Welcome to Neighborhoood Compstat!</strong></p>
+					<p>Short for “Computer Statistics,” CompStat is a method for reviewing crime statistics that has been used by law enforcement agencies for over twenty years. On a regular basis, commanding officers typically meet to review activity by precinct and develop solutions to target resources with the purpose of addressing crime problems and improving police performance.</p>
+					<p>The Neighborhood CompStat tool hopes to do the same. By putting information in the hands of residents, we hope to facilitate a conversation about what is happening on a neighborhood level and the city at large. That way, we can develop solutions together towards a safer community.</p>
+					<p><strong>About the Data</strong></p>
+					<p>This data reflects reported criminal offenses that have occurred in the City of Detroit since December 6, 2016. Offense data was extracted from the Detroit Police Department's records management system. This data set contains the most recent data available and is updated anytime DPD sends official crime records contributing to the Michigan Incident Crime Reporting (MICR) or the National Incident Based Reporting systems (reflected by the IBR Date field). It should be noted that some incidents involve the commission of multiple offenses, such as a domestic assault where property was also vandalized. Accordingly, the data describe all offenses associated with all reported incidents.</p>
+					<p><strong>Anonymization</strong></p>
+					<p>DPD works with the Department of Innovation and Technology (DoIT) to de-identify location information for both 911 calls and reported crimes to protect victim and caller information. Each record has two sets of location information - address and XY coordinates. The address field represents the location of the incident, and the XY coordinates are populated based on the geo-verified location of that address.</p>
+					<p>The anonymization process systematically takes the point of the original XY coordinates and places them randomly within 180 feet along the street from the original point. If the point appears on either side of the street, it does so randomly, and it is not an indication of where the original event occurred. The XY coordinate fields provided in this dataset are the new, anonymized location. To mask the address field where there is a street number provided by the caller, the last two digits of the address field are removed and replaced with “00.”</p>
+				</div>
+			</div>
+		</div>
+	</nav><!--Map-->
+	<div id='map'>
+		<div class="disclaimer">
+			<p><strong>Disclaimer:</strong><br/>In order to protect the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See ABOUT to learn more.</p>
+			<span class="disclaimer-close"><img src="./img/close.svg"></span>
+		</div>
+	</div>
+	<script src="./bundle.js"></script>
 </body>
 </html>
