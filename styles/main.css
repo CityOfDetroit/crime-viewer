@@ -35,6 +35,11 @@ body:after{
   width:  100%; 
 }
 
+/* don't show the third rotation button in nav controls */
+.mapboxgl-ctrl-compass  {
+  display: none !important;
+}
+
 #menu{
    position: relative;
    z-index: 1000;
