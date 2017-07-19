@@ -4,15 +4,15 @@ View, filter and summarize incident data from the police department.
 
 ## Development
 
-We're building this with Mapbox GL, Slideout.js, jQuery, and Lodash. Behind the scenes, we use Babel to compile, Browserify and Watchify to bundle, and Uglify to minify our code. Unit testing is handled with Mocha.js.
+We're mostly building this with Mapbox GL, Slideout.js, jQuery, and Lodash. Behind the scenes, we use Babel to compile, Browserify and Watchify to bundle, and Uglify to minify our code. Unit testing is handled with Mocha.js, Should.js and Node's assert.
 
 ### Prereqs
 
-You should be running Node and NPM.
+You should have [Node](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/) installed.
 
-This project assumes you have three global dependencies: Browserify, Watchify and Uglify
+This project assumes three global dependencies: Browserify, Watchify and Uglify
 
-If you don't, install them:
+If you don't have them, install them:
 ```
 npm install -g browserify watchify uglify-js
 ```
@@ -42,11 +42,11 @@ Or, more conveniently, try:
 - Python 3.x: `npm run watch & python -m http.server 9966`
 - Python 2.x: `npm run watch & python -m SimpleHTTPServer 9966`
 
-This will watch & serve the page at `http://localhost:9966/public/`.
+This will watch & serve the page at `http://localhost:9966/`.
 
 ### Deploy
 
-Run `npm run deploy`. This pipes `src/main.js` through Uglify to minify it, writes to `build/bundle.js`, and then publishes to gh-pages (kinda, still figuring this piece out).
+Run `npm run deploy`. This pipes `src/main.js` through Uglify to minify it, writes to `public/bundle.js`, and then publishes the `public/` directory to `gh-pages`.
 
 ### Tests
 
