@@ -164,7 +164,11 @@ jQuery(document).ready(function() {
 
 
   //initialize accordion
-  jQuery('#filters-accordion [data-accordion]').accordion();
+  jQuery('#filters-accordion [data-accordion]').accordion(
+    {
+      singleOpen: false,
+      autoHeight: false
+    });
 
   //close disclaimer box
   jQuery('.disclaimer-close img').click(function(){
