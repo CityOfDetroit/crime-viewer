@@ -54,13 +54,18 @@ map.on('load', function() {
   Socrata.fetchData(url).then(data => {
     console.log(data);
 
-    // count incidents for currently viewing
-    Stats.printCurrentView(data.features, 'current-view');
-
     // calculate some summary stats
     let totalIncidents = Stats.countFeatures(data.features);
     let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
     let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
+
+    // get the earliest and latest incident dates
+    let uniqueTimestamps = [...new Set(data['features'].map(item => item.properties['incident_timestamp']))];
+    let minTime = _.min(uniqueTimestamps);
+    let maxTime = _.max(uniqueTimestamps);
+
+    // count incidents for currently viewing
+    Stats.printCurrentView(data.features, minTime, maxTime, 'current-view');
 
     // populate a table in the Data tab  
     Stats.printAsTable(incidentsByCategory, 'tbody');
