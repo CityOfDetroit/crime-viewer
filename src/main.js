@@ -40,18 +40,21 @@ let url = Socrata.makeUrl(ds, params)
 // load the map
 map.on('load', function() {
 
-  // add zoom controls
+  // add zoom  + geolocate controls
   map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(new mapboxgl.GeolocateControl());
 
   // disable map rotation using right click + drag and touch rotation gesture
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
 
-  // add geolocate control
-  map.addControl(new mapboxgl.GeolocateControl());
-
+  // get the data
   Socrata.fetchData(url).then(data => {
-    console.log(data)
+    console.log(data);
+
+    // count incidents for currently viewing
+    Stats.printCurrentView(data.features, 'current-view');
+
     // calculate some summary stats
     let totalIncidents = Stats.countFeatures(data.features);
     let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
@@ -85,13 +88,18 @@ map.on('load', function() {
 
     // quick filter refresh in lieu of actual button
     document.onkeypress = function (e) {
-      if(e.keyCode == 96){
-        console.log(data)
+      if(e.keyCode == 96) {
+        console.log(data);
 
         // construct the filterObject
         let mapFilter = Filter.readInput()[0];
+
         // make a copy of the Socrata data
-        let filteredData = _.cloneDeep(data)
+        let filteredData = _.cloneDeep(data);
+
+        // refresh count of current incidents
+        Stats.printCurrentView(filteredData.features, 'current-view');
+        console.log(filteredData);
 
         // iterate through the filter object and pare down
         Object.entries(mapFilter).forEach(([k,v]) => {
@@ -109,8 +117,7 @@ map.on('load', function() {
         Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
         // log data that's in the view port
-        let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']})
-        console.log(filteredData)
+        let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
       }
     };
 

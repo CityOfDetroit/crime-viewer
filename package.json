@@ -29,6 +29,7 @@
     "lodash": "^4.17.4",
     "mapbox-gl": "^0.38.0",
     "moment": "^2.18.1",
+    "numeral": "^2.0.6",
     "slideout": "^1.0.1"
   },
   "devDependencies": {

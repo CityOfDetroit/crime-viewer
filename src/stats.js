@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import Chartist from 'chartist';
 import moment from 'moment';
+import numeral from 'numeral';
 
 import Helpers from './helpers.js';
 
@@ -86,6 +87,24 @@ const Stats = {
     };
 
     return new Chartist.Bar(chartClass, data, options);
+  },
+
+  /** 
+   * Prints current view
+   * @param {array} - list of features
+   * @param {string} - html div id
+   * @returns {}
+   */
+  printCurrentView: function(features, divId) {
+    let current_view = document.getElementById(divId);
+
+    current_view.innerHTML = '';
+
+    let p = document.createElement("p");
+    p.innerHTML = "<strong>" + "Current View" + "</strong><br/>" + numeral(features.length).format('0,0') + " Crime Incidents";
+    current_view.appendChild(p);
+
+    return current_view;
   },
 
   /** 
