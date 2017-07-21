@@ -99,10 +99,6 @@ map.on('load', function() {
         // make a copy of the Socrata data
         let filteredData = _.cloneDeep(data);
 
-        // refresh count of current incidents
-        Stats.printCurrentView(filteredData.features, 'current-view');
-        console.log(filteredData);
-
         // iterate through the filter object and pare down
         Object.entries(mapFilter).forEach(([k,v]) => {
           if(v.length < 1) { return }
@@ -120,6 +116,10 @@ map.on('load', function() {
 
         // log data that's in the view port
         let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
+
+        // refresh count of current incidents
+        Stats.printCurrentView(filteredData.features, 'current-view');
+        console.log(filteredData);
       }
     };
 
