@@ -131,9 +131,7 @@ body:after{
 
 @media screen and (min-width: 800px) {
    #menu{
-       width: 30%;
-       min-width: 325px;
-       max-width: 400px;
+       width: 23.5em;
    }
    #menu .logo{
        padding:3px 10px;

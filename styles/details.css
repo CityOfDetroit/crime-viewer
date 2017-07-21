@@ -10,3 +10,7 @@
 #details p {
   font-size: small;
 }
+
+#current-view p {
+  text-align: center;
+}

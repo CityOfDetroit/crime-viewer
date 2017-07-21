@@ -5,3 +5,16 @@ table {
 tr {
   font-size: small;
 }
+
+table td,
+table th
+{
+  text-align:left;
+}
+
+#right,
+table td + td,
+table th + th
+{
+  text-align:right;
+}

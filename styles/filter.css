@@ -1,0 +1,76 @@
+input[type=radio] {
+  display: none;
+}
+
+input[type=radio] + label {
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type=radio]:checked + label{
+}
+
+#dow-filter-input{
+    padding-left: 1.5em;
+    margin:5px 10px;
+}
+#tod-filter-input{
+    padding-left: 3em;
+    margin:0 0.25rem 1rem 0.25rem;
+}
+#dow-filter-input article{
+    float: left;
+    padding: 0px;
+}
+#area-accordion .accordion-content article{
+    display: inline-block;
+}
+.dow-checkbox, .date-checkbox, .district-checkbox, .precinct-checkbox {
+  display: none;
+}
+.dow-checkbox + label, .district-checkbox + label, .precinct-checkbox + label {
+    display: inline-block;
+    position: relative;
+    font-size: 1.2em;
+    vertical-align: top;
+    cursor: pointer;
+    padding:.45em;
+}
+#tod-filter-input article{
+    padding:5px;
+    float: left;
+}
+.date-checkbox + label{
+    width: 10em;
+    float: left;
+    display: inline-block;
+    cursor: pointer;
+}
+.date-checkbox + label img{
+    width: 3em;
+    height: 3em;
+}
+.date-checkbox + label img, .date-checkbox + label span,
+.dow-checkbox + label,
+.district-checkbox + label,
+.precinct-checkbox + label{
+    font-weight: bold;
+    opacity: 0.2;
+}
+.date-checkbox + label:hover,
+.dow-checkbox + label:hover,
+.district-checkbox + label:hover,
+.precinct-checkbox + label:hover {
+    opacity: 0.75;
+}
+.date-checkbox:checked + label img, .date-checkbox:checked + label span,
+.dow-checkbox:checked + label,
+.district-checkbox:checked + label,
+.precinct-checkbox:checked + label {
+    opacity: 1;
+}
+.date-checkbox + label span{
+    position: relative;
+    top: -10px;
+    left: 10px;
+}
