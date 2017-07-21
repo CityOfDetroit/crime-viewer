@@ -65,7 +65,8 @@ map.on('load', function() {
     let maxTime = _.max(uniqueTimestamps);
 
     // count incidents for currently viewing
-    Stats.printCurrentView(data.features, minTime, maxTime, 'current-view');
+    Stats.printCurrentView(data.features, 'current-view');
+    Stats.printTimeRange(minTime, maxTime, 'time-range');
 
     // populate a table in the Data tab  
     Stats.printAsTable(incidentsByCategory, 'tbody');

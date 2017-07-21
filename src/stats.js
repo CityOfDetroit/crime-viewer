@@ -92,21 +92,32 @@ const Stats = {
   /** 
    * Prints current view
    * @param {array} - list of features
-   * @param {string} - earliest timestamp
-   * @param {string} - latest timestamp
    * @param {string} - html div id
    * @returns {}
    */
-  printCurrentView: function(features, timeA, timeB, divId) {
+  printCurrentView: function(features, divId) {
     let current_view = document.getElementById(divId);
 
     current_view.innerHTML = '';
 
     let p = document.createElement("p");
-    p.innerHTML = "<strong>" + "Current View" + "</strong><br/>" + numeral(features.length).format('0,0') + " Crime Incidents<br/>" + "from " + moment(timeA).format("MM/DD/YY") + " to " + moment(timeB).format("MM/DD/YY");
+    p.innerHTML = "<strong>" + "Current View" + "</strong><br/>" + numeral(features.length).format('0,0') + " Crime Incidents";
     current_view.appendChild(p);
 
     return current_view;
+  },
+
+  /** 
+   * Prints time range
+   */
+  printTimeRange: function(timeA, timeB, divId) {
+    let time_range = document.getElementById(divId);
+
+    let p = document.createElement("p");
+    p.innerHTML = moment(timeA).format("MM/DD/YY") + " to " + moment(timeB).format("MM/DD/YY");
+    time_range.appendChild(p);
+
+    return time_range;
   },
 
   /** 
