@@ -40,6 +40,8 @@ let url = Socrata.makeUrl(ds, params)
 // load the map
 map.on('load', function() {
 
+  // console.log(Locate.identifyBounds([-83.0787163063023, 42.351453227480945]))
+
   // add zoom controls
   map.addControl(new mapboxgl.NavigationControl());
 
@@ -117,6 +119,8 @@ map.on('load', function() {
     document.getElementById('locate').addEventListener('keypress', e => {
       if(e.key == 'Enter'){
       Locate.geocodeAddress(e.target.value).then(result => {
+        let coords = result['candidates'][0]['location']
+        console.log(Locate.identifyBounds(coords))
         Locate.panToLatLng(result, map)
       })}
     })

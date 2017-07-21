@@ -17,6 +17,29 @@ const Locate = {
       return res
     })
   },
+  /**
+   * Take a LatLng and toss it against a MapServer/identify to see what polys it falls in.
+   * @param {object} - a coordinate object with x/y
+   * @returns {something}
+   */
+  identifyBounds: function(coords) {
+    const boundsEndpoint = 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/identify?'
+    let params = {
+      'geometry': `${coords.x}, ${coords.y}`,
+      'layers': 'all',
+      // this is a hack, but wygd. Where Y'at does the same thing.
+      'mapExtent': `${coords.x - 0.01}, ${coords.y - 0.01}, ${coords.x + 0.01}, ${coords.y + 0.01}`,
+      'tolerance': 1,
+      'returnGeometry': 'false',
+      'imageDisplay': '500, 500, 96',
+      'f': 'json'
+    }
+    console.log(coords.x- 0.01)
+    return fetch(boundsEndpoint + $.param(params)).then((r) => {
+      var res = r.json()
+      return res
+    })
+  },
   panToLatLng: function(gc_result, map) {
     console.log(gc_result)
     if (gc_result['candidates'].length > 0) {
