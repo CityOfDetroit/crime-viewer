@@ -129,7 +129,7 @@ const Stats = {
   printPointDetails: function(features, divId) {
     let detail = document.getElementById(divId);
 
-    //detail.innerHTML = '';
+    detail.innerHTML = '';
 
     let hr = document.createElement("hr");
     detail.appendChild(hr);

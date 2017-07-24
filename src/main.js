@@ -65,8 +65,8 @@ map.on('load', function() {
     let maxTime = _.max(uniqueTimestamps);
 
     // count incidents for currently viewing
-    Stats.printCurrentView(data.features, 'details');
-    Stats.printTimeRange(minTime, maxTime, 'details');
+    Stats.printCurrentView(data.features, 'current_view');
+    Stats.printTimeRange(minTime, maxTime, 'current_view');
 
     // populate a table in the Data tab  
     Stats.printAsTable(incidentsByCategory, 'tbody');
@@ -82,7 +82,7 @@ map.on('load', function() {
         if(features.length > 0){
           console.log(features)
           map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id])
-          Stats.printPointDetails(features, 'details');
+          Stats.printPointDetails(features, 'point_details');
         }
     });
 
