@@ -108,6 +108,19 @@ const Stats = {
   },
 
   /** 
+   * Prints time range
+   */
+  printTimeRange: function(timeA, timeB, divId) {
+    let time_range = document.getElementById(divId);
+
+    let p = document.createElement("p");
+    p.innerHTML = moment(timeA).format("MM/DD/YY") + " to " + moment(timeB).format("MM/DD/YY");
+    time_range.appendChild(p);
+
+    return time_range;
+  },
+
+  /** 
    * Display details of point on the map
    * @param {array} - list of features (we only display the first right now)
    * @param {string} - html div id
