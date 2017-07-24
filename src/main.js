@@ -95,39 +95,38 @@ map.on('load', function() {
     });
 
     // quick filter refresh in lieu of actual button
-    document.onkeypress = function (e) {
-      if(e.keyCode == 96) {
-        console.log(data);
 
-        // construct the filterObject
-        let mapFilter = Filter.readInput()[0];
+    document.getElementById('apply_filters').addEventListener('mousedown', function() {
+      console.log(data);
 
-        // make a copy of the Socrata data
-        let filteredData = _.cloneDeep(data);
+      // construct the filterObject
+      let mapFilter = Filter.readInput()[0];
 
-        // iterate through the filter object and pare down
-        Object.entries(mapFilter).forEach(([k,v]) => {
-          if(v.length < 1) { return }
-          else { filteredData.features = Filter.filterFeatures(filteredData.features, k, v) }
-        })
-        map.getSource('incidents').setData(filteredData)
+      // make a copy of the Socrata data
+      let filteredData = _.cloneDeep(data);
 
-        // offense category count refresh
-        let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
-        Stats.printAsTable(incidentsByCategory, 'tbody');
+      // iterate through the filter object and pare down
+      Object.entries(mapFilter).forEach(([k,v]) => {
+        if(v.length < 1) { return }
+        else { filteredData.features = Filter.filterFeatures(filteredData.features, k, v) }
+      })
+      map.getSource('incidents').setData(filteredData)
 
-        // current area refresh
-        let incidentsByCouncilDistrict = Stats.countByKey(filteredData.features, 'properties.council_district');
-        Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
+      // offense category count refresh
+      let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
+      Stats.printAsTable(incidentsByCategory, 'tbody');
 
-        // log data that's in the view port
-        let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
+      // current area refresh
+      let incidentsByCouncilDistrict = Stats.countByKey(filteredData.features, 'properties.council_district');
+      Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
-        // refresh count of current incidents
-        Stats.printCurrentView(filteredData.features, 'current-view');
-        console.log(filteredData);
-      }
-    };
+      // log data that's in the view port
+      let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
+
+      // refresh count of current incidents
+      Stats.printCurrentView(filteredData.features, 'current-view');
+      console.log(filteredData);
+    })
 
     document.getElementById('locate').addEventListener('keypress', e => {
       if(e.key == 'Enter'){
