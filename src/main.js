@@ -65,8 +65,8 @@ map.on('load', function() {
     let maxTime = _.max(uniqueTimestamps);
 
     // count incidents for currently viewing
-    Stats.printCurrentView(data.features, 'current-view');
-    Stats.printTimeRange(minTime, maxTime, 'time-range');
+    Stats.printCurrentView(data.features, 'details');
+    Stats.printTimeRange(minTime, maxTime, 'details');
 
     // populate a table in the Data tab  
     Stats.printAsTable(incidentsByCategory, 'tbody');
@@ -190,12 +190,12 @@ jQuery(document).ready(function() {
     jQuery('.disclaimer').fadeOut();
   });
 
-  //initiate slideout
+  /*initiate slideout
   var slideout = new Slideout({
     'panel': document.getElementById('map'),
     'menu': document.getElementById('menu'),
     'padding': 256,
     'tolerance': 70
   });
-
+  */
 });

@@ -128,8 +128,8 @@ const Init = {
     populateSidebar: function() {
         console.log(Data.offenses)
         let offenseHtml = `
-        <section data-accordion="">
-        <button data-control="" class="accordion-header" id="categories-accordion">Categories</button>
+        <section data-accordion="" id="categories-accordion">
+        <button data-control="" class="accordion-header">Categories</button>
         <div id="accordion-attach" data-content="" class="accordion-content">
         `
         Object.entries(Data.offenses).forEach(([k,v]) => {
@@ -147,7 +147,7 @@ const Init = {
             </article>`
         })
         offenseHtml += `</div></section>`
-        $('#filters-accordion').append(offenseHtml)
+        $('#time-accordion').before(offenseHtml)
     }
 }
 

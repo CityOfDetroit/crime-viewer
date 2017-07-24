@@ -1,13 +1,15 @@
 input[type=radio] {
-  display: none;
+    display: none;
 }
 
 input[type=radio] + label {
-  cursor: pointer;
-  width: 100%;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.5;
 }
 
 input[type=radio]:checked + label{
+    opacity: 1;
 }
 
 #dow-filter-input{

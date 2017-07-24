@@ -65,10 +65,33 @@ li.active a, li.active a:hover {
 
 .tab {
    display:none;
-   padding: 15px;
+   padding: 0.9em;
 }
 
 .tab.active {
    display:block;
 }
+
+#apply_filters{
+   width: 100%;
+   text-align: center;
+   margin: 1em auto;
+}
+
+#apply_filters button{
+   margin: 0 auto;
+   width: 10em;
+   height: 2.5em;
+   border-radius: 2px;
+   border: 0px;
+   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+   font-weight: bold;
+   background: #bbbbbb;
+   cursor: pointer;
+}
+
+#apply_filters button:hover{
+   background: #aaaaaa;
+}
+
 /*--End Tabs--*/            

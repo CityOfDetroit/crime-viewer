@@ -134,9 +134,23 @@ body:after{
   left: 23.5em;
   z-index: 10000;
   background: white;
-  padding: 1.5em;
-  box-shadow: 0px 0px 50px 5px #777;
+  padding: 0.5em;
+  box-shadow: 0px 0px 1px 1px rgba(150,150,150,0.7);
+  -webkit-box-shadow: 0 0 1px 1px rgba(150,150,150,0.7);
+  -moz-box-shadow: 0 0 1px 1px rgba(150,150,150,0.7));
   width: 20em;
+  bottom: 1em;
+}
+
+#details h3{
+  text-decoration: none;
+  font-size: 0.9em;
+  margin: 2px;
+}
+
+#details p{
+  font-size: small;
+  margin: 5px;
 }
 
 @media screen and (min-width: 800px) {
@@ -160,9 +174,9 @@ body:after{
       z-index: 20;
       background: white;
       padding: 0px;
-      box-shadow: 0 0 5px 2px rgba(0,0,0,.35);
-      -webkit-box-shadow: 0 0 5px 2px rgba(0,0,0,.35);
-      -moz-box-shadow: 0 0 5px 2px rgba(0,0,0,.35);
+      box-shadow: 0px 0px 1px 1px rgba(150,150,150,0.7);
+      -webkit-box-shadow: 0 0 1px 1px rgba(150,150,150,0.7);
+      -moz-box-shadow: 0 0 1px 1px rgba(150,150,150,0.7));
    }
    .disclaimer p{
       line-height: 16px;
@@ -173,6 +187,9 @@ body:after{
       position: absolute;
       top: 5px;
       right: 7px;
+   }
+   #details .disclaimer-close{
+      top: 90px;
    }
    .disclaimer-close img{
       cursor: pointer;
