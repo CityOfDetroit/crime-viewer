@@ -178,9 +178,14 @@ jQuery(document).ready(function() {
   });
 
   //initialize accordion
-  jQuery('#filters-accordion [data-accordion]').accordion(
+  jQuery('#categories-accordion, #categories-accordion [data-accordion], #time-accordion, #time-accordion [data-accordion]').accordion(
     {
       singleOpen: false,
+      autoHeight: false
+    });
+  jQuery('#area-accordion, #area-accordion [data-accordion]').accordion(
+    {
+      singleOpen: true,
       autoHeight: false
     });
 
