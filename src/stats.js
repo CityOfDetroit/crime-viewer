@@ -162,8 +162,22 @@ const Stats = {
     let p5 = document.createElement("p");
     p5.innerHTML = "<strong>" + "Precinct: " + "</strong>" + features[0].properties.precinct;
     detail.appendChild(p5);
+   
+    //extend height of current view div to include new point details
+    let currentViewHeight = jQuery('#current_view').height() + jQuery('#point_details').height() + 10;
+    //fadeIn point details
+    jQuery('#details').animate({height: currentViewHeight}, {complete:function(){jQuery('#point_details').fadeIn()}});
+      //close point details
+      jQuery('#point_details .disclaimer-close img').click(function(){
+        //fade out closed point data
+        jQuery('#point_details').fadeOut();
+        //resize div to height of current view div
+        let currentViewHeight = jQuery('#current_view').height() + 7;
+        jQuery('#details').animate({
+          height: currentViewHeight
+        });
+    });
 
-    return detail;
   }
 }
 

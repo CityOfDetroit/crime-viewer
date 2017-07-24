@@ -196,4 +196,12 @@ body:after{
       width: 17px;
       height: 17px;
    }
+   #details{
+      max-height: 500px;
+      transition: max-height 1s ease-out;
+      overflow: hidden;
+    }
+    #point_details{
+      display: none;
+    }
 }
