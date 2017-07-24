@@ -15,15 +15,23 @@ input[type=radio]:checked + label{
     margin:5px 10px;
 }
 #tod-filter-input{
-    padding-left: 3em;
+    padding-left: 2.5em;
     margin:0 0.25rem 1rem 0.25rem;
 }
 #dow-filter-input article{
     float: left;
-    padding: 0px;
+    padding: 0em;
+}
+#district-filter-input{
+    padding-left: 1em;
 }
 #area-accordion .accordion-content article{
     display: inline-block;
+    padding:0em;
+}
+#area-accordion .accordion-content #precinct-filter-input article{
+    width: 10em;
+    padding:0.1em 0em 0.1em 2.5em;
 }
 .dow-checkbox, .date-checkbox, .district-checkbox, .precinct-checkbox {
   display: none;
@@ -37,7 +45,7 @@ input[type=radio]:checked + label{
     padding:.45em;
 }
 #tod-filter-input article{
-    padding:5px;
+    padding:0em 1.75em 0em 0em;
     float: left;
 }
 .date-checkbox + label{
@@ -56,6 +64,9 @@ input[type=radio]:checked + label{
 .precinct-checkbox + label{
     font-weight: bold;
     opacity: 0.2;
+}
+.district-checkbox + label{
+    margin-left: 1.2em;
 }
 .date-checkbox + label:hover,
 .dow-checkbox + label:hover,
