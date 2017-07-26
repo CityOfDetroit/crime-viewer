@@ -24,7 +24,7 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v9',
     center: [-83.131, 42.350],
     zoom: 10.75
-})
+});
 
 // Socrata details
 const ds = "9i6z-cm98"
@@ -32,10 +32,10 @@ let params = {
   "$where": `incident_timestamp >= '${Helpers.xDaysAgo(28)}'`,
   "$limit": 50000,
   "$select": "crime_id,location,address,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
-}
+};
 
 // make the URL
-let url = Socrata.makeUrl(ds, params)
+let url = Socrata.makeUrl(ds, params);
 
 // load the map
 map.on('load', function() {
@@ -65,9 +65,8 @@ map.on('load', function() {
     let maxTime = _.max(uniqueTimestamps);
 
     // count incidents currently viewing
-    Stats.printCurrentView(data.features, 'details');
-    Stats.printTimeRange(minTime, maxTime, 'details');
-    Stats.printCurrentView(data.features, 'current-view');
+    Stats.printCurrentView(data.features, 'current_view');
+    Stats.printTimeRange(minTime, maxTime, 'current_view');
 
     // populate a table in the Data tab  
     Stats.printAsTable(incidentsByCategory, 'tbody');
@@ -76,13 +75,13 @@ map.on('load', function() {
     Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
     // load the source data and point, highlight styles
-    Init.initialLoad(map, data)
+    Init.initialLoad(map, data);
     
     map.on('mousedown', function(e) {
         var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
         if(features.length > 0) {
-          console.log(features)
-          map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id])
+          console.log(features);
+          map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
           Stats.printPointDetails(features, 'point_details');
         }
     });
@@ -109,7 +108,7 @@ map.on('load', function() {
       Object.entries(mapFilter).forEach(([k,v]) => {
         if (v.length < 1) { return }
         else { filteredData.features = Filter.filterFeatures(filteredData.features, k, v) }
-      })
+      });
       map.getSource('incidents').setData(filteredData);
 
       // refresh counts to redraw chart and tables
@@ -122,12 +121,11 @@ map.on('load', function() {
       // log data that's in the view port
       let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
 
-      // refresh count of current incidents for sidebar and popup
+      // refresh count of current incidents
       Stats.printCurrentView(filteredData.features, 'current-view');
-      Stats.printCurrentView(filteredData.features, 'details');
-      Stats.printTimeRange(minTime, maxTime, 'details');
+      Stats.printTimeRange(minTime, maxTime, 'current-view');
       console.log(filteredData);
-    })
+    });
 
     document.getElementById('locate').addEventListener('keypress', e => {
       if (e.key == 'Enter') {
@@ -137,13 +135,13 @@ map.on('load', function() {
           Locate.panToLatLng(result, map)
         })
       }
-    })
+    });
 
     jQuery('input[type=radio][name=currentArea]').change(function() {
       Boundary.changeBoundary(map, Boundary.boundaries[this.value])
       let incidentsByCurrentArea = Stats.countByKey(data.features, `properties.${this.value}`)
       Stats.printAsChart(incidentsByCurrentArea, '.ct-chart');
-    })
+    });
 
   })
   .catch(e => console.log("Booo", e));
@@ -161,13 +159,13 @@ jQuery(document).ready(function() {
   //initiate scrollbar
   jQuery('.scrollbar-macosx').scrollbar();
   jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
-  jQuery(window).resize(function () {
+  jQuery(window).resize(function() {
     currentHeight = jQuery('#menu').height() - jQuery('.logo').height() - jQuery('.search').height() - jQuery('.tab-links').height();
     jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
   });
   
   //Tab Switch Function
-  jQuery('.tabs .tab-links a').on('click', function(e)  {
+  jQuery('.tabs .tab-links a').on('click', function(e) {
       var currentAttrValue = jQuery(this).attr('href');
     
     // Show/Hide Tabs
@@ -185,6 +183,7 @@ jQuery(document).ready(function() {
       singleOpen: false,
       autoHeight: false
     });
+
   jQuery('#area-accordion, #area-accordion [data-accordion]').accordion(
     {
       singleOpen: true,
@@ -192,7 +191,7 @@ jQuery(document).ready(function() {
     });
 
   //close disclaimer box
-  jQuery('.disclaimer-close img').click(function(){
+  jQuery('.disclaimer-close img').click(function() {
     jQuery('.disclaimer').fadeOut();
   });
 

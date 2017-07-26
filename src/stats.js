@@ -143,7 +143,7 @@ const Stats = {
     detail.appendChild(p);
 
     let p2 = document.createElement("p");
-    p2.innerHTML = "<strong>" + "Date & Time: " + "</strong>" + moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a");
+    p2.innerHTML = "<strong>" + "Date & Time: " + "</strong>" + moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a");
     detail.appendChild(p2);
 
     let p3 = document.createElement("p");
