@@ -90,19 +90,19 @@
 									<div data-content="" id="tod-filter-input">
 										<article>
 											<input type="checkbox" id="morning-check" class="date-checkbox" name=""/>
-											<label for="morning-check"><img src="./img/morning.svg" alt=""/><span>Morning</span></label>
+											<label for="morning-check"><img src="./img/morning.svg" alt=""/><span>5AM - 10AM</span></label>
 										</article>
 										<article>
 											<input type="checkbox" id="afternoon-check" class="date-checkbox" name=""/>
-											<label for="afternoon-check"><img src="./img/cloudsun.svg" alt=""/><span>Afternoon</span></label>
+											<label for="afternoon-check"><img src="./img/cloudsun.svg" alt=""/><span>11AM - 4PM</span></label>
 										</article>
 										<article>
 											<input type="checkbox" id="evening-check" class="date-checkbox" name=""/>
-											<label for="evening-check"><img src="./img/mooncloud.svg" alt=""/><span>Evening</span></label>
+											<label for="evening-check"><img src="./img/mooncloud.svg" alt=""/><span>5PM - 10PM</span></label>
 										</article>
 										<article>
 											<input type="checkbox" id="overnight-check" class="date-checkbox" name=""/>
-											<label for="overnight-check"><img src="./img/overnight.svg" alt=""/><span>Overnight</span></label>
+											<label for="overnight-check"><img src="./img/overnight.svg" alt=""/><span>11PM - 4AM</span></label>
 										</article>
 									</div>
 								</article>
@@ -114,11 +114,11 @@
 								<article data-accordion="">
 									<button data-control="" class="second-header">
 										<div>
-											<input type="radio" id="area-council-district" name="currentArea" value="council_district">
+											<input type="radio" id="area-council-district" name="currentArea" value="council_district" checked="checked">
 											<label for="area-council-district">Council Districts</label>
 										</div>
 									</button>
-									<div data-content="">
+									<div data-content="" id="district-filter-input">
 										<article>
 											<input type="checkbox" id="district-1-check" class="district-checkbox" name=""/>
 											<label for="district-1-check">District 1</label>
@@ -156,7 +156,7 @@
 											<label for="area-precinct">Precincts</label>
 										</div>
 									</button>
-									<div data-content="">
+									<div data-content="" id="precinct-filter-input">
 										<article>
 											<input type="checkbox" id="precinct-2-check" name="" class="precinct-checkbox"/>
 											<label for="precinct-2-check">2nd Precinct</label>
@@ -206,12 +206,11 @@
 							</div>
 						</section>
 					</section>
-					<div id="details">
-						<!-- <h3>Point Details:</h3> -->
+					<div id="apply_filters">
+						<button>Apply Filters</button>
 					</div>
 				</div>
 				<div class="tab" id="tab2">
-					<div id="current-view"></div>
 					<div id="time-range"></div>
 					<p class="chart-title"><strong>Total Incidents by Selected Area</strong></p>
 					<div class="ct-chart"></div>
@@ -235,6 +234,10 @@
 			</div>
 		</div>
 	</nav><!--Map-->
+	<div id="details">
+		<div id="current_view"></div>
+		<div id="point_details"></div>
+	</div>
 	<div id='map'>
 		<div class="disclaimer">
 			<p><strong>Disclaimer:</strong><br/>In order to protect the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See ABOUT to learn more.</p>
