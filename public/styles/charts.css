@@ -3,5 +3,9 @@
 }
 
 .chart-title {
-  text-align: center;
+  text-align: left;
+}
+
+.ct-chart .ct-bar {
+  stroke: #4169E1;
 }

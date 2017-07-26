@@ -64,9 +64,10 @@ map.on('load', function() {
     let minTime = _.min(uniqueTimestamps);
     let maxTime = _.max(uniqueTimestamps);
 
-    // count incidents for currently viewing
+    // count incidents currently viewing
     Stats.printCurrentView(data.features, 'details');
     Stats.printTimeRange(minTime, maxTime, 'details');
+    Stats.printCurrentView(data.features, 'current-view');
 
     // populate a table in the Data tab  
     Stats.printAsTable(incidentsByCategory, 'tbody');
@@ -124,6 +125,8 @@ map.on('load', function() {
         let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
 
         // refresh count of current incidents
+        Stats.printCurrentView(filteredData.features, 'details');
+        Stats.printTimeRange(minTime, maxTime, 'details');
         Stats.printCurrentView(filteredData.features, 'current-view');
         console.log(filteredData);
       }

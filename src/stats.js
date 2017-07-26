@@ -97,12 +97,7 @@ const Stats = {
    */
   printCurrentView: function(features, divId) {
     let current_view = document.getElementById(divId);
-
-    //current_view.innerHTML = '';
-
-    //let div = document.createElement("div");
     current_view.innerHTML = "<h3>" + "Current View" + "</h3><p>" + numeral(features.length).format('0,0') + " Crime Incidents</p>";
-    //current_view.appendChild(div);
 
     return current_view;
   },
@@ -140,7 +135,7 @@ const Stats = {
     detail.appendChild(span);
 
     let h3 = document.createElement("h3");
-    h3.innerHTML = "POINT DETAILS";
+    h3.innerHTML = "Point Details";
     detail.appendChild(h3);
 
     let p = document.createElement("p");
