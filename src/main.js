@@ -78,70 +78,68 @@ map.on('load', function() {
     // load the source data and point, highlight styles
     Init.initialLoad(map, data)
     
-    map.on('mousedown', function (e) {
+    map.on('mousedown', function(e) {
         var features = map.queryRenderedFeatures(e.point, {layers: ['incidents_point']});
-        if(features.length > 0){
+        if(features.length > 0) {
           console.log(features)
           map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id])
-          Stats.printPointDetails(features, 'details');
+          Stats.printPointDetails(features, 'point_details');
         }
     });
 
-    map.on('mouseenter', 'incidents_point', function (e) {
+    map.on('mouseenter', 'incidents_point', function(e) {
         map.getCanvas().style.cursor = 'pointer'
     });
 
-    map.on('mouseout', 'incidents_point', function (e) {
+    map.on('mouseout', 'incidents_point', function(e) {
         map.getCanvas().style.cursor = ''
     });
 
     // quick filter refresh in lieu of actual button
-    document.onkeypress = function (e) {
-      if(e.keyCode == 96) {
-        console.log(data);
+    document.getElementById('apply_filters').addEventListener('mousedown', function() {
+      console.log(data);
 
-        // construct the filterObject
-        let mapFilter = Filter.readInput()[0];
+      // construct the filterObject
+      let mapFilter = Filter.readInput()[0];
 
-        // make a copy of the Socrata data
-        let filteredData = _.cloneDeep(data);
+      // make a copy of the Socrata data
+      let filteredData = _.cloneDeep(data);
 
-        // iterate through the filter object and pare down
-        Object.entries(mapFilter).forEach(([k,v]) => {
-          if(v.length < 1) { return }
-          else { filteredData.features = Filter.filterFeatures(filteredData.features, k, v) }
-        })
-        map.getSource('incidents').setData(filteredData)
+      // iterate through the filter object and pare down
+      Object.entries(mapFilter).forEach(([k,v]) => {
+        if (v.length < 1) { return }
+        else { filteredData.features = Filter.filterFeatures(filteredData.features, k, v) }
+      })
+      map.getSource('incidents').setData(filteredData);
 
-        // offense category count refresh
-        let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
-        Stats.printAsTable(incidentsByCategory, 'tbody');
+      // refresh counts to redraw chart and tables
+      let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
+      Stats.printAsTable(incidentsByCategory, 'tbody');
 
-        // current area refresh
-        let incidentsByCouncilDistrict = Stats.countByKey(filteredData.features, 'properties.council_district');
-        Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
+      let incidentsByCouncilDistrict = Stats.countByKey(filteredData.features, 'properties.council_district');
+      Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
 
-        // log data that's in the view port
-        let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
+      // log data that's in the view port
+      let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
 
-        // refresh count of current incidents
-        Stats.printCurrentView(filteredData.features, 'details');
-        Stats.printTimeRange(minTime, maxTime, 'details');
-        Stats.printCurrentView(filteredData.features, 'current-view');
-        console.log(filteredData);
-      }
-    };
-
-    document.getElementById('locate').addEventListener('keypress', e => {
-      if(e.key == 'Enter'){
-      Locate.geocodeAddress(e.target.value).then(result => {
-        let coords = result['candidates'][0]['location']
-        console.log(Locate.identifyBounds(coords))
-        Locate.panToLatLng(result, map)
-      })}
+      // refresh count of current incidents for sidebar and popup
+      Stats.printCurrentView(filteredData.features, 'current-view');
+      Stats.printCurrentView(filteredData.features, 'details');
+      Stats.printTimeRange(minTime, maxTime, 'details');
+      console.log(filteredData);
     })
 
-    jQuery('input[type=radio][name=currentArea]').change(function(){
+    document.getElementById('locate').addEventListener('keypress', e => {
+      if (e.key == 'Enter') {
+        Locate.geocodeAddress(e.target.value).then(result => {
+          let coords = result['candidates'][0]['location']
+          console.log(Locate.identifyBounds(coords))
+          Locate.panToLatLng(result, map)
+        })
+      }
+    })
+
+    jQuery('input[type=radio][name=currentArea]').change(function() {
       Boundary.changeBoundary(map, Boundary.boundaries[this.value])
       let incidentsByCurrentArea = Stats.countByKey(data.features, `properties.${this.value}`)
       Stats.printAsChart(incidentsByCurrentArea, '.ct-chart');
@@ -149,7 +147,7 @@ map.on('load', function() {
 
   })
   .catch(e => console.log("Booo", e));
-
+  
 });
 
 jQuery(document).ready(function() {
@@ -182,9 +180,14 @@ jQuery(document).ready(function() {
   });
 
   //initialize accordion
-  jQuery('#filters-accordion [data-accordion]').accordion(
+  jQuery('#categories-accordion, #categories-accordion [data-accordion], #time-accordion, #time-accordion [data-accordion]').accordion(
     {
       singleOpen: false,
+      autoHeight: false
+    });
+  jQuery('#area-accordion, #area-accordion [data-accordion]').accordion(
+    {
+      singleOpen: true,
       autoHeight: false
     });
 
