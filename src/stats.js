@@ -152,12 +152,16 @@ const Stats = {
    */
   printFilteredView: function(features, humanFilter, divId) {
     let filtered_view = document.getElementById(divId);
-    filtered_view.innerHTML = `
-    <p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:
-      <ul>
-      ${humanFilter.map(f => `<li>${f}</li>`).join("")}
-      </ul></p>
-    `
+    let string = humanFilter.map(f => `<li>${f}</li>`).join("")
+    if (humanFilter.length > 0) {
+      filtered_view.innerHTML = `
+      <p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:
+        <ul>
+        ${humanFilter.map(f => `<li>${f}</li>`).join("")}
+        </ul></p>
+      `
+    }
+    else { filtered_view.innerHTML = '' }
     return filtered_view;
   },
 

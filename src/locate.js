@@ -23,9 +23,10 @@ const Locate = {
    * @returns {something}
    */
   identifyBounds: function(coords) {
-    const boundsEndpoint = 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/identify?'
+    const boundsEndpoint = 'http://gis.detroitmi.gov/arcgis/rest/services/DoIT/BoundsCheck/MapServer/identify?'
     let params = {
       'geometry': `${coords.x}, ${coords.y}`,
+      'sr': 4326,
       'layers': 'all',
       // this is a hack, but wygd. Where Y'at does the same thing.
       'mapExtent': `${coords.x - 0.01}, ${coords.y - 0.01}, ${coords.x + 0.01}, ${coords.y + 0.01}`,
