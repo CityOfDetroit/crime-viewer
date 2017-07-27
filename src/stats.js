@@ -152,20 +152,23 @@ const Stats = {
    */
   printFilteredView: function(features, humanFilter, divId) {
     let filtered_view = document.getElementById(divId);
-    console.log(humanFilter)
-    if (_.flatten(Object.values(humanFilter)).length == 0) {
-      filtered_view.innerHTML = '';
+    if (_.flatten(Object.values(humanFilter)).length == 0) {let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
+      jQuery('#filtered_view').fadeOut(550);
+      jQuery('#details').animate({height: currentViewHeight}, {complete:function(){jQuery('#filtered_view').empty()}}); 
       return filtered_view;
     }
     else {
-      let html = `<p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
+      let html = `<hr><p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
       Object.entries(humanFilter).forEach(e => {
         if(e[1].length > 0) {
           html += `<li>${Helpers.toSentenceCase(e[0])}: ${e[1].join(", ")}`
         }
       })
       html += '</ul>'
-      filtered_view.innerHTML = html
+      filtered_view.innerHTML = html;
+      jQuery('#filtered_view').fadeIn(500, function(){});
+      let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
+      jQuery('#details').animate({height: currentViewHeight}, {complete:function(){}});
       return filtered_view;
     }
   },
@@ -227,15 +230,15 @@ const Stats = {
     detail.appendChild(p5);
    
     //extend height of current view div to include new point details
-    let currentViewHeight = jQuery('#current_view').height() + jQuery('#point_details').height() + 10;
+    let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
     //fadeIn point details
     jQuery('#details').animate({height: currentViewHeight}, {complete:function(){jQuery('#point_details').fadeIn()}});
       //close point details
       jQuery('#point_details .disclaimer-close img').click(function(){
         //fade out closed point data
-        jQuery('#point_details').fadeOut();
+        jQuery('#point_details').fadeOut(500, function(){jQuery(this).empty()});
         //resize div to height of current view div
-        let currentViewHeight = jQuery('#current_view').height() + 7;
+        let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + 15;
         jQuery('#details').animate({
           height: currentViewHeight
         });
