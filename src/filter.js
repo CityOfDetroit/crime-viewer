@@ -32,7 +32,7 @@ const Filter = {
       let human = ""
       if(elem.checked) {
         let type = elem.id.split('-')[0]
-        filterHuman.crime.push(Data.offenses[type][0]['top'])
+        filterHuman.categories.push(Data.offenses[type][0]['top'])
         Data.offenses[type].forEach(o => {
           filterObject['state_offense_code'] = filterObject['state_offense_code'].concat(o['state_codes'])
         })
