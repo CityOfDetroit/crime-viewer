@@ -1,9 +1,10 @@
 import _ from 'lodash';
-import Chartist from 'chartist';
 import moment from 'moment';
 import numeral from 'numeral';
+import Highcharts from 'highcharts';
 
 import Helpers from './helpers.js';
+import Data from './data.js';
 
 const Stats = {
   /**
@@ -48,7 +49,7 @@ const Stats = {
     // make a table row for every key/value pair
     for (var key in summaryStats) {
       let tr = "<tr>";         
-      tr += "<td>" + Helpers.toSentenceCase(key) + "</td>" + "<td>" + summaryStats[key] + "</td></tr>";
+      tr += "<td>" + Helpers.toSentenceCase(key) + "</td>" + "<td>" + numeral(summaryStats[key]).format('0,0') + "</td></tr>";
       
       tbody.innerHTML += tr;
     }
@@ -56,37 +57,75 @@ const Stats = {
     return tbody;
   },
 
-  /** 
-   * Create a simple bar chart from a stats object
-   * @param {obj}
-   * @param {string} - chart classname
-   * @returns {} - Chartist Bar chart
+  /**
+   * Prints a column chart
+   * Ref http://api.highcharts.com/highcharts
    */
-  printAsChart: function(summaryStats, chartClass) {
+  printAsHighchart: function(arr, key, chartId) {
+    // prep the data
+    let summaryStats = _.countBy(arr, key);
     summaryStats = _.omit(summaryStats, "null");
 
     let properties = Object.keys(summaryStats);
     let counts = Object.keys(summaryStats).map(function(e) {
       return summaryStats[e];
     });
+    
+    // lookup human-readable field name
+    key = Data.fields[key];
 
-    // don't hard code this in the future
-    let labeledproperties = properties.map(function(e) {
-      return e;
-      // return "D" + e;
+    // define the chart
+    let chart = Highcharts.chart({ 
+      chart: {
+        renderTo: chartId,
+        type: 'column',
+        style: {
+          fontFamily: 'inherit'
+        }
+      },
+      colors: ['#4059CD'],
+      title: {
+        text: '<b>Crime Incidents by ' + key + '</b>',
+        style: {
+          fontSize: 16
+        }
+      },
+      xAxis: {
+        categories: properties,
+        title: {
+          text: key
+        }
+      },
+      yAxis: {
+        title: {
+          enabled: false
+        },
+        labels: {
+          formatter: function() {
+            return numeral(this.value).format('0a');
+          }
+        }
+      },
+      tooltip: {
+        borderWidth: 1,
+        borderColor: 'white',
+        formatter: function() {
+          return numeral(this.y).format('0,0') + ' ' + this.series.name;
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Incidents',
+        data: counts
+      }]
     });
 
-    let data = {
-      labels: labeledproperties,
-      series: [counts]
-    };
-
-    let options = {
-      width: 300,
-      height: 200
-    };
-
-    return new Chartist.Bar(chartClass, data, options);
+    return chart
   },
 
   /** 

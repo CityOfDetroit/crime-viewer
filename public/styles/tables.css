@@ -6,6 +6,10 @@ tr {
   font-size: small;
 }
 
+tr td {
+  border-bottom: .4px solid #DCDCDC;
+}
+
 table td,
 table th
 {

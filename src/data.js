@@ -81,6 +81,11 @@ const Data = {
       { name: 'FRAUD', state_codes: ['2601', '2602', '2603', '3072'], top: 'Other Crimes', color: 'rgb(239,166,255)' },
       { name: 'KIDNAPPING', state_codes: ['1001', '1002'], top: 'Other Crimes', color: 'rgb(178,29,28)' }
     ]
+  },
+
+  fields: {
+    'properties.council_district': 'Council District',
+    'properties.precinct': 'Precinct'
   }
 };
 

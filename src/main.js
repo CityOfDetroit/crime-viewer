@@ -72,7 +72,7 @@ map.on('load', function() {
     Stats.printAsTable(incidentsByCategory, 'tbody');
     
     // populate a bar chart in the Data tab
-    Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
+    Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
 
     // load the source data and point, highlight styles
     Init.initialLoad(map, data);
@@ -115,15 +115,15 @@ map.on('load', function() {
       let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
       Stats.printAsTable(incidentsByCategory, 'tbody');
 
-      let incidentsByCouncilDistrict = Stats.countByKey(filteredData.features, 'properties.council_district');
-      Stats.printAsChart(incidentsByCouncilDistrict, '.ct-chart');
+      // let incidentsByCouncilDistrict = Stats.countByKey(filteredData.features, 'properties.council_district');
+      // Stats.printAsHighchart(filteredData.features, 'properties.council_district', 'chart-container');
 
       // log data that's in the view port
       let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
 
       // refresh count of current incidents
-      Stats.printCurrentView(filteredData.features, 'current-view');
-      Stats.printTimeRange(minTime, maxTime, 'current-view');
+      Stats.printCurrentView(filteredData.features, 'current_view');
+      Stats.printTimeRange(minTime, maxTime, 'current_view');
       console.log(filteredData);
     });
 
