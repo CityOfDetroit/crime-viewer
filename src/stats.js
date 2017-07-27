@@ -154,18 +154,20 @@ const Stats = {
     let filtered_view = document.getElementById(divId);
     console.log(humanFilter)
     if (_.flatten(Object.values(humanFilter)).length == 0) {
-      filtered_view.innerHTML = ''
-      return filtered_view
+      filtered_view.innerHTML = '';
+      return filtered_view;
     }
-    let html = `<p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
-    Object.entries(humanFilter).forEach(e => {
-      if(e[1].length > 0) {
-        html += `<li>${Helpers.toSentenceCase(e[0])}: ${e[1].join(", ")}`
-      }
-    })
-    html += '</ul>'
-    filtered_view.innerHTML = html
-    return filtered_view;
+    else {
+      let html = `<p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
+      Object.entries(humanFilter).forEach(e => {
+        if(e[1].length > 0) {
+          html += `<li>${Helpers.toSentenceCase(e[0])}: ${e[1].join(", ")}`
+        }
+      })
+      html += '</ul>'
+      filtered_view.innerHTML = html
+      return filtered_view;
+    }
   },
 
   // /** 
