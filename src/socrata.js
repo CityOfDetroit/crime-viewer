@@ -1,8 +1,8 @@
 const Socrata = {
   /**
    * Formats a geojson url for Socrata
-   * @param {string} - dataset 4x4 id
-   * @param {obj} - query params accepted by Socrata like where and limit
+   * @param {string} ds Socrata 4x4 ID
+   * @param {obj} params Socrata params: $where, $limit, etc
    * @returns {string}
    */
   makeUrl: function(ds, params) {
@@ -15,7 +15,7 @@ const Socrata = {
 
   /** 
    * Fetches geojson data from Socrata
-   * @param {string}
+   * @param {string} url the URL from makeUrl to fetch from Socrata
    * @returns {Promise} - json formatted data
    */
   fetchData: function(url) {

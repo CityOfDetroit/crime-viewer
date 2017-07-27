@@ -48,8 +48,8 @@ const Init = {
                 "circle-radius": {
                     'base': 1.25,
                     'stops': [
-                        [8, 1.5],
-                        [19, 6]
+                        [8, 2.5],
+                        [19, 8]
                     ]
                 },
                 "circle-opacity": {
