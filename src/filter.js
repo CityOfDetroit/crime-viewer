@@ -22,7 +22,7 @@ const Filter = {
 
     }
     let filterHuman = {
-      "crime": [],
+      "categories": [],
       "time": [],
       "area": []
     }
