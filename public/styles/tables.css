@@ -1,19 +1,17 @@
 table {
   width: 100%;
+  border-spacing: 0px;
 }
 
 tr {
   font-size: small;
 }
 
-tr td {
-  border-bottom: .4px solid #DCDCDC;
-}
-
 table td,
 table th
 {
   text-align:left;
+  padding: 1px 5px;
 }
 
 #right,
@@ -21,4 +19,8 @@ table td + td,
 table th + th
 {
   text-align:right;
+}
+
+tr:nth-child(even) {
+  background-color: #ddd;
 }
