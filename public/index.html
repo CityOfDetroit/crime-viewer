@@ -109,13 +109,9 @@
 						<section data-accordion="" id="area-accordion">
 							<button data-control="" class="accordion-header"><span>Area</span></button>
 							<div data-content="" class="accordion-content">
-								<article data-accordion="">
-									<button data-control="" class="second-header">
-										<div>
-											<input type="radio" id="area-council-district" name="currentArea" value="council_district" checked="checked">
+								<article class="accordion open" data-accordion="">
+											<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
 											<label for="area-council-district">Council Districts</label>
-										</div>
-									</button>
 									<div data-content="" id="district-filter-input">
 										<article>
 											<input type="checkbox" id="district-1-check" class="district-checkbox" name=""/>
@@ -148,12 +144,8 @@
 									</div>
 								</article>
 								<article data-accordion="">
-									<button data-control="" class="second-header">
-										<div>
-											<input type="radio" id="area-precinct" name="currentArea" value="precinct">
+											<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
 											<label for="area-precinct">Precincts</label>
-										</div>
-									</button>
 									<div data-content="" id="precinct-filter-input">
 										<article>
 											<input type="checkbox" id="precinct-2-check" name="" class="precinct-checkbox"/>
@@ -237,8 +229,7 @@
 	</div>
 	<div id='map'>
 		<div class="disclaimer">
-			<p><strong>Disclaimer:</strong><br/>In order to protect the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See ABOUT to learn more.</p>
-			<span class="disclaimer-close"><img src="./img/close.svg"></span>
+			<p><span class="disclaimer-close"><img src="./img/close.svg"></span><strong>Disclaimer:</strong><br/>In order to protect the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See ABOUT to learn more.</p>
 		</div>
 	</div>
 	<script src="./bundle.js"></script>
