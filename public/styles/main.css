@@ -184,12 +184,10 @@ body:after{
    }
    .disclaimer-close{
       font-weight: bold;
-      position: absolute;
-      top: 5px;
-      right: 7px;
-   }
-   #details .disclaimer-close{
-      top: 90px;
+      position: relative;
+      top: 0;
+      right: 0.25em;
+      float: right;
    }
    .disclaimer-close img{
       cursor: pointer;
