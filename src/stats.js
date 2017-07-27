@@ -146,22 +146,21 @@ const Stats = {
   /** 
    * Prints current view
    * @param {array} features list of features
-   * @param {array} humanFilter array of filter strings
+   * @param {object} humanFilter object of filter strings
    * @param {string} divId html div id
    * @returns {}
    */
   printFilteredView: function(features, humanFilter, divId) {
     let filtered_view = document.getElementById(divId);
-    let string = humanFilter.map(f => `<li>${f}</li>`).join("")
-    if (humanFilter.length > 0) {
-      filtered_view.innerHTML = `
-      <p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:
-        <ul>
-        ${humanFilter.map(f => `<li>${f}</li>`).join("")}
-        </ul></p>
-      `
-    }
-    else { filtered_view.innerHTML = '' }
+    console.log(humanFilter)
+    let html = `<p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
+    Object.entries(humanFilter).forEach(e => {
+      if(e[1].length > 0) {
+        html += `<li>${Helpers.toSentenceCase(e[0])}: ${e[1].join(", ")}`
+      }
+    })
+    html += '</ul>'
+    filtered_view.innerHTML = html
     return filtered_view;
   },
 

@@ -21,8 +21,8 @@ function computeColors() {
 const Init = {
     /**
      * Adds a new Mapbox GL source and two styles to the map.
-     * @param {map} - a mapboxgl.Map instance
-     * @param {obj} - a GeoJSON to be displayed on the map
+     * @param {map} map a mapboxgl.Map instance
+     * @param {obj} data GeoJSON to be displayed on the map
      * @returns {undefined}
      */
     initialLoad: function (map, data) {
