@@ -21,9 +21,7 @@ const Filter = {
       'council_district': [],
 
     }
-    let filterHuman = [
-      "Currently viewing",
-    ]
+    let filterHuman = []
     const categoryInputs = ['violent-check', 'property-check', 'other-check']
     categoryInputs.forEach(i => {
       let elem = document.getElementById(i)
@@ -71,7 +69,7 @@ const Filter = {
       }
     })
 
-    return [filterObject, filterHuman.join(", ")]
+    return [filterObject, filterHuman]
   },
 
   getUniqueFeatures: function(array, comparatorProperty) {

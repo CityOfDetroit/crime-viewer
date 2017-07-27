@@ -129,30 +129,50 @@ const Stats = {
   },
 
   /** 
-   * Prints current view
+   * Prints loaded view
    * @param {array} - list of features
    * @param {string} - html div id
    * @returns {}
    */
-  printCurrentView: function(features, divId) {
-    let current_view = document.getElementById(divId);
-    current_view.innerHTML = "<h3>" + "Current View" + "</h3><p>" + numeral(features.length).format('0,0') + " Crime Incidents</p>";
-
-    return current_view;
+  printLoadedView: function(features, timeA, timeB, divId) {
+    let loaded_view = document.getElementById(divId);
+    loaded_view.innerHTML = `<p>
+      <b>${numeral(features.length).format('0,0')}</b> incidents occurred between
+      <b>${moment(timeA).format("MM/DD/YY")}</b>
+      and <b>${moment(timeB).format("MM/DD/YY")}</b>.`    
+      return loaded_view;
   },
 
   /** 
-   * Prints time range
+   * Prints current view
+   * @param {array} features list of features
+   * @param {array} humanFilter array of filter strings
+   * @param {string} divId html div id
+   * @returns {}
    */
-  printTimeRange: function(timeA, timeB, divId) {
-    let time_range = document.getElementById(divId);
-
-    let p = document.createElement("p");
-    p.innerHTML = moment(timeA).format("MM/DD/YY") + " to " + moment(timeB).format("MM/DD/YY");
-    time_range.appendChild(p);
-
-    return time_range;
+  printFilteredView: function(features, humanFilter, divId) {
+    let filtered_view = document.getElementById(divId);
+    filtered_view.innerHTML = `
+    <p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:
+      <ul>
+      ${humanFilter.map(f => `<li>${f}</li>`).join("")}
+      </ul></p>
+    `
+    return filtered_view;
   },
+
+  // /** 
+  //  * Prints time range
+  //  */
+  // printTimeRange: function(timeA, timeB, divId) {
+  //   let time_range = document.getElementById(divId);
+
+  //   let p = document.createElement("p");
+  //   p.innerHTML = moment(timeA).format("MM/DD/YY") + " to " + moment(timeB).format("MM/DD/YY");
+  //   time_range.appendChild(p);
+
+  //   return time_range;
+  // },
 
   /** 
    * Display details of point on the map

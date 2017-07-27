@@ -54,6 +54,7 @@ map.on('load', function() {
   Socrata.fetchData(url).then(data => {
     console.log(data);
 
+
     // calculate some summary stats
     let totalIncidents = Stats.countFeatures(data.features);
     let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
@@ -65,8 +66,7 @@ map.on('load', function() {
     let maxTime = _.max(uniqueTimestamps);
 
     // count incidents currently viewing
-    Stats.printCurrentView(data.features, 'current_view');
-    Stats.printTimeRange(minTime, maxTime, 'current_view');
+    Stats.printLoadedView(data.features, minTime, maxTime, 'loaded_view');
 
     // populate a table in the Data tab  
     Stats.printAsTable(incidentsByCategory, 'tbody');
@@ -122,8 +122,7 @@ map.on('load', function() {
       let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
 
       // refresh count of current incidents
-      Stats.printCurrentView(filteredData.features, 'current_view');
-      Stats.printTimeRange(minTime, maxTime, 'current_view');
+      Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
       console.log(filteredData);
     });
 

@@ -142,7 +142,7 @@ body:after{
   bottom: 1em;
 }
 
-#details h3{
+ #details h3{
   text-decoration: none;
   font-size: 0.9em;
   margin: 2px;
@@ -151,7 +151,7 @@ body:after{
 #details p{
   font-size: small;
   margin: 5px;
-}
+} 
 
 @media screen and (min-width: 800px) {
    #menu{

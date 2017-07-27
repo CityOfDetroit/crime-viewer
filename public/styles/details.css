@@ -7,12 +7,21 @@
   font-size: 1em;
 }
 
-#details p {
+#details ul {
+  margin: 5px 1px;
+}
+
+#details li {
   font-size: small;
 }
 
-#current-view p {
+#filtered_view p {
   text-align: left;
+}
+
+#loaded_view p {
+  text-align: left;
+  color: #666;
 }
 
 #time-range p {
