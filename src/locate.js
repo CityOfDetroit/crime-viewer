@@ -19,7 +19,7 @@ const Locate = {
   },
   /**
    * Take a LatLng and toss it against a MapServer/identify to see what polys it falls in.
-   * @param {object} - a coordinate object with x/y
+   * @param {object} coords a coordinate object with x/y
    * @returns {something}
    */
   identifyBounds: function(coords) {
