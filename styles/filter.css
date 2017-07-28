@@ -6,6 +6,10 @@ input[type=radio] + label {
     cursor: pointer;
     width: 100%;
     opacity: 0.5;
+    font-size: 14px;
+    font-weight: bold;
+    padding:10px 40px 10px 1.5em;
+    display: inline-block;
 }
 
 input[type=radio]:checked + label{

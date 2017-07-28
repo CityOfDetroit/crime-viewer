@@ -5,11 +5,9 @@
 	<title>Detroit Neighborhood Compstat</title>
 	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet'>
-	<link href="./styles/chartist.css" rel="stylesheet">
 	<link href='./styles/jquery.accordion.css' rel='stylesheet'>
 	<link href='./styles/jquery.scrollbar.css' rel='stylesheet'>
 	<link href='./styles/tables.css' rel='stylesheet'>
-	<link href='./styles/charts.css' rel='stylesheet'>
 	<link href='./styles/accordion.css' rel='stylesheet'>
 	<link href='./styles/tabs.css' rel='stylesheet'>
 	<link href='./styles/details.css' rel='stylesheet'>
@@ -34,7 +32,7 @@
 					<a href="#tab1">Filters</a>
 				</li>
 				<li>
-					<a href="#tab2">Data</a>
+					<a href="#tab2">Stats</a>
 				</li>
 				<li>
 					<a href="#tab3">About</a>
@@ -111,13 +109,9 @@
 						<section data-accordion="" id="area-accordion">
 							<button data-control="" class="accordion-header"><span>Area</span></button>
 							<div data-content="" class="accordion-content">
-								<article data-accordion="">
-									<button data-control="" class="second-header">
-										<div>
-											<input type="radio" id="area-council-district" name="currentArea" value="council_district" checked="checked">
+								<article class="accordion open" data-accordion="">
+											<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
 											<label for="area-council-district">Council Districts</label>
-										</div>
-									</button>
 									<div data-content="" id="district-filter-input">
 										<article>
 											<input type="checkbox" id="district-1-check" class="district-checkbox" name=""/>
@@ -150,12 +144,8 @@
 									</div>
 								</article>
 								<article data-accordion="">
-									<button data-control="" class="second-header">
-										<div>
-											<input type="radio" id="area-precinct" name="currentArea" value="precinct">
+											<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
 											<label for="area-precinct">Precincts</label>
-										</div>
-									</button>
 									<div data-content="" id="precinct-filter-input">
 										<article>
 											<input type="checkbox" id="precinct-2-check" name="" class="precinct-checkbox"/>
@@ -211,13 +201,12 @@
 					</div>
 				</div>
 				<div class="tab" id="tab2">
-					<div id="time-range"></div>
-					<p class="chart-title"><strong>Total Incidents by Selected Area</strong></p>
-					<div class="ct-chart"></div>
-					<p class="chart-title"><strong>Total Incidents by Offense Type</strong></p>
+					<div id="chart-container" style="width:100%; height:350px;"></div>
+					<h4 style="text-align:center;">Crime Incidents by Offense Type</h4>
 					<table>
 						<tbody id="tbody"></tbody>
 					</table>
+					<p style="font-size:smaller;">*Statistics displayed here respond to your selected filters and reflect the number of incidents currently displayed on the map.</p>
 				</div>
 				<div class="tab" id="tab3">
 					<p><strong>Welcome to Neighborhoood Compstat!</strong></p>
@@ -235,13 +224,13 @@
 		</div>
 	</nav><!--Map-->
 	<div id="details">
-		<div id="current_view"></div>
+		<div id="loaded_view"></div>
+		<div id="filtered_view"></div>
 		<div id="point_details"></div>
 	</div>
 	<div id='map'>
 		<div class="disclaimer">
-			<p><strong>Disclaimer:</strong><br/>In order to protect the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See ABOUT to learn more.</p>
-			<span class="disclaimer-close"><img src="./img/close.svg"></span>
+			<p><span class="disclaimer-close"><img src="./img/close.svg"></span><strong>Disclaimer:</strong><br/>In order to protect the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See ABOUT to learn more.</p>
 		</div>
 	</div>
 	<script src="./bundle.js"></script>
