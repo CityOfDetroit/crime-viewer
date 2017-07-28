@@ -64,7 +64,7 @@ const Stats = {
   printAsHighchart: function(arr, key, chartId) {
     // prep the data, don't include strange values like "Precinct HP"
     let summaryStats = _.countBy(arr, key);
-    summaryStats = _.omit(summaryStats, ["null", "HP"]);
+    summaryStats = _.omit(summaryStats, ["null", "HP", "0"]);
 
     let properties = Object.keys(summaryStats).sort();
     let counts = Object.keys(summaryStats).map(function(e) {
