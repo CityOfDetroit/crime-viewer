@@ -129,7 +129,7 @@ body:after{
 	margin-top:2px;
 }
 
-@media screen and (min-width: 800px) {
+/*@media screen and (min-width: 800px) {*/
    #menu{
        width: 23.5em;
    }
@@ -170,4 +170,4 @@ body:after{
       width: 17px;
       height: 17px;
    }
-}
+/*}*/
