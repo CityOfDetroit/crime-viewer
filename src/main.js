@@ -54,11 +54,9 @@ map.on('load', function() {
   Socrata.fetchData(url).then(data => {
     console.log(data);
 
-
     // calculate some summary stats
     let totalIncidents = Stats.countFeatures(data.features);
     let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
-    let incidentsByCouncilDistrict = Stats.countByKey(data.features, 'properties.council_district');
 
     // get the earliest and latest incident dates
     let uniqueTimestamps = [...new Set(data['features'].map(item => item.properties['incident_timestamp']))];
@@ -68,12 +66,10 @@ map.on('load', function() {
     // count incidents currently viewing
     Stats.printLoadedView(data.features, minTime, maxTime, 'loaded_view');
 
-    // populate a table in the Data tab  
+    // populate an initial chart and table in the Stats tab
+    Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
     Stats.printAsTable(incidentsByCategory, 'tbody');
     
-    // populate a bar chart in the Data tab
-    Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
-
     // load the source data and point, highlight styles
     Init.initialLoad(map, data);
     
@@ -111,12 +107,16 @@ map.on('load', function() {
       });
       map.getSource('incidents').setData(filteredData);
 
-      // refresh counts to redraw chart and tables
+      // refresh counts to redraw chart in Stats tab based on selected area filter
+      if (Filter.readInput()[0]['council_district'].length > 0) {
+        Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
+      } else {
+        Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
+      }
+
+      // refresh counts to redraw table in Stats tab
       let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
       Stats.printAsTable(incidentsByCategory, 'tbody');
-
-      // let incidentsByCouncilDistrict = Stats.countByKey(filteredData.features, 'properties.council_district');
-      // Stats.printAsHighchart(filteredData.features, 'properties.council_district', 'chart-container');
 
       // log data that's in the view port
       let visibleData = map.queryRenderedFeatures({layers: ['incidents_point']});
@@ -132,14 +132,14 @@ map.on('load', function() {
           let coords = result['candidates'][0]['location']
           console.log(Locate.identifyBounds(coords))
           Locate.panToLatLng(result, map)
-        })
+        });
       }
     });
 
+    // swap map boundary and chart axis based on selected area
     jQuery('input[type=radio][name=currentArea]').change(function() {
       Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-      let incidentsByCurrentArea = Stats.countByKey(data.features, `properties.${this.value}`)
-      Stats.printAsChart(incidentsByCurrentArea, '.ct-chart');
+      Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
     });
 
   })
