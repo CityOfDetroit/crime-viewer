@@ -2,6 +2,7 @@ var mapboxgl = require('mapbox-gl');
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
+import chroma from 'chroma-js';
 
 global.jQuery = require('jquery');
 require('jq-accordion');
@@ -135,6 +136,12 @@ map.on('load', function() {
         });
       }
     });
+
+    document.onkeypress = function(e) {
+      if (e.keyCode == 96) {
+        console.log(chroma(0,146,212).darken().hex());
+      }
+    }
 
     // swap map boundary and chart axis based on selected area
     jQuery('input[type=radio][name=currentArea]').change(function() {

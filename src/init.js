@@ -1,6 +1,8 @@
 import Data from './data.js';
 import Boundary from './boundary.js';
 import Helpers from './helpers.js';
+
+import chroma from 'chroma-js';
 const $ = require('jquery');
 
 function computeColors() {
@@ -48,8 +50,8 @@ const Init = {
                 "circle-radius": {
                     'base': 1.25,
                     'stops': [
-                        [8, 2.5],
-                        [19, 8]
+                        [8, 3],
+                        [19, 9]
                     ]
                 },
                 "circle-opacity": {
