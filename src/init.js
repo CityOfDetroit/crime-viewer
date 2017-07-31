@@ -33,6 +33,30 @@ const Init = {
             "type": "geojson",
             "data": data
         });
+        map.addLayer({
+            "id": "incidents_highlighted",
+            "source": "incidents",
+            "type": "circle",
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "circle-color": 'rgba(0,0,0,1)',
+                "circle-radius": {
+                    'base': 1.25,
+                    'stops': [
+                        [8, 5.5],
+                        [19, 15]
+                    ]
+                },
+                "circle-opacity": {
+                    'stops': [
+                        [9, 0.15],
+                        [19, 0.5]
+                    ]
+                }
+            }
+        })
         // add a layer
         map.addLayer({
             "id": "incidents_point",
@@ -45,6 +69,7 @@ const Init = {
                 "circle-color": {
                     property: 'state_offense_code',
                     type: 'categorical',
+                    default: '#555',
                     stops: computeColors()
                 },
                 "circle-radius": {
@@ -56,62 +81,21 @@ const Init = {
                 },
                 "circle-opacity": {
                     'stops': [
-                        [9, 0.5],
-                        [19, 1]
-                    ]
-                },
-                "circle-stroke-color": 'rgba(255,255,255,1)',
-                "circle-stroke-opacity": {
-                    'stops': [
-                        [9, 0.25],
-                        [18, 0.75]
-                    ]
-                },
-                "circle-stroke-width": {
-                    'stops': [
-                        [9, 0.5],
-                        [19, 3]
-                    ]
-                }
-            }
-        })
-        map.addLayer({
-            "id": "incidents_highlighted",
-            "source": "incidents",
-            "type": "circle",
-            "layout": {
-                "visibility": "visible"
-            },
-            "paint": {
-                "circle-color": {
-                    property: 'state_offense_code',
-                    type: 'categorical',
-                    stops: computeColors()
-                },
-                "circle-radius": {
-                    'base': 1.25,
-                    'stops': [
-                        [8, 2.5],
-                        [19, 9]
-                    ]
-                },
-                "circle-opacity": {
-                    'stops': [
-                        [9, 0.5],
+                        [9, 0.75],
                         [19, 1]
                     ]
                 },
                 "circle-stroke-color": 'rgba(0,0,0,1)',
                 "circle-stroke-opacity": {
                     'stops': [
-                        [9, 0.25],
-                        [18, 0.75]
+                        [9, 0.2],
+                        [18, 1]
                     ]
                 },
                 "circle-stroke-width": {
                     'stops': [
-                        [9, 2.5],
-                        [19, 8]
+                        [9, 0.2],
+                        [19, 1]
                     ]
                 }
             }
