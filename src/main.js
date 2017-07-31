@@ -84,11 +84,11 @@ map.on('load', function() {
     });
 
     map.on('mouseenter', 'incidents_point', function(e) {
-        map.getCanvas().style.cursor = 'pointer'
+        map.getCanvas().style.cursor = 'crosshair'
     });
 
     map.on('mouseout', 'incidents_point', function(e) {
-        map.getCanvas().style.cursor = ''
+        map.getCanvas().style.cursor = 'pointer'
     });
 
     // quick filter refresh in lieu of actual button
