@@ -13,6 +13,24 @@ const Socrata = {
     return `https://data.detroitmi.gov/resource/${ds}.geojson?${qs}`
   },
 
+  getLatestDate: function() {
+    let ret = []
+    const ds = '9i6z-cm98'
+    let params = {
+      '$order': 'incident_timestamp desc',
+      '$select': 'incident_timestamp',
+      '$limit': 1
+    }
+    for (let p in params)
+      ret.push(p + '=' + encodeURIComponent(params[p]))
+    const qs = ret.join('&')
+    let url = `https://data.detroitmi.gov/resource/${ds}.json?${qs}`
+    return fetch(url).then((r) => {
+      let res = r.json()
+      return res
+    })
+  },
+
   /** 
    * Fetches geojson data from Socrata
    * @param {string} url the URL from makeUrl to fetch from Socrata
