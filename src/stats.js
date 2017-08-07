@@ -46,10 +46,30 @@ const Stats = {
 
     tbody.innerHTML = '';
 
+    // make a single array to lookup color codes by key name
+    let allColorsLookup = [];
+    let propertyColors = Data.offenses['property'];
+    let violentColors = Data.offenses['violent'];
+    let otherColors = Data.offenses['other'];
+    allColorsLookup = allColorsLookup.concat(propertyColors, violentColors, otherColors);
+
     // make a table row for every key/value pair
     for (var key in summaryStats) {
-      let tr = "<tr>";         
-      tr += "<td>" + Helpers.toSentenceCase(key) + "</td>" + "<td>" + numeral(summaryStats[key]).format('0,0') + "</td></tr>";
+      let tr = "<tr>";
+
+      // show each keys unique point color, or black by default
+      let colorIndex = _.findKey(allColorsLookup, { 'name': key });
+      let colorCode = '';
+      if (colorIndex > 0) {
+        colorCode = allColorsLookup[colorIndex].color;
+      } else {
+        colorCode = '#000'
+      }
+
+      let colorPreview = "<div style='background-color:" + colorCode + ";'></div>";
+
+      // make the actual row
+      tr += "<td>" + colorPreview + Helpers.toSentenceCase(key) + "</td>" + "<td>" + numeral(summaryStats[key]).format('0,0') + "</td></tr>";
       
       tbody.innerHTML += tr;
     }
