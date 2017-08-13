@@ -1,6 +1,8 @@
 var mapboxgl = require('mapbox-gl');
 var MapboxDraw = require('@mapbox/mapbox-gl-draw');
 
+var turf = require('@turf/turf');
+
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
@@ -31,9 +33,6 @@ var map = new mapboxgl.Map({
 
 let drawOptions = {
   displayControlsDefault: false
-  // controls: {
-  //   polygon: true
-  // }
 }
 
 var Draw = new MapboxDraw(drawOptions);
@@ -158,10 +157,19 @@ map.on('load', function () {
 
         // keeping this around for debugging
         document.onkeypress = function (e) {
+          console.log(e.keyCode)
           if (e.keyCode == 96) {
             Draw.changeMode('draw_polygon');
           }
         }
+
+        map.on('draw.create', function (e) {
+          console.log(e.features);
+          let d2 = turf.within(data, Draw.getAll())
+          console.log(d2)
+          map.getSource('incidents').setData(d2)
+          // console.log(turf.within(data, turf.polygon(e.features[0].geometry)))
+        });
 
         // swap map boundary and chart axis based on selected area
         jQuery('input[type=radio][name=currentArea]').change(function () {
