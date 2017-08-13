@@ -1,4 +1,6 @@
 var mapboxgl = require('mapbox-gl');
+var MapboxDraw = require('@mapbox/mapbox-gl-draw');
+
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
@@ -26,6 +28,17 @@ var map = new mapboxgl.Map({
   center: [-83.131, 42.350],
   zoom: 10.75
 });
+
+let drawOptions = {
+  displayControlsDefault: false
+  // controls: {
+  //   polygon: true
+  // }
+}
+
+var Draw = new MapboxDraw(drawOptions);
+
+map.addControl(Draw)
 
 // load the map
 map.on('load', function () {
@@ -143,10 +156,10 @@ map.on('load', function () {
           }
         });
 
+        // keeping this around for debugging
         document.onkeypress = function (e) {
           if (e.keyCode == 96) {
-            console.log(chroma(0, 146, 212).darken().hex());
-            console.log(Socrata.getLatestDate())
+            Draw.changeMode('draw_polygon');
           }
         }
 
