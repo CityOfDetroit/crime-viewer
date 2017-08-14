@@ -1,4 +1,6 @@
 import Data from './data.js'
+import Stats from './stats.js'
+const turf = require('@turf/turf')
 const _ = require('lodash')
 
 const Filter = {
@@ -92,6 +94,44 @@ const Filter = {
     // sort them alphabetically
     return uniqueFeatures
     // return _.sortBy(uniqueFeatures, [function(f) { return f.properties.name; }]);
+  },
+
+  /**
+   * master update function
+   * @param {Map} map
+   * @param {Polygon} drawn
+   * @param {FeatureCollection} data
+   * @param {Object} filters
+   */
+  updateData: function(map, drawn, data, filters) {
+    // make a copy of the original fetched data
+    let filteredData = _.cloneDeep(data);
+    filteredData = turf.within(filteredData, drawn)
+
+    Object.entries(filters).forEach(([k, v]) => {
+      if (v.length < 1) {
+        return
+      } else {
+        filteredData.features = Filter.filterFeatures(filteredData.features, k, v)
+      }
+    });
+
+    map.getSource('incidents').setData(filteredData);
+
+    // refresh counts to redraw chart in Stats tab based on selected area filter
+    if (filters['council_district'].length > 0) {
+      Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
+    } else {
+      Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
+    }
+
+    // refresh counts to redraw table in Stats tab
+    let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
+    Stats.printAsTable(incidentsByCategory, 'tbody');
+
+    // refresh count of current incidents
+    Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
+    console.log(filteredData);
   },
 
   /**

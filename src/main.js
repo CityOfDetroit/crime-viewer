@@ -104,47 +104,6 @@ map.on('load', function () {
           map.getCanvas().style.cursor = 'pointer'
         });
 
-        // quick filter refresh in lieu of actual button
-        document.getElementById('apply_filters').addEventListener('mousedown', function () {
-          console.log(data);
-
-          // construct the filterObject
-          let mapFilter = Filter.readInput()[0];
-
-          // make a copy of the Socrata data
-          let filteredData = _.cloneDeep(data);
-
-          // iterate through the filter object and pare down
-          Object.entries(mapFilter).forEach(([k, v]) => {
-            if (v.length < 1) {
-              return
-            } else {
-              filteredData.features = Filter.filterFeatures(filteredData.features, k, v)
-            }
-          });
-          map.getSource('incidents').setData(filteredData);
-
-          // refresh counts to redraw chart in Stats tab based on selected area filter
-          if (Filter.readInput()[0]['council_district'].length > 0) {
-            Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
-          } else {
-            Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
-          }
-
-          // refresh counts to redraw table in Stats tab
-          let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
-          Stats.printAsTable(incidentsByCategory, 'tbody');
-
-          // log data that's in the view port
-          let visibleData = map.queryRenderedFeatures({
-            layers: ['incidents_point']
-          });
-
-          // refresh count of current incidents
-          Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
-          console.log(filteredData);
-        });
-
         document.getElementById('locate').addEventListener('keypress', e => {
           if (e.key == 'Enter') {
             Locate.geocodeAddress(e.target.value).then(result => {
@@ -160,15 +119,18 @@ map.on('load', function () {
           console.log(e.keyCode)
           if (e.keyCode == 96) {
             Draw.changeMode('draw_polygon');
+            map.setPaintProperty('incidents_point', 'circle-opacity', 0.05)
+            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', 0.05)
+          }
+          if (e.keyCode == 92) {
+            Filter.updateData(map, Draw.getAll(), data, Filter.readInput()[0])
           }
         }
 
         map.on('draw.create', function (e) {
-          console.log(e.features);
-          let d2 = turf.within(data, Draw.getAll())
-          console.log(d2)
-          map.getSource('incidents').setData(d2)
-          // console.log(turf.within(data, turf.polygon(e.features[0].geometry)))
+          Filter.updateData(map, Draw.getAll(), data, Filter.readInput()[0])
+          map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
+          map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
         });
 
         // swap map boundary and chart axis based on selected area
