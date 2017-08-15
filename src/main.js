@@ -1,5 +1,6 @@
 var mapboxgl = require('mapbox-gl');
 var MapboxDraw = require('@mapbox/mapbox-gl-draw');
+var StaticMode = require('@mapbox/mapbox-gl-draw-static-mode');
 
 var turf = require('@turf/turf');
 
@@ -31,8 +32,13 @@ var map = new mapboxgl.Map({
   zoom: 10.75
 });
 
+var modes = MapboxDraw.modes;
+modes.static = StaticMode;
+var Draw = new MapboxDraw({ modes: modes });
+
 let drawOptions = {
-  displayControlsDefault: false
+  displayControlsDefault: false,
+  modes: modes
 }
 
 var Draw = new MapboxDraw(drawOptions);
@@ -96,12 +102,19 @@ map.on('load', function () {
           }
         });
 
+        document.onkeyup = function(e) {
+          console.log(e)
+          if(e.keyCode == 192) {
+            Draw.changeMode('static')
+          }
+        }
+
         map.on('mouseenter', 'incidents_point', function (e) {
           map.getCanvas().style.cursor = 'crosshair'
         });
 
         map.on('mouseout', 'incidents_point', function (e) {
-          map.getCanvas().style.cursor = 'pointer'
+          map.getCanvas().style.cursor = ''
         });
 
         document.getElementById('locate').addEventListener('keypress', e => {
@@ -114,35 +127,33 @@ map.on('load', function () {
           }
         });
 
-        // keeping this around for debugging
-        document.onkeypress = function (e) {
-          console.log(e.keyCode)
-          if (e.keyCode == 96) {
-            Draw.changeMode('draw_polygon');
-            map.setPaintProperty('incidents_point', 'circle-opacity', 0.05)
-            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', 0.05)
-          }
-          if (e.keyCode == 92) {
-            console.log(map)
-          }
-        }
-
         map.on('draw.create', function (e) {
-          Filter.updateData(map, Draw.getAll(), data, Filter.readInput()[0])
+          Filter.updateData(map, Draw, data, Filter.readInput()[0])
           map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
           map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
         });
 
         map.on('draw.update', function (e) {
-          Filter.updateData(map, Draw.getAll(), data, Filter.readInput()[0])
+          Filter.updateData(map, Draw, data, Filter.readInput()[0])
           // map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
           // map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
         });
 
         // swap map boundary and chart axis based on selected area
         jQuery('input[type=radio][name=currentArea]').change(function () {
-          Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-          Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+          if(this.value == 'custom') {
+            Draw.changeMode('draw_polygon')
+            map.setPaintProperty('incidents_point', 'circle-opacity', 0.05)
+            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', 0.05)
+          }
+          else {
+            Draw.deleteAll();
+            map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
+            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
+            Filter.updateData(map, Draw, data, Filter.readInput()[0])
+            Boundary.changeBoundary(map, Boundary.boundaries[this.value])
+            Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+          }
         });
 
       })

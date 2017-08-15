@@ -32,6 +32,18 @@ const Boundary = {
               }
           }
         }, 'bridge-motorway-2');
+
+        map.addLayer({
+          "id": "boundary_fill",
+          "type": "fill",
+          "source": 'boundary',
+          "layout": {
+            "visibility": "visible",
+          },
+          "paint": {
+            "fill-color": "rgba(150,230,230,0)"
+          }
+        });
     },
     changeBoundary: function(map, boundary) {
         map.getSource('boundary').setData(boundary['url'])

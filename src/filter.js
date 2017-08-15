@@ -59,21 +59,21 @@ const Filter = {
       }
     })
 
-    Data.council_districts.forEach(i => {
-      let elem = document.getElementById(`district-${i.number}-check`)
-      if(elem.checked){
-        filterHuman.area.push(`in District ${i.number.toString()}`)
-        filterObject['council_district'].push(i.number.toString())
-      }
-    })
+    // Data.council_districts.forEach(i => {
+    //   let elem = document.getElementById(`district-${i.number}-check`)
+    //   if(elem.checked){
+    //     filterHuman.area.push(`in District ${i.number.toString()}`)
+    //     filterObject['council_district'].push(i.number.toString())
+    //   }
+    // })
 
-    Data.precincts.forEach(i => {
-      let elem = document.getElementById(`precinct-${parseInt(i.number)}-check`)
-      if(elem.checked){
-        filterHuman.area.push(`in precinct ${i.number.toString()}`)
-        filterObject['precinct'].push(i.number.toString())
-      }
-    })
+    // Data.precincts.forEach(i => {
+    //   let elem = document.getElementById(`precinct-${parseInt(i.number)}-check`)
+    //   if(elem.checked){
+    //     filterHuman.area.push(`in precinct ${i.number.toString()}`)
+    //     filterObject['precinct'].push(i.number.toString())
+    //   }
+    // })
 
     return [filterObject, filterHuman]
   },
@@ -103,10 +103,14 @@ const Filter = {
    * @param {FeatureCollection} data
    * @param {Object} filters
    */
-  updateData: function(map, drawn, data, filters) {
+  updateData: function(map, draw, data, filters) {
     // make a copy of the original fetched data
     let filteredData = _.cloneDeep(data);
-    filteredData = turf.within(filteredData, drawn)
+    let drawn = draw.getAll()
+    console.log(drawn)
+    if(drawn.features.length >= 1){
+      filteredData = turf.within(filteredData, drawn)
+    }
 
     Object.entries(filters).forEach(([k, v]) => {
       if (v.length < 1) {

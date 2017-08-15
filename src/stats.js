@@ -226,12 +226,16 @@ const Stats = {
     detail.appendChild(span);
 
     let h3 = document.createElement("h3");
-    h3.innerHTML = "Point Details";
+    h3.innerHTML = "Report #" + features[0].properties.report_number;
     detail.appendChild(h3);
 
     let p = document.createElement("p");
-    p.innerHTML = "<strong>" + "Incident: " + "</strong>" + features[0].properties.offense_category;
+    p.innerHTML = "<strong>" + features[0].properties.offense_category + "</strong>";
     detail.appendChild(p);
+    
+    let p6 = document.createElement("p");
+    p6.innerHTML = features[0].properties.offense_description
+    detail.appendChild(p6)
 
     let p2 = document.createElement("p");
     p2.innerHTML = "<strong>" + "Date & Time: " + "</strong>" + moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a");
