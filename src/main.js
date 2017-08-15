@@ -123,7 +123,7 @@ map.on('load', function () {
             map.setPaintProperty('incidents_point', 'circle-stroke-opacity', 0.05)
           }
           if (e.keyCode == 92) {
-            Filter.updateData(map, Draw.getAll(), data, Filter.readInput()[0])
+            console.log(map)
           }
         }
 
