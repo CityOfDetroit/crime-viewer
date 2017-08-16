@@ -5,6 +5,7 @@
 	<title>Detroit Neighborhood Compstat</title>
 	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet'>
+	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.css' type='text/css'/>
 	<link href='./styles/jquery.accordion.css' rel='stylesheet'>
 	<link href='./styles/jquery.scrollbar.css' rel='stylesheet'>
 	<link href='./styles/tables.css' rel='stylesheet'>
@@ -108,89 +109,25 @@
 						<section data-accordion="" id="area-accordion">
 							<button data-control="" class="accordion-header"><span>Area</span></button>
 							<div data-content="" class="accordion-content">
-								<article class="accordion open" data-accordion="">
+								<article>
 											<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
 											<label for="area-council-district">Council Districts</label>
-									<div data-content="" id="district-filter-input">
-										<article>
-											<input type="checkbox" id="district-1-check" class="district-checkbox" name=""/>
-											<label for="district-1-check">District 1</label>
-										</article>
-										<article>
-											<input type="checkbox" id="district-2-check" class="district-checkbox" name=""/>
-											<label for="district-2-check">District 2</label>
-										</article>
-										<article>
-											<input type="checkbox" id="district-3-check" class="district-checkbox" name=""/>
-											<label for="district-3-check">District 3</label>
-										</article>
-										<article>
-											<input type="checkbox" id="district-4-check" class="district-checkbox" name=""/>
-											<label for="district-4-check">District 4</label>
-										</article>
-										<article>
-											<input type="checkbox" id="district-5-check" class="district-checkbox" name=""/>
-											<label for="district-5-check">District 5</label>
-										</article>
-										<article>
-											<input type="checkbox" id="district-6-check" class="district-checkbox" name=""/>
-											<label for="district-6-check">District 6</label>
-										</article>
-										<article>
-											<input type="checkbox" id="district-7-check" class="district-checkbox" name=""/>
-											<label for="district-7-check">District 7</label>
-										</article>
-									</div>
 								</article>
-								<article data-accordion="">
+								<article>
 											<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
 											<label for="area-precinct">Precincts</label>
-									<div data-content="" id="precinct-filter-input">
-										<article>
-											<input type="checkbox" id="precinct-2-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-2-check">2nd Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-3-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-3-check">3rd Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-4-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-4-check">4th Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-5-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-5-check">5th Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-6-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-6-check">6th Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-7-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-7-check">7th Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-8-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-8-check">8th Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-9-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-9-check">9th Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-10-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-10-check">10th Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-11-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-11-check">11th Precinct</label>
-										</article>
-										<article>
-											<input type="checkbox" id="precinct-12-check" name="" class="precinct-checkbox"/>
-											<label for="precinct-12-check">12th Precinct</label>
-										</article>
-									</div>
+								</article>
+								<article>
+											<input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
+											<label for="area-neighborhood">Neighborhoods</label>
+								</article>
+								<article>
+											<input type="radio" data-control="" id="area-zipcode" name="currentArea" value="zipcode">
+											<label for="area-zipcode">Zip Codes</label>
+								</article>
+								<article>
+											<input type="radio" data-control="" id="area-custom" name="currentArea" value="custom">
+											<label for="area-custom">Draw Your Own</label>
 								</article>
 							</div>
 						</section>

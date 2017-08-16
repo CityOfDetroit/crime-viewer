@@ -32,7 +32,8 @@ body:after{
   position: absolute; 
   top: 0; 
   bottom: 0; 
-  width:  100%; 
+  left: 31.5em;
+  width: calc(100% - 31.5em)
 }
 
 /* don't show the third rotation button in nav controls */

@@ -24,3 +24,13 @@ table th + th
 tr:nth-child(even) {
   background-color: #ddd;
 }
+
+/* color preview */
+tr div {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 15px;
+  border: 1px black solid;
+  display: inline-block;
+}
