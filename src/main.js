@@ -165,6 +165,7 @@ map.on('load', function () {
             Boundary.changeBoundary(map, Boundary.boundaries[this.value])
             Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
           }
+          Filter.updateData(map, Draw, data, Filter.readInput()[0])          
         });
 
       })
