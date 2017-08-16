@@ -139,6 +139,20 @@ map.on('load', function () {
           // map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
         });
 
+        map.on('moveend', function (e) {
+          if (jQuery('#area-accordion').hasClass('open')) {
+            let coords = map.getCenter()
+            Locate.identifyBounds({x: coords['lng'], y: coords['lat']}).then(response => {
+              console.log(response)
+            })
+          }
+        })
+
+        jQuery("input[name!='currentArea']").change(function () {
+          console.log(this)
+          Filter.updateData(map, Draw, data, Filter.readInput()[0])
+        })
+        
         // swap map boundary and chart axis based on selected area
         jQuery('input[type=radio][name=currentArea]').change(function () {
           if(this.value == 'custom') {
@@ -148,9 +162,6 @@ map.on('load', function () {
           }
           else {
             Draw.deleteAll();
-            map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
-            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
-            Filter.updateData(map, Draw, data, Filter.readInput()[0])
             Boundary.changeBoundary(map, Boundary.boundaries[this.value])
             Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
           }
