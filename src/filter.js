@@ -2,6 +2,7 @@ import Data from './data.js'
 import Stats from './stats.js'
 const turf = require('@turf/turf')
 const _ = require('lodash')
+const $ = require('jQuery')
 
 const Filter = {
   /**
@@ -21,23 +22,19 @@ const Filter = {
       'precinct': [],
       'zip_code': [], 
       'council_district': [],
-
     }
     let filterHuman = {
       "categories": [],
       "time": [],
       "area": []
     }
-    const categoryInputs = ['violent-check', 'property-check', 'other-check']
-    categoryInputs.forEach(i => {
-      let elem = document.getElementById(i)
-      let human = ""
-      if(elem.checked) {
-        let type = elem.id.split('-')[0]
-        filterHuman.categories.push(Data.offenses[type][0]['top'])
-        Data.offenses[type].forEach(o => {
-          filterObject['state_offense_code'] = filterObject['state_offense_code'].concat(o['state_codes'])
+
+    _.each(jQuery('input.offense-checkbox'), d => {
+      if (d.checked) {
+        _.each(d.attributes['data-codes'].value.split(" "), c => {
+          filterObject['state_offense_code'].push(c)
         })
+        filterHuman.categories.push(d.attributes['data-name'].value)        
       }
     })
 
