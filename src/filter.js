@@ -2,7 +2,7 @@ import Data from './data.js'
 import Stats from './stats.js'
 const turf = require('@turf/turf')
 const _ = require('lodash')
-const $ = require('jQuery')
+const $ = require('jquery')
 
 const Filter = {
   /**
@@ -29,7 +29,7 @@ const Filter = {
       "area": []
     }
 
-    _.each(jQuery('input.offense-checkbox'), d => {
+    _.each($('input.offense-checkbox'), d => {
       if (d.checked) {
         _.each(d.attributes['data-codes'].value.split(" "), c => {
           filterObject['state_offense_code'].push(c)
