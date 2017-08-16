@@ -123,12 +123,13 @@ const Init = {
             <article data-accordion="">
                 <button data-control="" class="second-header">
                 <div class="filter-checkbox">
-                    <input type ="checkbox" id="${k}-check" name=""/>
-                    <label for="${k}-check"></label>
+
                 </div>
                 ${v[0].top}</span></button>
                 <div data-content="">
-                    ${v.map (o => `<article> ${Helpers.toSentenceCase(o.name)}<span id="${k}-check-color" class="color-circle" style="background:${o.color}"></article>`).join("")}
+                    ${v.map (o => `<article> 
+                    <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.state_codes.join(" ")}" data-name="${o.name}"/>
+                    <label for="${o.name.toLowerCase().replace(' ','-')}-check"></label> ${Helpers.toSentenceCase(o.name)}<span id="${k}-check-color" class="color-circle" style="background:${o.color}"></article>`).join("")}
                 </div>
             </article>`
         })

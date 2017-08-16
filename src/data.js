@@ -169,7 +169,7 @@ const Data = {
       { name: 'FRAUD', state_codes: ['2601', '2602', '2603', '3072'], top: 'Other Crimes', color: chroma(colors.admin).brighten(2).hex() },
       { name: 'LIQUOR VIOLATIONS', state_codes: ['4101', '4102'], top: 'Other Crimes', color: chroma(colors.other).brighten().hex() },
       // { name: 'KIDNAPPING', state_codes: ['1001', '1002'], top: 'Other Crimes', color: chroma(colors.personal).darken().hex() },
-      { name: 'MISC. ARREST', state_codes: ['7399'], top: 'Other Crimes', color: chroma(colors.other).hex() },
+      { name: 'MISC ARREST', state_codes: ['7399'], top: 'Other Crimes', color: chroma(colors.other).hex() },
       // { name: 'RUNAWAY', state_codes: ['7070'], top: 'Other Crimes', color: chroma(colors.personal).saturate().hex() },
       { name: 'WEAPONS OFFENSE', state_codes: ['5201', '5203'], top: 'Other Crimes', color: chroma(colors.other).darken().hex() }
     ]

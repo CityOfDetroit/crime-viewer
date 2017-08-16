@@ -1,4 +1,9 @@
 var mapboxgl = require('mapbox-gl');
+var MapboxDraw = require('@mapbox/mapbox-gl-draw');
+var StaticMode = require('@mapbox/mapbox-gl-draw-static-mode');
+
+var turf = require('@turf/turf');
+
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
@@ -26,6 +31,19 @@ var map = new mapboxgl.Map({
   center: [-83.131, 42.350],
   zoom: 10.75
 });
+
+var modes = MapboxDraw.modes;
+modes.static = StaticMode;
+var Draw = new MapboxDraw({ modes: modes });
+
+let drawOptions = {
+  displayControlsDefault: false,
+  modes: modes
+}
+
+var Draw = new MapboxDraw(drawOptions);
+
+map.addControl(Draw)
 
 // load the map
 map.on('load', function () {
@@ -84,53 +102,19 @@ map.on('load', function () {
           }
         });
 
+        document.onkeyup = function(e) {
+          console.log(e)
+          if(e.keyCode == 192) {
+            Draw.changeMode('static')
+          }
+        }
+
         map.on('mouseenter', 'incidents_point', function (e) {
           map.getCanvas().style.cursor = 'crosshair'
         });
 
         map.on('mouseout', 'incidents_point', function (e) {
-          map.getCanvas().style.cursor = 'pointer'
-        });
-
-        // quick filter refresh in lieu of actual button
-        document.getElementById('apply_filters').addEventListener('mousedown', function () {
-          console.log(data);
-
-          // construct the filterObject
-          let mapFilter = Filter.readInput()[0];
-
-          // make a copy of the Socrata data
-          let filteredData = _.cloneDeep(data);
-
-          // iterate through the filter object and pare down
-          Object.entries(mapFilter).forEach(([k, v]) => {
-            if (v.length < 1) {
-              return
-            } else {
-              filteredData.features = Filter.filterFeatures(filteredData.features, k, v)
-            }
-          });
-          map.getSource('incidents').setData(filteredData);
-
-          // refresh counts to redraw chart in Stats tab based on selected area filter
-          if (Filter.readInput()[0]['council_district'].length > 0) {
-            Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
-          } else {
-            Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
-          }
-
-          // refresh counts to redraw table in Stats tab
-          let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
-          Stats.printAsTable(incidentsByCategory, 'tbody');
-
-          // log data that's in the view port
-          let visibleData = map.queryRenderedFeatures({
-            layers: ['incidents_point']
-          });
-
-          // refresh count of current incidents
-          Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
-          console.log(filteredData);
+          map.getCanvas().style.cursor = ''
         });
 
         document.getElementById('locate').addEventListener('keypress', e => {
@@ -143,17 +127,45 @@ map.on('load', function () {
           }
         });
 
-        document.onkeypress = function (e) {
-          if (e.keyCode == 96) {
-            console.log(chroma(0, 146, 212).darken().hex());
-            console.log(Socrata.getLatestDate())
-          }
-        }
+        map.on('draw.create', function (e) {
+          Filter.updateData(map, Draw, data, Filter.readInput()[0])
+          map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
+          map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
+        });
 
+        map.on('draw.update', function (e) {
+          Filter.updateData(map, Draw, data, Filter.readInput()[0])
+          // map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
+          // map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
+        });
+
+        map.on('moveend', function (e) {
+          if (jQuery('#area-accordion').hasClass('open')) {
+            let coords = map.getCenter()
+            Locate.identifyBounds({x: coords['lng'], y: coords['lat']}).then(response => {
+              console.log(response)
+            })
+          }
+        })
+
+        jQuery("input[name!='currentArea']").change(function () {
+          console.log(this)
+          Filter.updateData(map, Draw, data, Filter.readInput()[0])
+        })
+        
         // swap map boundary and chart axis based on selected area
         jQuery('input[type=radio][name=currentArea]').change(function () {
-          Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-          Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+          if(this.value == 'custom') {
+            Draw.changeMode('draw_polygon')
+            map.setPaintProperty('incidents_point', 'circle-opacity', 0.05)
+            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', 0.05)
+          }
+          else {
+            Draw.deleteAll();
+            Boundary.changeBoundary(map, Boundary.boundaries[this.value])
+            Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+          }
+          Filter.updateData(map, Draw, data, Filter.readInput()[0])          
         });
 
       })

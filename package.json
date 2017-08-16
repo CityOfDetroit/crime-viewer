@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/CityOfDetroit/crime-viewer",
   "dependencies": {
+    "@mapbox/mapbox-gl-draw": "^1.0.0",
+    "@turf/turf": "^4.6.1",
     "chroma-js": "^1.3.4",
     "highcharts": "^5.0.12",
     "jq-accordion": "^1.0.1",

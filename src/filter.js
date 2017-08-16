@@ -1,5 +1,8 @@
 import Data from './data.js'
+import Stats from './stats.js'
+const turf = require('@turf/turf')
 const _ = require('lodash')
+const $ = require('jQuery')
 
 const Filter = {
   /**
@@ -19,23 +22,19 @@ const Filter = {
       'precinct': [],
       'zip_code': [], 
       'council_district': [],
-
     }
     let filterHuman = {
       "categories": [],
       "time": [],
       "area": []
     }
-    const categoryInputs = ['violent-check', 'property-check', 'other-check']
-    categoryInputs.forEach(i => {
-      let elem = document.getElementById(i)
-      let human = ""
-      if(elem.checked) {
-        let type = elem.id.split('-')[0]
-        filterHuman.categories.push(Data.offenses[type][0]['top'])
-        Data.offenses[type].forEach(o => {
-          filterObject['state_offense_code'] = filterObject['state_offense_code'].concat(o['state_codes'])
+
+    _.each(jQuery('input.offense-checkbox'), d => {
+      if (d.checked) {
+        _.each(d.attributes['data-codes'].value.split(" "), c => {
+          filterObject['state_offense_code'].push(c)
         })
+        filterHuman.categories.push(d.attributes['data-name'].value)        
       }
     })
 
@@ -57,21 +56,21 @@ const Filter = {
       }
     })
 
-    Data.council_districts.forEach(i => {
-      let elem = document.getElementById(`district-${i.number}-check`)
-      if(elem.checked){
-        filterHuman.area.push(`in District ${i.number.toString()}`)
-        filterObject['council_district'].push(i.number.toString())
-      }
-    })
+    // Data.council_districts.forEach(i => {
+    //   let elem = document.getElementById(`district-${i.number}-check`)
+    //   if(elem.checked){
+    //     filterHuman.area.push(`in District ${i.number.toString()}`)
+    //     filterObject['council_district'].push(i.number.toString())
+    //   }
+    // })
 
-    Data.precincts.forEach(i => {
-      let elem = document.getElementById(`precinct-${parseInt(i.number)}-check`)
-      if(elem.checked){
-        filterHuman.area.push(`in precinct ${i.number.toString()}`)
-        filterObject['precinct'].push(i.number.toString())
-      }
-    })
+    // Data.precincts.forEach(i => {
+    //   let elem = document.getElementById(`precinct-${parseInt(i.number)}-check`)
+    //   if(elem.checked){
+    //     filterHuman.area.push(`in precinct ${i.number.toString()}`)
+    //     filterObject['precinct'].push(i.number.toString())
+    //   }
+    // })
 
     return [filterObject, filterHuman]
   },
@@ -92,6 +91,48 @@ const Filter = {
     // sort them alphabetically
     return uniqueFeatures
     // return _.sortBy(uniqueFeatures, [function(f) { return f.properties.name; }]);
+  },
+
+  /**
+   * master update function
+   * @param {Map} map
+   * @param {Polygon} drawn
+   * @param {FeatureCollection} data
+   * @param {Object} filters
+   */
+  updateData: function(map, draw, data, filters) {
+    // make a copy of the original fetched data
+    let filteredData = _.cloneDeep(data);
+    let drawn = draw.getAll()
+    console.log(drawn)
+    if(drawn.features.length >= 1){
+      filteredData = turf.within(filteredData, drawn)
+    }
+
+    Object.entries(filters).forEach(([k, v]) => {
+      if (v.length < 1) {
+        return
+      } else {
+        filteredData.features = Filter.filterFeatures(filteredData.features, k, v)
+      }
+    });
+
+    map.getSource('incidents').setData(filteredData);
+
+    // refresh counts to redraw chart in Stats tab based on selected area filter
+    if (filters['council_district'].length > 0) {
+      Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
+    } else {
+      Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
+    }
+
+    // refresh counts to redraw table in Stats tab
+    let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
+    Stats.printAsTable(incidentsByCategory, 'tbody');
+
+    // refresh count of current incidents
+    Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
+    console.log(filteredData);
   },
 
   /**
