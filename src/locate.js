@@ -1,4 +1,5 @@
 var $ = require('jquery')
+var turf = require('@turf/turf')
 
 const Locate = {
   /* take an address and return a promise */
@@ -50,6 +51,12 @@ const Locate = {
     else {
       console.log("No candidates found!")
     }
+  },
+  makeRadiusPolygon: function(coords, radius, draw) {
+    let search_radius = turf.buffer(turf.point([coords.x, coords.y]), radius, "meters")
+    draw.deleteAll()
+    draw.add(search_radius)
+    draw.changeMode('static')
   }
 }
 

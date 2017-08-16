@@ -123,7 +123,10 @@ map.on('load', function () {
               let coords = result['candidates'][0]['location']
               console.log(Locate.identifyBounds(coords))
               Locate.panToLatLng(result, map)
+              Locate.makeRadiusPolygon(coords, 1500, Draw)
+              Filter.updateData(map, Draw, data, Filter.readInput()[0])
             });
+
           }
         });
 
