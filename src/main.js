@@ -136,12 +136,6 @@ map.on('load', function () {
           map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
         });
 
-        map.on('draw.update', function (e) {
-          Filter.updateData(map, Draw, data, Filter.readInput()[0])
-          // map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
-          // map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
-        });
-
         map.on('moveend', function (e) {
           if (jQuery('#area-accordion').hasClass('open')) {
             let coords = map.getCenter()
@@ -159,9 +153,7 @@ map.on('load', function () {
         // swap map boundary and chart axis based on selected area
         jQuery('input[type=radio][name=currentArea]').change(function () {
           if(this.value == 'custom') {
-            Draw.changeMode('draw_polygon')
-            map.setPaintProperty('incidents_point', 'circle-opacity', 0.05)
-            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', 0.05)
+            Filter.newDrawnPolygon(Draw, map);
           }
           else {
             Draw.deleteAll();

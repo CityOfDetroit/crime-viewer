@@ -145,6 +145,15 @@ const Filter = {
     return _.filter(data, d => {
       return values.indexOf(eval(`d.properties.${key}`)) > -1 
     })
+  },
+
+  newDrawnPolygon: function(draw, map) {
+    map.setPaintProperty('incidents_point', 'circle-opacity', 0.05)
+    map.setPaintProperty('incidents_point', 'circle-stroke-opacity', 0.05)
+    draw.changeMode('draw_polygon')
+    map.on('draw.modechange', map => {
+      draw.changeMode('static')
+    })
   }
 }
 
