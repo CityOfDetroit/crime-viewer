@@ -1,9 +1,7 @@
 var mapboxgl = require('mapbox-gl');
 var MapboxDraw = require('@mapbox/mapbox-gl-draw');
 var StaticMode = require('@mapbox/mapbox-gl-draw-static-mode');
-
 var turf = require('@turf/turf');
-
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
@@ -117,13 +115,43 @@ map.on('load', function () {
           map.getCanvas().style.cursor = ''
         });
 
+        // locate an address and draw a radius around it
         document.getElementById('locate').addEventListener('keypress', e => {
           if (e.key == 'Enter') {
             Locate.geocodeAddress(e.target.value).then(result => {
               let coords = result['candidates'][0]['location']
               console.log(Locate.identifyBounds(coords))
+
               Locate.panToLatLng(result, map)
               Locate.makeRadiusPolygon(coords, 1500, Draw)
+           
+              // show a marker at the matched address
+              map.loadImage('../public/img/marker-15.svg', function(error, image) {
+                if (error) throw error;
+                map.addImage('marker-15', image);
+                map.addLayer({
+                  "id": "address_marker",
+                  "type": "symbol",
+                  "source": {
+                    "type": "geojson",
+                    "data": {
+                      "type": "FeatureCollection",
+                      "features": [{
+                        "type": "Feature",
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [coords.x, coords.y]
+                        }
+                      }]
+                    }
+                  },
+                  "layout": {
+                    "icon-image": "marker-15",
+                    "icon-size": 0.25
+                  }
+                });
+              });
+
               Filter.updateData(map, Draw, data, Filter.readInput()[0])
             });
 

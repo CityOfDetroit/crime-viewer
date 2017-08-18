@@ -33,6 +33,7 @@ const Init = {
             "type": "geojson",
             "data": data
         });
+
         map.addLayer({
             "id": "incidents_highlighted",
             "source": "incidents",
@@ -56,7 +57,8 @@ const Init = {
                     ]
                 }
             }
-        })
+        });
+
         // add a layer
         map.addLayer({
             "id": "incidents_point",
@@ -99,14 +101,15 @@ const Init = {
                     ]
                 }
             }
-        })
+        });
+
         // set a filter on highlighted which won't match anything
         map.setFilter('incidents_highlighted', ["==", "crime_id", "NONE"])
 
         // add the boundary
         Boundary.addBoundary(map, Boundary.boundaries.council_district);
-
     },
+
     /**
      * Takes stuff from Data.js and adds them as filters on the sidebar.
      * @returns {undefined}
