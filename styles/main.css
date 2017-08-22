@@ -28,12 +28,28 @@ body:after{
   box-shadow: 1px 3px 10px #333;
 }
 
+h4{
+  font-size: 16px;
+  margin:5px 0;
+}
+
+table td{
+  font-size: 16px;
+}
+
+:focus {
+    outline: #279989 auto 5px;
+    outline-color: #279989;
+    outline-style: auto;
+    outline-width: 5px;
+}
+
 #map { 
   position: absolute; 
   top: 0; 
   bottom: 0; 
-  left: 31.5em;
-  width: calc(100% - 31.5em)
+  left: 25%;
+  width: calc(100% - 25%)
 }
 
 /* don't show the third rotation button in nav controls */
@@ -44,6 +60,7 @@ body:after{
 #menu{
    position: relative;
    z-index: 1000;
+   width: 25%;
    float: left;
    background: white;
    height: 100vh !important;
@@ -131,9 +148,6 @@ body:after{
 }
 
 /*@media screen and (min-width: 800px) {*/
-   #menu{
-       width: 23.5em;
-   }
    #menu .logo{
        padding:3px 10px;
    }

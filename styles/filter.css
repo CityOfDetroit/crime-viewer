@@ -2,57 +2,19 @@ input[type=radio] {
     display: none;
 }
 
-input[type=radio] + label {
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.5;
-    font-size: 14px;
-    font-weight: bold;
-    padding:10px 40px 10px 1.5em;
-    display: inline-block;
-}
-
-input[type=radio]:checked + label{
-    opacity: 1;
-}
-
-#dow-filter-input{
-    padding-left: 1.5em;
-    margin:5px 10px;
-}
-#tod-filter-input{
-    padding-left: 2.5em;
-    margin:0 0.25rem 1rem 0.25rem;
-}
-#dow-filter-input article{
-    float: left;
-    padding: 0em;
-}
-#district-filter-input{
-    padding-left: 1em;
-}
-#area-accordion .accordion-content article{
-    display: inline-block;
-    padding:0em;
-}
-#area-accordion .accordion-content #precinct-filter-input article{
-    width: 10em;
-    padding:0.1em 0em 0.1em 2.5em;
-}
 .dow-checkbox, .date-checkbox, .district-checkbox, .precinct-checkbox {
   display: none;
 }
-.dow-checkbox + label, .district-checkbox + label, .precinct-checkbox + label {
+.dow-checkbox + label, 
+.district-checkbox + label, 
+.precinct-checkbox + label,
+input[type=radio] + label  {
     display: inline-block;
     position: relative;
     font-size: 1.2em;
     vertical-align: top;
     cursor: pointer;
-    padding:.45em;
-}
-#tod-filter-input article{
-    padding:0em 1.75em 0em 0em;
-    float: left;
+    padding:5px;
 }
 .date-checkbox + label{
     width: 10em;
@@ -67,7 +29,8 @@ input[type=radio]:checked + label{
 .date-checkbox + label img, .date-checkbox + label span,
 .dow-checkbox + label,
 .district-checkbox + label,
-.precinct-checkbox + label{
+.precinct-checkbox + label,
+input[type=radio] + label {
     font-weight: bold;
     opacity: 0.2;
 }
@@ -83,11 +46,66 @@ input[type=radio]:checked + label{
 .date-checkbox:checked + label img, .date-checkbox:checked + label span,
 .dow-checkbox:checked + label,
 .district-checkbox:checked + label,
-.precinct-checkbox:checked + label {
+.precinct-checkbox:checked + label,
+input[type=radio]:checked + label{
     opacity: 1;
 }
 .date-checkbox + label span{
     position: relative;
     top: -10px;
     left: 10px;
+}
+#filters-menu{
+    background: white;
+    display: inline-block;
+    position: fixed;
+    top: 0px;
+    z-index: 500;
+    width: 75%;
+    height: 90px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+.filters{
+    display: inline-block;
+    margin:7px 35px;
+}
+
+.filters button {
+    font-size: 1.25em;
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: middle;
+    border: none;
+    background: #279989;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 13px;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    position: relative;
+    z-index: 100;
+    outline: none;
+    cursor: pointer;
+}
+
+.filters-dropdown{
+    float: left;
+    position: absolute;
+    top: 50px;
+    background: white;
+    margin-left:15px;
+    padding: 15px;
+    max-width: 165px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    display: none;
+}
+
+.filters-dropdown article{
+    display: inline-block;
+    min-width: 55px;
+}
+
+.dropdown-title{
+    display: block;
 }
