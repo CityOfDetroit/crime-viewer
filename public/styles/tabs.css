@@ -72,13 +72,13 @@ li.active a, li.active a:hover {
    display:block;
 }
 
-#apply_filters{
+#apply-filters{
    width: 100%;
    text-align: center;
    margin: 1em auto;
 }
 
-#apply_filters button{
+#apply-filters button{
    margin: 0 auto;
    width: 10em;
    height: 2.5em;
@@ -90,7 +90,7 @@ li.active a, li.active a:hover {
    cursor: pointer;
 }
 
-#apply_filters button:hover{
+#apply-filters button:hover{
    background: #aaaaaa;
 }
 

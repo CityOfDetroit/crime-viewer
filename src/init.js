@@ -117,27 +117,22 @@ const Init = {
     populateSidebar: function() {
         console.log(Data.offenses)
         let offenseHtml = `
-        <section data-accordion="" id="categories-accordion">
-        <button data-control="" class="accordion-header">Categories</button>
-        <div id="accordion-attach" data-content="" class="accordion-content">
+        <section class="filters" id="categories-list">
+        <button><span>Crime Type</span></button>
+        <div class="filters-dropdown">
         `
         Object.entries(Data.offenses).forEach(([k,v]) => {
             offenseHtml += `
-            <article data-accordion="">
-                <button data-control="" class="second-header">
-                <div class="filter-checkbox">
-
-                </div>
-                ${v[0].top}</span></button>
-                <div data-content="">
+                <span>
+                ${v[0].top}</span>
+            <article>
                     ${v.map (o => `<article> 
                     <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.state_codes.join(" ")}" data-name="${o.name}"/>
                     <label for="${o.name.toLowerCase().replace(' ','-')}-check"></label> ${Helpers.toSentenceCase(o.name)}<span id="${k}-check-color" class="color-circle" style="background:${o.color}"></article>`).join("")}
-                </div>
             </article>`
         })
         offenseHtml += `</div></section>`
-        $('#time-accordion').before(offenseHtml)
+        $('#date-list').before(offenseHtml)
     }
 }
 

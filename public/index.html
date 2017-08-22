@@ -9,6 +9,8 @@
 	<link href='./styles/jquery.accordion.css' rel='stylesheet'>
 	<link href='./styles/jquery.scrollbar.css' rel='stylesheet'>
 	<link href='./styles/tables.css' rel='stylesheet'>
+	<link href='./styles/cs-select.css' rel='stylesheet'>
+	<link href='./styles/cs-skin-elastic.css' rel='stylesheet'>
 	<link href='./styles/accordion.css' rel='stylesheet'>
 	<link href='./styles/tabs.css' rel='stylesheet'>
 	<link href='./styles/details.css' rel='stylesheet'>
@@ -20,14 +22,14 @@
 <body>
 	<nav id="menu">
 		<div class="logo">
-			<img src="./img/grayscale.png">
-			<h1>Viewer Title (tbd)</h1>
+			<img src="./img/green.png">
+			<h1>City of Detroit<br/>Crime Viewer</h1>
 		</div>
 		<div class="search">
 			<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
 		</div>
 		<div class="tabs">
-			<ul class="tab-links">
+			<ul class="tab-links" style="display: none;">
 				<li class="active">
 					<a href="#tab1">Filters</a>
 				</li>
@@ -39,104 +41,7 @@
 				</li>
 			</ul>
 			<div class="tab-content scrollbar-macosx">
-				<div class="tab active" id="tab1">
-					<section data-accordion-group="" id="filters-accordion">
-						<section data-accordion="" id="time-accordion">
-							<button data-control="" class="accordion-header"><span>Time</span></button>
-							<div data-content="" class="accordion-content">
-								<article data-accordion="">
-									<button data-control="" class="second-header">
-									<div class="filter-checkbox">
-									</div>
-									<span>Day of Week</span></button>
-									<div data-content="" id="dow-filter-input">
-										<article>
-											<input type="checkbox" class="dow-checkbox" id="dow-1-check" name=""/>
-											<label id="dow-1-label" for="dow-1-check">Sun</label>
-										</article>
-										<article>
-											<input type="checkbox" class="dow-checkbox" id="dow-2-check" name=""/>
-											<label for="dow-2-check">Mon</label>
-										</article>
-										<article>
-											<input type="checkbox" class="dow-checkbox" id="dow-3-check" name=""/>
-											<label for="dow-3-check">Tue</label>
-										</article>
-										<article>
-											<input type="checkbox" class="dow-checkbox" id="dow-4-check" name=""/>
-											<label for="dow-4-check">Wed</label>
-										</article>
-										<article>
-											<input type="checkbox" class="dow-checkbox" id="dow-5-check" name=""/>
-											<label for="dow-5-check">Thu</label>
-										</article>
-										<article>
-											<input type="checkbox" class="dow-checkbox" id="dow-6-check" name=""/>
-											<label for="dow-6-check">Fri</label>
-										</article>
-										<article>
-											<input type="checkbox" class="dow-checkbox" id="dow-7-check" name=""/>
-											<label for="dow-7-check">Sat</label>
-										</article>
-									</div>
-								</article>
-								<article data-accordion="">
-									<button data-control="" class="second-header">
-									<div class="filter-checkbox">
-									</div>
-									<span>Time of Day</span></button>
-									<div data-content="" id="tod-filter-input">
-										<article>
-											<input type="checkbox" id="morning-check" class="date-checkbox" name=""/>
-											<label for="morning-check"><img src="./img/morning.svg" alt=""/><span>5AM - 10AM</span></label>
-										</article>
-										<article>
-											<input type="checkbox" id="afternoon-check" class="date-checkbox" name=""/>
-											<label for="afternoon-check"><img src="./img/cloudsun.svg" alt=""/><span>11AM - 4PM</span></label>
-										</article>
-										<article>
-											<input type="checkbox" id="evening-check" class="date-checkbox" name=""/>
-											<label for="evening-check"><img src="./img/mooncloud.svg" alt=""/><span>5PM - 10PM</span></label>
-										</article>
-										<article>
-											<input type="checkbox" id="overnight-check" class="date-checkbox" name=""/>
-											<label for="overnight-check"><img src="./img/overnight.svg" alt=""/><span>11PM - 4AM</span></label>
-										</article>
-									</div>
-								</article>
-							</div>
-						</section>
-						<section data-accordion="" id="area-accordion">
-							<button data-control="" class="accordion-header"><span>Area</span></button>
-							<div data-content="" class="accordion-content">
-								<article>
-											<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
-											<label for="area-council-district">Council Districts</label>
-								</article>
-								<article>
-											<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
-											<label for="area-precinct">Precincts</label>
-								</article>
-								<article>
-											<input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
-											<label for="area-neighborhood">Neighborhoods</label>
-								</article>
-								<article>
-											<input type="radio" data-control="" id="area-zipcode" name="currentArea" value="zipcode">
-											<label for="area-zipcode">Zip Codes</label>
-								</article>
-								<article>
-											<input type="radio" data-control="" id="area-custom" name="currentArea" value="custom">
-											<label for="area-custom">Draw Your Own</label>
-								</article>
-							</div>
-						</section>
-					</section>
-					<div id="apply_filters">
-						<button>Apply Filters</button>
-					</div>
-				</div>
-				<div class="tab" id="tab2">
+				<div class="tab active" id="tab2">
 					<div id="chart-container" style="width:100%; height:350px;"></div>
 					<h4 style="text-align:center;">Crime Incidents by Offense Type</h4>
 					<table>
@@ -144,7 +49,7 @@
 					</table>
 					<p style="font-size:smaller;">* Statistics shown here respond to your filters and match the number of incidents currently displayed on the map.</p>
 				</div>
-				<div class="tab" id="tab3">
+				<div class="tab" id="tab3" style="display: none;">
 					 <p><strong>Welcome to "TBD"!</strong></p>
 					<p>The City of Detroit's Police Department (DPD) and Department of Innovation and Technology (DoIT) are building a tool for residents to visualize crime data. By putting information in the hands of residents, we hope to work together to promote a safer community.</p>
 					 <p><strong>How often is the data updated?</strong></p> 
@@ -158,6 +63,91 @@
 			</div>
 		</div>
 	</nav><!--Map-->
+	<nav id="filters-menu">
+			<section class="filters" id="date-list">
+				<button>
+					<span>Date and Time</span>
+				</button>
+				<div class="filters-dropdown">
+					<span class="dropdown-title">Day of Week</span>
+					<article>
+						<input type="checkbox" class="dow-checkbox" id="dow-1-check" name=""/>
+						<label id="dow-1-label" for="dow-1-check">Sun</label>
+					</article>
+					<article>
+						<input type="checkbox" class="dow-checkbox" id="dow-2-check" name=""/>
+						<label for="dow-2-check">Mon</label>
+					</article>
+					<article>
+						<input type="checkbox" class="dow-checkbox" id="dow-3-check" name=""/>
+						<label for="dow-3-check">Tue</label>
+					</article>
+					<article>
+						<input type="checkbox" class="dow-checkbox" id="dow-4-check" name=""/>
+						<label for="dow-4-check">Wed</label>
+					</article>
+					<article>
+						<input type="checkbox" class="dow-checkbox" id="dow-5-check" name=""/>
+						<label for="dow-5-check">Thu</label>
+					</article>
+					<article>
+						<input type="checkbox" class="dow-checkbox" id="dow-6-check" name=""/>
+						<label for="dow-6-check">Fri</label>
+					</article>
+					<article>
+						<input type="checkbox" class="dow-checkbox" id="dow-7-check" name=""/>
+						<label for="dow-7-check">Sat</label>
+					</article>
+					<span class="dropdown-title">Time of Day</span>
+					<article>
+						<input type="checkbox" id="morning-check" class="date-checkbox" name=""/>
+						<label for="morning-check"><img src="./img/morning.svg" alt=""/><span>5AM - 10AM</span></label>
+					</article>
+					<article>
+						<input type="checkbox" id="afternoon-check" class="date-checkbox" name=""/>
+						<label for="afternoon-check"><img src="./img/cloudsun.svg" alt=""/><span>11AM - 4PM</span></label>
+					</article>
+					<article>
+						<input type="checkbox" id="evening-check" class="date-checkbox" name=""/>
+						<label for="evening-check"><img src="./img/mooncloud.svg" alt=""/><span>5PM - 10PM</span></label>
+					</article>
+					<article>
+						<input type="checkbox" id="overnight-check" class="date-checkbox" name=""/>
+						<label for="overnight-check"><img src="./img/overnight.svg" alt=""/><span>11PM - 4AM</span></label>
+					</article>
+				</div>
+			</section>
+			<section class="filters" id="area-list">
+				<button>
+					<span>Area</span>
+				</button>
+				<div class="filters-dropdown">
+					<article>
+								<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
+								<label for="area-council-district">Council Districts</label>
+					</article>
+					<article>
+								<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
+								<label for="area-precinct">Precincts</label>
+					</article>
+					<article>
+								<input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
+								<label for="area-neighborhood">Neighborhoods</label>
+					</article>
+					<article>
+								<input type="radio" data-control="" id="area-zipcode" name="currentArea" value="zipcode">
+								<label for="area-zipcode">Zip Codes</label>
+					</article>
+					<article>
+								<input type="radio" data-control="" id="area-custom" name="currentArea" value="custom">
+								<label for="area-custom">Draw Your Own</label>
+					</article>
+				</div>
+			</section>
+			<section class="filters" id="reset-filters">
+				<button><span>Reset</span></button>
+			</section>
+	</nav>
 	<div id="details">
 		<div id="loaded_view"></div>
 		<div id="filtered_view"></div>

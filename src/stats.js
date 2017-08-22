@@ -103,7 +103,7 @@ const Stats = {
           fontFamily: 'inherit'
         }
       },
-      colors: ['#4059CD'],
+      colors: ['#279989'],
       title: {
         text: '<b>Crime Incidents by ' + key + '</b>',
         style: {

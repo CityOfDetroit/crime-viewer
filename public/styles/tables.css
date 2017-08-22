@@ -22,7 +22,7 @@ table th + th
 }
 
 tr:nth-child(even) {
-  background-color: #ddd;
+  background-color: #B7CDC2;
 }
 
 /* color preview */
