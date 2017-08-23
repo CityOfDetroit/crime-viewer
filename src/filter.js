@@ -128,7 +128,6 @@ const Filter = {
 
     // refresh count of current incidents
     Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
-    console.log(filteredData);
   },
 
   /**

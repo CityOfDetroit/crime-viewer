@@ -134,7 +134,6 @@ map.on('load', function () {
               map.fitBounds(turf.bbox(unioned), { padding: 50 })
             })
 
-            console.log(coords)
             // show a marker at the matched address
             map.loadImage('../public/img/marker-15.svg', function (error, image) {
               if (error) throw error;
@@ -206,7 +205,6 @@ map.on('load', function () {
           "$select": "crime_id,location,address,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
         };
         params["$where"] = `incident_timestamp >= '${fromDt}' and incident_timestamp <= '${toDt}'`
-        console.log(params)
         let url = Socrata.makeUrl("9i6z-cm98", params);
         Socrata.fetchData(url).then(d => {
           data = d
@@ -233,7 +231,6 @@ map.on('load', function () {
       jQuery('#reset-filters').click(function () {
         jQuery('input:checkbox').removeAttr('checked');
         Filter.resetEverything(map, Draw, data)
-        console.log('clear all');
       });
 
     })

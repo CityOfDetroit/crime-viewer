@@ -115,7 +115,6 @@ const Init = {
      * @returns {undefined}
      */
     populateSidebar: function() {
-        console.log(Data.offenses)
         let offenseHtml = `
         <section class="filters" id="categories-list">
         <button><span>Crime Type</span></button>
