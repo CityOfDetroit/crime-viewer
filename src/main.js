@@ -56,154 +56,167 @@ map.on('load', function () {
 
   // get the data
   Socrata.getLatestDate().then(response => {
-      const ds = "9i6z-cm98"
-      let params = {
-        "$limit": 50000,
-        "$select": "crime_id,location,address,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
-      };
-      params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(28, response[0].incident_timestamp)}'`
-      let url = Socrata.makeUrl(ds, params);
+    const ds = "9i6z-cm98"
+    let params = {
+      "$limit": 50000,
+      "$select": "crime_id,location,address,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
+    };
+    params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(28, response[0].incident_timestamp)}'`
+    let url = Socrata.makeUrl(ds, params);
 
-      Socrata.fetchData(url).then(data => {
+    Socrata.fetchData(url).then(data => {
 
-        // calculate some summary stats
-        let totalIncidents = Stats.countFeatures(data.features);
-        let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
+      // calculate some summary stats
+      let totalIncidents = Stats.countFeatures(data.features);
+      let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
 
-        // get the earliest and latest incident dates
-        let uniqueTimestamps = [...new Set(data['features'].map(item => item.properties['incident_timestamp']))];
-        let minTime = _.min(uniqueTimestamps);
-        let maxTime = _.max(uniqueTimestamps);
+      // get the earliest and latest incident dates
+      let uniqueTimestamps = [...new Set(data['features'].map(item => item.properties['incident_timestamp']))];
+      let minTime = _.min(uniqueTimestamps);
+      let maxTime = _.max(uniqueTimestamps);
 
-        // count incidents currently viewing
-        Stats.printLoadedView(data.features, minTime, maxTime, 'loaded_view');
+      // count incidents currently viewing
+      Stats.printLoadedView(data.features, minTime, maxTime, 'loaded_view');
 
-        // populate an initial chart and table in the Stats tab
-        // Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
-        Stats.printAsTable(incidentsByCategory, 'tbody');
+      // populate an initial chart and table in the Stats tab
+      // Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
+      Stats.printAsTable(incidentsByCategory, 'tbody');
 
-        // load the source data and point, highlight styles
-        Init.initialLoad(map, data);
+      // load the source data and point, highlight styles
+      Init.initialLoad(map, data);
 
-        map.on('mousedown', function (e) {
-          var features = map.queryRenderedFeatures(e.point, {
-            layers: ['incidents_point']
-          });
-          if (features.length > 0) {
-            map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
-            Stats.printPointDetails(features, 'point_details');
-          }
+      map.on('mousedown', function (e) {
+        var features = map.queryRenderedFeatures(e.point, {
+          layers: ['incidents_point']
         });
-
-        document.onkeyup = function(e) {
-          if(e.keyCode == 192) {
-            Draw.changeMode('static')
-          }
+        if (features.length > 0) {
+          map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
+          Stats.printPointDetails(features, 'point_details');
         }
+      });
 
-        map.on('mouseenter', 'incidents_point', function (e) {
-          map.getCanvas().style.cursor = 'crosshair'
-        });
+      document.onkeyup = function (e) {
+        if (e.keyCode == 192) {
+          Draw.changeMode('static')
+        }
+      }
 
-        map.on('mouseout', 'incidents_point', function (e) {
-          map.getCanvas().style.cursor = ''
-        });
+      map.on('mouseenter', 'incidents_point', function (e) {
+        map.getCanvas().style.cursor = 'crosshair'
+      });
 
-        // locate an address and draw a radius around it
-        document.getElementById('locate').addEventListener('keypress', e => {
-          if (e.key == 'Enter') {
-            Locate.geocodeAddress(e.target.value).then(result => {
-              let coords = result['candidates'][0]['location']
-              console.log(Locate.identifyBounds(coords))
+      map.on('mouseout', 'incidents_point', function (e) {
+        map.getCanvas().style.cursor = ''
+      });
 
-              Locate.panToLatLng(result, map)
-              Locate.makeRadiusPolygon(coords, 1500, Draw)
-           
-              // show a marker at the matched address
-              map.loadImage('../public/img/marker-15.svg', function(error, image) {
-                if (error) throw error;
-                map.addImage('marker-15', image);
-                map.addLayer({
-                  "id": "address_marker",
-                  "type": "symbol",
-                  "source": {
-                    "type": "geojson",
-                    "data": {
-                      "type": "FeatureCollection",
-                      "features": [{
-                        "type": "Feature",
-                        "geometry": {
-                          "type": "Point",
-                          "coordinates": [coords.x, coords.y]
-                        }
-                      }]
-                    }
-                  },
-                  "layout": {
-                    "icon-image": "marker-15",
-                    "icon-size": 0.25
+      // locate an address and draw a radius around it
+      document.getElementById('locate').addEventListener('keypress', e => {
+        if (e.key == 'Enter') {
+          Locate.geocodeAddress(e.target.value).then(result => {
+            let coords = result['candidates'][0]['location']
+            console.log(Locate.identifyBounds(coords))
+            Locate.makeRadiusPolygon(coords, 1500, Draw)
+            let filters = Filter.readInput()[0]
+            Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
+              blocks.features.forEach(b => {
+                filters.block_id.push(b.properties['geoid10'])
+              })
+              Draw.deleteAll();
+              Filter.updateData(map, Draw, data, filters)
+              // Draw.deleteAll()
+              let unioned = turf.dissolve(blocks)
+              unioned.features.forEach(f => {
+                Draw.add(f)
+              })
+              map.fitBounds(turf.bbox(unioned), { padding: 50 })
+            })
+
+            console.log(coords)
+            // show a marker at the matched address
+            map.loadImage('../public/img/marker-15.svg', function (error, image) {
+              if (error) throw error;
+              map.addImage('marker-15', image);
+              map.addLayer({
+                "id": "address_marker",
+                "type": "symbol",
+                "source": {
+                  "type": "geojson",
+                  "data": {
+                    "type": "FeatureCollection",
+                    "features": [{
+                      "type": "Feature",
+                      "geometry": {
+                        "type": "Point",
+                        "coordinates": [coords.y, coords.x]
+                      }
+                    }]
                   }
-                });
+                },
+                "layout": {
+                  "icon-image": "marker-15",
+                  "icon-size": 0.25
+                }
               });
-
-              Filter.updateData(map, Draw, data, Filter.readInput()[0])
             });
+          });
 
-          }
-        });
+        }
+      });
 
-        map.on('draw.create', function (e) {
-          let filters = Filter.readInput()[0]
-          Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
-            blocks.features.forEach(b => {
-              filters.block_id.push(b.properties['geoid10'])
-            })
-            Filter.updateData(map, Draw, data, filters)
-            // Draw.deleteAll()
-            turf.dissolve(blocks).features.forEach(f => {
-              Draw.add(f)
-            })
-            map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
-            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
+      map.on('draw.create', function (e) {
+        let filters = Filter.readInput()[0]
+        Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
+          blocks.features.forEach(b => {
+            filters.block_id.push(b.properties['geoid10'])
           })
-        });
-
-        map.on('moveend', function (e) {
-          if (jQuery('#area-accordion').hasClass('open')) {
-            let coords = map.getCenter()
-            Locate.identifyBounds({x: coords['lng'], y: coords['lat']}).then(response => {
-              console.log(response)
-            })
-          }
+          Filter.updateData(map, Draw, data, filters)
+          Draw.deleteAll()
+          let unioned = turf.dissolve(blocks)
+          unioned.features.forEach(f => {
+            Draw.add(f)
+          })
+          map.fitBounds(turf.bbox(unioned), { padding: 50 })
+          map.setPaintProperty('incidents_point', 'circle-opacity', { 'stops': [[9, 0.75], [19, 1]] })
+          map.setPaintProperty('incidents_point', 'circle-stroke-opacity', { 'stops': [[9, 0.2], [19, 1]] })
         })
+      });
 
-        jQuery("input[name!='currentArea']").change(function () {
-          Filter.updateData(map, Draw, data, Filter.readInput()[0])
-        })
-        
-        // swap map boundary and chart axis based on selected area
-        jQuery('input[type=radio][name=currentArea]').change(function () {
-          if(this.value == 'custom') {
-            Filter.newDrawnPolygon(Draw, map);
-          }
-          else {
-            Draw.deleteAll();
-            Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-            // Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
-          }
-          Filter.updateData(map, Draw, data, Filter.readInput()[0])          
-        });
+      map.on('moveend', function (e) {
+        if (jQuery('#area-accordion').hasClass('open')) {
+          let coords = map.getCenter()
+          Locate.identifyBounds({ x: coords['lng'], y: coords['lat'] }).then(response => {
+            console.log(response)
+          })
+        }
+      })
+
+      jQuery("input[name!='currentArea']").change(function () {
+        Filter.updateData(map, Draw, data, Filter.readInput()[0])
+      })
+
+      // swap map boundary and chart axis based on selected area
+      jQuery('input[type=radio][name=currentArea]').change(function () {
+        if (this.value == 'custom') {
+          Filter.newDrawnPolygon(Draw, map);
+        }
+        else {
+          Draw.deleteAll();
+          Boundary.changeBoundary(map, Boundary.boundaries[this.value])
+          // Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+        }
+        Filter.updateData(map, Draw, data, Filter.readInput()[0])
+      });
 
 
       // reset filters
-      jQuery('#reset-filters').click(function(){
+      jQuery('#reset-filters').click(function () {
         jQuery('input:checkbox').removeAttr('checked');
         Filter.resetEverything(map, Draw, data)
         console.log('clear all');
       });
 
-      })
     })
+  })
     .catch(e => console.log("Booo", e));
 });
 
@@ -229,12 +242,12 @@ jQuery(document).ready(function () {
   });
 
   //reset filters
-  jQuery('.filters').click(function(){
+  jQuery('.filters').click(function () {
     //hide all visible dropdowns
     //jQuery('.dropdown-show').slideUp().removeClass('dropdown-show');
-    if(jQuery(this).children('.filters-dropdown').hasClass('dropdown-show')){
+    if (jQuery(this).children('.filters-dropdown').hasClass('dropdown-show')) {
       jQuery(this).children('.filters-dropdown').removeClass('dropdown-show').slideUp();
-    }else{
+    } else {
       jQuery(this).children('.filters-dropdown').addClass('dropdown-show').slideDown();
     }
   });
