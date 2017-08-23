@@ -1,5 +1,7 @@
 var $ = require('jquery')
 var turf = require('@turf/turf')
+var Terraformer = require('terraformer')
+var arcgis = require('terraformer-arcgis-parser')
 
 const Locate = {
   /* take an address and return a promise */
@@ -36,8 +38,30 @@ const Locate = {
       'imageDisplay': '500, 500, 96',
       'f': 'json'
     }
-    console.log(coords.x- 0.01)
     return fetch(boundsEndpoint + $.param(params)).then((r) => {
+      var res = r.json()
+      return res
+    })
+  },
+  /**
+   * Create a promise for an endpoint that returns intersecting census blocks.
+   * @param {polygon} geometry A GeoJSON geometry.
+   * @returns {promise}
+   */
+  getCensusBlocks: function(geometry) {
+    console.log(JSON.stringify(arcgis.convert(geometry)[0]['geometry']))
+    const endpoint = 'http://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/0/query?'
+    let params = {
+      'where': '1=1',
+      'geometryType': 'esriGeometryPolygon',
+      'geometry': JSON.stringify(arcgis.convert(geometry)[0]['geometry']),
+      'outFields': 'geoid10',
+      'inSR': '4326',
+      'spatialRel': 'esriSpatialRelIntersects',
+      // 'returnGeometry': 'true',
+      'f': 'geojson'
+    }
+    return fetch(endpoint + $.param(params)).then((r) => {
       var res = r.json()
       return res
     })

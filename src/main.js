@@ -61,7 +61,7 @@ map.on('load', function () {
       const ds = "9i6z-cm98"
       let params = {
         "$limit": 50000,
-        "$select": "crime_id,location,address,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
+        "$select": "crime_id,location,address,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
       };
       params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(28, response[0].incident_timestamp)}'`
       let url = Socrata.makeUrl(ds, params);
