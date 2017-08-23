@@ -52,6 +52,15 @@ table td{
   width: calc(100% - 25%)
 }
 
+/* marks address searched */
+.marker {
+  background-image: url('../img/marker-15.svg');
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 /* don't show the third rotation button in nav controls */
 .mapboxgl-ctrl-compass  {
   display: none !important;
