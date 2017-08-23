@@ -26,7 +26,7 @@ const Locate = {
    * @returns {something}
    */
   identifyBounds: function(coords) {
-    const boundsEndpoint = 'http://gis.detroitmi.gov/arcgis/rest/services/DoIT/BoundsCheck/MapServer/identify?'
+    const boundsEndpoint = 'https://gis.detroitmi.gov/arcgis/rest/services/DoIT/BoundsCheck/MapServer/identify?'
     let params = {
       'geometry': `${coords.x}, ${coords.y}`,
       'sr': 4326,
@@ -50,7 +50,7 @@ const Locate = {
    */
   getCensusBlocks: function(geometry) {
     console.log(JSON.stringify(arcgis.convert(geometry)[0]['geometry']))
-    const endpoint = 'http://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/0/query?'
+    const endpoint = 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/0/query?'
     let params = {
       'where': '1=1',
       'geometryType': 'esriGeometryPolygon',
