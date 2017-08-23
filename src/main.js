@@ -32,6 +32,7 @@ var map = new mapboxgl.Map({
 
 var modes = MapboxDraw.modes;
 modes.static = StaticMode;
+console.log(modes.static)
 var Draw = new MapboxDraw({ modes: modes });
 
 let drawOptions = {
@@ -168,7 +169,11 @@ map.on('load', function () {
               filters.block_id.push(b.properties['geoid10'])
             })
             console.log(filters)
-            Filter.updateData(map, Draw, data, filters)            
+            Filter.updateData(map, Draw, data, filters)
+            let unioned = turf.dissolve(blocks)
+            console.log(unioned)
+            Draw.deleteAll()
+            Draw.add(unioned.features[0])
             map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
             map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
           })

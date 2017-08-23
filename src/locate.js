@@ -57,8 +57,8 @@ const Locate = {
       'geometry': JSON.stringify(arcgis.convert(geometry)[0]['geometry']),
       'outFields': 'geoid10',
       'inSR': '4326',
-      'spatialRel': 'esriSpatialRelIntersects',
-      // 'returnGeometry': 'true',
+      'spatialRel': 'esriSpatialRelContains',
+      'returnGeometry': 'true',
       'f': 'geojson'
     }
     return fetch(endpoint + $.param(params)).then((r) => {
