@@ -32,7 +32,6 @@ var map = new mapboxgl.Map({
 
 var modes = MapboxDraw.modes;
 modes.static = StaticMode;
-console.log(modes.static)
 var Draw = new MapboxDraw({ modes: modes });
 
 let drawOptions = {
@@ -46,8 +45,6 @@ map.addControl(Draw)
 
 // load the map
 map.on('load', function () {
-
-  console.log(Locate.identifyBounds([-83.0787163063023, 42.351453227480945]))
 
   // add zoom + geolocate controls
   map.addControl(new mapboxgl.NavigationControl());
@@ -66,10 +63,8 @@ map.on('load', function () {
       };
       params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(28, response[0].incident_timestamp)}'`
       let url = Socrata.makeUrl(ds, params);
-      console.log(url)
 
       Socrata.fetchData(url).then(data => {
-        console.log(data);
 
         // calculate some summary stats
         let totalIncidents = Stats.countFeatures(data.features);
@@ -95,14 +90,12 @@ map.on('load', function () {
             layers: ['incidents_point']
           });
           if (features.length > 0) {
-            console.log(features);
             map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
             Stats.printPointDetails(features, 'point_details');
           }
         });
 
         document.onkeyup = function(e) {
-          console.log(e)
           if(e.keyCode == 192) {
             Draw.changeMode('static')
           }
@@ -160,20 +153,14 @@ map.on('load', function () {
         });
 
         map.on('draw.create', function (e) {
-          console.log(Draw.getAll())
           let filters = Filter.readInput()[0]
-          console.log(filters)
           Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
-            console.log(blocks)
             blocks.features.forEach(b => {
               filters.block_id.push(b.properties['geoid10'])
             })
-            console.log(filters)
             Filter.updateData(map, Draw, data, filters)
-            let unioned = turf.dissolve(blocks)
-            console.log(unioned)
             Draw.deleteAll()
-            Draw.add(unioned.features[0])
+            Draw.add(turf.dissolve(blocks).features[0])
             map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
             map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
           })
@@ -189,7 +176,6 @@ map.on('load', function () {
         })
 
         jQuery("input[name!='currentArea']").change(function () {
-          console.log(this)
           Filter.updateData(map, Draw, data, Filter.readInput()[0])
         })
         
