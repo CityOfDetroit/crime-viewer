@@ -194,9 +194,14 @@ map.on('load', function () {
       })
 
       jQuery("input[name!='currentArea']").change(function () {
-        let blocks = filterObject.block_id
-        filterObject = Filter.readInput()[0]
-        filterObject.block_id = blocks
+        if(filterObject) {
+          let blocks = filterObject.block_id
+          filterObject = Filter.readInput()[0]
+          filterObject.block_id = blocks
+        }
+        else {
+          filterObject = Filter.readInput()[0]
+        }
         Filter.updateData(map, Draw, data, filterObject)
       })
 
