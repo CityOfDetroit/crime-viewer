@@ -154,13 +154,10 @@ const Stats = {
    * @param {string} - html div id
    * @returns {}
    */
-  printLoadedView: function(features, timeA, timeB, divId) {
-    let loaded_view = document.getElementById(divId);
-    loaded_view.innerHTML = `<p>
-      <b>${numeral(features.length).format('0,0')}</b> incidents occurred in the last 28 days between
-      <b>${moment(timeA).format("MM/DD/YY")}</b>
-      and <b>${moment(timeB).format("MM/DD/YY")}</b>.`    
-      return loaded_view;
+  printLoadedView: function(timeA, timeB, data) {
+    jQuery("#from_date").val(moment(timeA).format("YYYY-MM-DD"))
+    jQuery("#to_date").val(moment(timeB).format("YYYY-MM-DD"))
+    jQuery("#crime_count").html(data.features.length)
   },
 
   /** 

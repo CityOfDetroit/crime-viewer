@@ -43,6 +43,8 @@ var Draw = new MapboxDraw(drawOptions);
 
 map.addControl(Draw)
 
+let data = null;
+
 // load the map
 map.on('load', function () {
 
@@ -64,7 +66,8 @@ map.on('load', function () {
     params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(28, response[0].incident_timestamp)}'`
     let url = Socrata.makeUrl(ds, params);
 
-    Socrata.fetchData(url).then(data => {
+    Socrata.fetchData(url).then(theData => {
+      data = theData
 
       // calculate some summary stats
       let totalIncidents = Stats.countFeatures(data.features);
@@ -76,7 +79,7 @@ map.on('load', function () {
       let maxTime = _.max(uniqueTimestamps);
 
       // count incidents currently viewing
-      Stats.printLoadedView(data.features, minTime, maxTime, 'loaded_view');
+      Stats.printLoadedView(minTime, maxTime, data);
 
       // populate an initial chart and table in the Stats tab
       // Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
@@ -192,6 +195,24 @@ map.on('load', function () {
 
       jQuery("input[name!='currentArea']").change(function () {
         Filter.updateData(map, Draw, data, Filter.readInput()[0])
+      })
+
+      jQuery("input[type=date]").change(function(){
+        Filter.resetEverything(map, Draw, data)
+        let fromDt = jQuery('#from_date')[0].value
+        let toDt = jQuery('#to_date')[0].value
+        let params = {
+          "$limit": 50000,
+          "$select": "crime_id,location,address,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
+        };
+        params["$where"] = `incident_timestamp >= '${fromDt}' and incident_timestamp <= '${toDt}'`
+        console.log(params)
+        let url = Socrata.makeUrl("9i6z-cm98", params);
+        Socrata.fetchData(url).then(d => {
+          data = d
+          Stats.printLoadedView(fromDt, toDt, data)
+        })
+
       })
 
       // swap map boundary and chart axis based on selected area

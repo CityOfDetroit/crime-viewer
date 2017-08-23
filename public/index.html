@@ -6,8 +6,7 @@
 	<title>Detroit Neighborhood Compstat</title>
 	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet'>
-	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.css' type='text/css'
-	/>
+	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.css' type='text/css'/>
 	<link href='./styles/jquery.accordion.css' rel='stylesheet'>
 	<link href='./styles/jquery.scrollbar.css' rel='stylesheet'>
 	<link href='./styles/tables.css' rel='stylesheet'>
@@ -27,9 +26,7 @@
 		<div class="logo">
 			<img src="./img/green.png">
 			<h1>City of Detroit<br/>Crime Viewer</h1>
-			<div id="loaded_view"></div>
-			<div id="filtered_view"></div>	
-			<div id="point_details"></div>			
+	
 		</div>
 		<div class="tabs">
 			<ul class="tab-links" style="display: none;">
@@ -45,6 +42,7 @@
 			</ul>
 			<div class="tab-content scrollbar-macosx">
 				<div class="tab active" id="tab2">
+						<div id="point_details"></div>		
 					<!-- <div id="chart-container" style="width:100%; height:350px;"></div> -->
 					<h4 style="text-align:center;">Crime Incidents by Offense Type</h4>
 					<table>
@@ -80,6 +78,15 @@
 		<div class="search">
 				<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
 		</div>
+		<div id="loaded_view">
+			Between
+			<input id="from_date" type="date" min="2016-12-06"></input>
+			and
+			<input id="to_date" type="date" min="2016-12-06"></input>
+			there were <span id="crime_count">0</span> incidents in the City of Detroit.
+		</div>
+		<div id="filtered_view"></div>	
+		
 		<section class="filters" id="date-list">
 			<button>
 					<span>Date and Time</span>

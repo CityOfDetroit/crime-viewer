@@ -94,7 +94,8 @@ table td{
    border-top:2px #e4e4e4 solid;
 } */
 
-.search input {
+.search {
+  position: relative;
   display: inline;
 }
 
