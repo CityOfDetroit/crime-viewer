@@ -46,10 +46,9 @@ const Locate = {
   /**
    * Create a promise for an endpoint that returns intersecting census blocks.
    * @param {polygon} geometry A GeoJSON geometry.
-   * @returns {promise}
+   * @returns {promise} res
    */
   getCensusBlocks: function(geometry) {
-    console.log(JSON.stringify(arcgis.convert(geometry)[0]['geometry']))
     const endpoint = 'http://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/0/query?'
     let params = {
       'where': '1=1',
@@ -59,6 +58,7 @@ const Locate = {
       'inSR': '4326',
       'spatialRel': 'esriSpatialRelContains',
       'returnGeometry': 'true',
+      'geometryPrecision': 5,
       'f': 'geojson'
     }
     return fetch(endpoint + $.param(params)).then((r) => {

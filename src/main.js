@@ -159,8 +159,10 @@ map.on('load', function () {
               filters.block_id.push(b.properties['geoid10'])
             })
             Filter.updateData(map, Draw, data, filters)
-            Draw.deleteAll()
-            Draw.add(turf.dissolve(blocks).features[0])
+            // Draw.deleteAll()
+            turf.dissolve(blocks).features.forEach(f => {
+              Draw.add(f)
+            })
             map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
             map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
           })
