@@ -117,9 +117,9 @@ const Filter = {
 
     // refresh counts to redraw chart in Stats tab based on selected area filter
     if (filters['council_district'].length > 0) {
-      Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
+      // Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
     } else {
-      Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
+      // Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
     }
 
     // refresh counts to redraw table in Stats tab

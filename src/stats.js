@@ -214,60 +214,46 @@ const Stats = {
    */
   printPointDetails: function(features, divId) {
     let detail = document.getElementById(divId);
-
-    detail.innerHTML = '';
-
-    let hr = document.createElement("hr");
-    detail.appendChild(hr);
-
-    let span = document.createElement("span");
-    span.innerHTML = "<img src='./img/close.svg'>";
-    span.className += "disclaimer-close";
-    detail.appendChild(span);
-
-    let h3 = document.createElement("h3");
-    h3.innerHTML = "Report #" + features[0].properties.report_number;
-    detail.appendChild(h3);
-
-    let p = document.createElement("p");
-    p.innerHTML = "<strong>" + features[0].properties.offense_category + "</strong>";
-    detail.appendChild(p);
-    
-    let p6 = document.createElement("p");
-    p6.innerHTML = Data.state_codes[features[0].properties.state_offense_code]
-    detail.appendChild(p6)
-
-    let p2 = document.createElement("p");
-    p2.innerHTML = "<strong>" + "Date & Time: " + "</strong>" + moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a");
-    detail.appendChild(p2);
-
-    let p3 = document.createElement("p");
-    p3.innerHTML = "<strong>" + "Address: " + "</strong>" + features[0].properties.address;
-    detail.appendChild(p3);
-
-    let p4 = document.createElement("p");
-    p4.innerHTML = "<strong>" + "Neighborhood: " + "</strong>" + features[0].properties.neighborhood;
-    detail.appendChild(p4);
-
-    let p5 = document.createElement("p");
-    p5.innerHTML = "<strong>" + "Precinct: " + "</strong>" + features[0].properties.precinct;
-    detail.appendChild(p5);
-   
-    //extend height of current view div to include new point details
-    let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
-    //fadeIn point details
-    jQuery('#details').animate({height: currentViewHeight}, {complete:function(){jQuery('#point_details').fadeIn()}});
-      //close point details
-      jQuery('#point_details .disclaimer-close img').click(function(){
-        //fade out closed point data
-        jQuery('#point_details').fadeOut(500, function(){jQuery(this).empty()});
-        //resize div to height of current view div
-        let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + 15;
-        jQuery('#details').animate({
-          height: currentViewHeight
-        });
-    });
-      
+    detail.innerHTML = `
+    <table>
+    <colgroup>
+    <col style="width:35%">
+    <col style="width:65%">
+    </colgroup>  
+    <tr>
+      <th>Report #</th>
+      <td>${features[0].properties.report_number}</td>
+    </tr>
+    <tr>
+      <th>Arrest Category</th>
+      <td>${features[0].properties.offense_category}</td>
+    </tr>
+    <tr>
+      <th>Offense Code</th>
+      <td>${Data.state_codes[features[0].properties.state_offense_code]}</td>
+    </tr>
+    <tr>
+      <th>Timestamp</th>
+      <td>${moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a")}</td>
+    </tr>
+    <tr>
+      <th>Address</th>
+      <td>${features[0].properties.address}</td>
+    </tr>
+    <tr>
+      <th>Council District</th>
+      <td>${features[0].properties.council_district}</td>
+    </tr>
+    <tr>
+      <th>Precinct</th>
+      <td>${features[0].properties.precinct}</td>
+    </tr>
+    <tr>
+      <th>Neighborhood</th>
+      <td>${features[0].properties.neighborhood}</td>
+    </tr>
+   </table>
+    `
     return detail;
   }
 }

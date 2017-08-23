@@ -79,7 +79,7 @@ table td{
    padding: 1px;
 }
 
-.search input{
+/* .search input{
    box-sizing: border-box;
    border: 0px;
    font-size: 13px;
@@ -92,6 +92,10 @@ table td{
    transition: width .4s ease-in-out;
    width: 100%;
    border-top:2px #e4e4e4 solid;
+} */
+
+.search input {
+  display: inline;
 }
 
 .filter-checkbox {

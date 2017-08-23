@@ -79,7 +79,7 @@ map.on('load', function () {
         Stats.printLoadedView(data.features, minTime, maxTime, 'loaded_view');
 
         // populate an initial chart and table in the Stats tab
-        Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
+        // Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
         Stats.printAsTable(incidentsByCategory, 'tbody');
 
         // load the source data and point, highlight styles
@@ -189,7 +189,7 @@ map.on('load', function () {
           else {
             Draw.deleteAll();
             Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-            Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+            // Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
           }
           Filter.updateData(map, Draw, data, Filter.readInput()[0])          
         });

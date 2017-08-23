@@ -34,3 +34,35 @@ tr div {
   border: 1px black solid;
   display: inline-block;
 }
+
+#point_details th {
+  background-color: #ddd;
+  padding: 6px 10px; 
+}
+#point_details thead th {
+  background-color: #bbb;
+  padding: 6px 10px; 
+  border-bottom: 2px solid black;
+  font-size: medium;
+  font-weight: 900;
+}
+#point_details table {
+  border: 2px solid black;
+  text-align: center;
+  min-width: 240px;
+}
+#point_details td {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  min-width: 200px;
+  padding: 1px 7px;
+  font-size: 1em;
+  text-align: right;
+}
+#point_details tr:last-child td {
+  border-bottom:none;
+  padding: 1px 7px;  
+}
+#point_details tr:nth-child(even) {
+  background-color: #eee;
+}

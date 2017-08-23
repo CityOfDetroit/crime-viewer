@@ -125,11 +125,9 @@ const Init = {
             offenseHtml += `
                 <span>
                 ${v[0].top}</span>
-            <article>
-                    ${v.map (o => `<article> 
+                    ${v.map (o => `<div class="offense_category">
                     <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.state_codes.join(" ")}" data-name="${o.name}"/>
-                    <label for="${o.name.toLowerCase().replace(' ','-')}-check"></label> ${Helpers.toSentenceCase(o.name)}<span id="${k}-check-color" class="color-circle" style="background:${o.color}"></article>`).join("")}
-            </article>`
+                    <label for="${o.name.toLowerCase().replace(' ','-')}-check"></label> ${Helpers.toSentenceCase(o.name)}`).join("")}</div>`
         })
         offenseHtml += `</div></section>`
         $('#date-list').before(offenseHtml)
