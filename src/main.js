@@ -44,6 +44,7 @@ var Draw = new MapboxDraw(drawOptions);
 map.addControl(Draw)
 
 let data = null;
+let filterObject = null;
 
 // load the map
 map.on('load', function () {
@@ -119,13 +120,13 @@ map.on('load', function () {
             let coords = result['candidates'][0]['location']
             console.log(Locate.identifyBounds(coords))
             Locate.makeRadiusPolygon(coords, 1500, Draw)
-            let filters = Filter.readInput()[0]
+            filterObject = Filter.readInput()[0]
             Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
               blocks.features.forEach(b => {
-                filters.block_id.push(b.properties['geoid10'])
+                filterObject.block_id.push(b.properties['geoid10'])
               })
               Draw.deleteAll();
-              Filter.updateData(map, Draw, data, filters)
+              Filter.updateData(map, Draw, data, filterObject)
               // Draw.deleteAll()
               let unioned = turf.dissolve(blocks)
               unioned.features.forEach(f => {
@@ -166,12 +167,12 @@ map.on('load', function () {
       });
 
       map.on('draw.create', function (e) {
-        let filters = Filter.readInput()[0]
+        filterObject = Filter.readInput()[0]
         Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
           blocks.features.forEach(b => {
-            filters.block_id.push(b.properties['geoid10'])
+            filterObject.block_id.push(b.properties['geoid10'])
           })
-          Filter.updateData(map, Draw, data, filters)
+          Filter.updateData(map, Draw, data, filterObject)
           Draw.deleteAll()
           let unioned = turf.dissolve(blocks)
           unioned.features.forEach(f => {
@@ -193,7 +194,10 @@ map.on('load', function () {
       })
 
       jQuery("input[name!='currentArea']").change(function () {
-        Filter.updateData(map, Draw, data, Filter.readInput()[0])
+        let blocks = filterObject.block_id
+        filterObject = Filter.readInput()[0]
+        filterObject.block_id = blocks
+        Filter.updateData(map, Draw, data, filterObject)
       })
 
       jQuery("input[type=date]").change(function(){
@@ -223,7 +227,7 @@ map.on('load', function () {
           Boundary.changeBoundary(map, Boundary.boundaries[this.value])
           // Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
         }
-        Filter.updateData(map, Draw, data, Filter.readInput()[0])
+        // Filter.updateData(map, Draw, data, Filter.readInput()[0])
       });
 
 
