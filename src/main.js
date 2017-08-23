@@ -124,33 +124,14 @@ map.on('load', function () {
 
               Locate.panToLatLng(result, map)
               Locate.makeRadiusPolygon(coords, 1500, Draw)
-           
+
               // show a marker at the matched address
-              map.loadImage('../public/img/marker-15.svg', function(error, image) {
-                if (error) throw error;
-                map.addImage('marker-15', image);
-                map.addLayer({
-                  "id": "address_marker",
-                  "type": "symbol",
-                  "source": {
-                    "type": "geojson",
-                    "data": {
-                      "type": "FeatureCollection",
-                      "features": [{
-                        "type": "Feature",
-                        "geometry": {
-                          "type": "Point",
-                          "coordinates": [coords.x, coords.y]
-                        }
-                      }]
-                    }
-                  },
-                  "layout": {
-                    "icon-image": "marker-15",
-                    "icon-size": 0.25
-                  }
-                });
-              });
+              var el = document.createElement('div');
+              el.className = 'marker';
+              
+              new mapboxgl.Marker(el, { offset: [-50 / 2, -50 / 2] })
+              .setLngLat([coords.x, coords.y])
+              .addTo(map);
 
               Filter.updateData(map, Draw, data, Filter.readInput()[0])
             });
