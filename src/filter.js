@@ -142,6 +142,23 @@ const Filter = {
       return values.indexOf(eval(`d.properties.${key}`)) > -1 
     })
   },
+  /**
+   * Reset everything
+   * @param {mapboxgl.Map} map mapboxgl.Map instance
+   * @param {MapboxDraw} draw MapboxDraw instance
+   * @param {Object} data originally fetched data
+   */
+  resetEverything: function(map, draw, data) {
+    // reset map bounds
+    map.flyTo({ center: [-83.131, 42.350], zoom: 10.75})
+    // copy of original data
+    map.getSource('incidents').setData(data);
+    // clear all Draw
+    draw.deleteAll()
+    // reset all filters
+    jQuery("input:checkbox").prop("checked", false)
+
+  },
 
   newDrawnPolygon: function(draw, map) {
     map.setPaintProperty('incidents_point', 'circle-opacity', 0.05)

@@ -194,6 +194,14 @@ map.on('load', function () {
           Filter.updateData(map, Draw, data, Filter.readInput()[0])          
         });
 
+
+      // reset filters
+      jQuery('#reset-filters').click(function(){
+        jQuery('input:checkbox').removeAttr('checked');
+        Filter.resetEverything(map, Draw, data)
+        console.log('clear all');
+      });
+
       })
     })
     .catch(e => console.log("Booo", e));
@@ -231,11 +239,7 @@ jQuery(document).ready(function () {
     }
   });
 
-  //reset filters
-  jQuery('#reset-filters').click(function(){
-    jQuery('input:checkbox').removeAttr('checked');
-    console.log('clear all');
-  });
+
   /*initiate slideout
   var slideout = new Slideout({
     'panel': document.getElementById('map'),

@@ -24,10 +24,13 @@
 		<div class="logo">
 			<img src="./img/green.png">
 			<h1>City of Detroit<br/>Crime Viewer</h1>
+			<div id="loaded_view"></div>
+			
 		</div>
 		<div class="search">
 			<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
 		</div>
+		<div id="point_details"></div>
 		<div class="tabs">
 			<ul class="tab-links" style="display: none;">
 				<li class="active">
@@ -148,11 +151,6 @@
 				<button><span>Reset</span></button>
 			</section>
 	</nav>
-	<div id="details">
-		<div id="loaded_view"></div>
-		<div id="filtered_view"></div>
-		<div id="point_details"></div>
-	</div>
 	<div id='map'>
 		<div class="disclaimer">
 			<p><span class="disclaimer-close"><img src="./img/close.svg"></span><strong>Disclaimer:</strong><br/>In order to protect the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See ABOUT to learn more.</p>
