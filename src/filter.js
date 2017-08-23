@@ -22,6 +22,7 @@ const Filter = {
       'precinct': [],
       'zip_code': [], 
       'council_district': [],
+      'block_id': []
     }
     let filterHuman = {
       "categories": [],
@@ -103,11 +104,6 @@ const Filter = {
   updateData: function(map, draw, data, filters) {
     // make a copy of the original fetched data
     let filteredData = _.cloneDeep(data);
-    let drawn = draw.getAll()
-    console.log(drawn)
-    if(drawn.features.length >= 1){
-      filteredData = turf.within(filteredData, drawn)
-    }
 
     Object.entries(filters).forEach(([k, v]) => {
       if (v.length < 1) {

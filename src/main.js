@@ -159,9 +159,19 @@ map.on('load', function () {
         });
 
         map.on('draw.create', function (e) {
-          Filter.updateData(map, Draw, data, Filter.readInput()[0])
-          map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
-          map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
+          console.log(Draw.getAll())
+          let filters = Filter.readInput()[0]
+          console.log(filters)
+          Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
+            console.log(blocks)
+            blocks.features.forEach(b => {
+              filters.block_id.push(b.properties['geoid10'])
+            })
+            console.log(filters)
+            Filter.updateData(map, Draw, data, filters)            
+            map.setPaintProperty('incidents_point', 'circle-opacity', {'stops': [[9, 0.75],[19, 1]]})
+            map.setPaintProperty('incidents_point', 'circle-stroke-opacity', {'stops': [[9, 0.2],[19, 1]]})
+          })
         });
 
         map.on('moveend', function (e) {
