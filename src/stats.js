@@ -234,7 +234,7 @@ const Stats = {
     detail.appendChild(p);
     
     let p6 = document.createElement("p");
-    p6.innerHTML = features[0].properties.offense_description
+    p6.innerHTML = Data.state_codes[features[0].properties.state_offense_code]
     detail.appendChild(p6)
 
     let p2 = document.createElement("p");
