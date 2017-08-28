@@ -161,6 +161,15 @@ table td{
 	margin-top:2px;
 }
 
+#about-content {
+  position: block;
+  font-size: larger;
+  width: 90%;
+  height: 100%;
+  margin: 250px auto;
+  background-color: white;
+}
+
 /*@media screen and (min-width: 800px) {*/
    #menu .logo{
        padding:3px 10px;
@@ -198,5 +207,10 @@ table td{
       cursor: pointer;
       width: 17px;
       height: 17px;
+   }
+   .about-close img{
+      cursor: pointer;
+      width: 27px;
+      height: 27px;
    }
 /*}*/

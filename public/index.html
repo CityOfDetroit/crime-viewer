@@ -12,7 +12,6 @@
 	<link href='./styles/tables.css' rel='stylesheet'>
 	<link href='./styles/accordion.css' rel='stylesheet'>
 	<link href='./styles/tabs.css' rel='stylesheet'>
-	<link href='./styles/details.css' rel='stylesheet'>
 	<link href='./styles/filter.css' rel='stylesheet'>
 	<link href='./styles/main.css' rel='stylesheet'>
 	<link href='./styles/print.css' rel='stylesheet'>
@@ -50,7 +49,7 @@
 					<div id="chart-container" style="width:100%; height:350px;"></div>
 					<p style="font-size:smaller;">* Statistics shown here respond to your filters and match the number of incidents currently displayed on the map.</p>
 				</div>
-				<div class="tab" id="tab3" style="display: none;">
+				<div class="tab" id="tab3">
 					<p><strong>Welcome to "TBD"!</strong></p>
 					<p>The City of Detroit's Police Department (DPD) and Department of Innovation and Technology (DoIT) are building a tool
 						for residents to visualize crime data. By putting information in the hands of residents, we hope to work together to
@@ -73,6 +72,7 @@
 			</div>
 		</div>
 	</nav>
+
 	<!--Map-->
 	<nav id="filters-menu">
 
@@ -157,13 +157,38 @@
 			<button><span>Share</span></button>
 		</section>
 	</nav>
+
 	<div id='map'>
 		<div class="disclaimer">
 			<p><span class="disclaimer-close"><img src="./img/close.svg"></span><strong>Disclaimer:</strong><br/>In order to protect
 				the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See
 				ABOUT to learn more.</p>
 		</div>
+		<div id="about-content" style="display:none;">
+			<p><span class="about-close"><img src="./img/close.svg"></span></p>
+			<h2>About</h2>
+			<h3>Welcome to "TBD"!</h3>
+			<p>The City of Detroit's Police Department (DPD) and Department of Innovation and Technology (DoIT) are building a tool
+			for residents to visualize crime data. By putting information in the hands of residents, we hope to work together to
+			promote a safer community.</p>
+			<h3>How often is the data updated?</h3>
+			<p>The <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">open dataset</a>				which contains the incident data used by this tool is updated on a weekly basis and reflects incidents that have been
+			submittted to the Michigan Incident Crime Reporting tool (the date of submission is reflected in the "IBR Date" field
+			on Socrata). The data represented in this tool are preliminary in nature and subject to change.</p>
+			<p>Should you have questions about the data, you may contact the Commanding Officer of the Detroit Police Department's
+			Crime Intelligence Unit at 313-596-2250 or <a href="mailto:CrimeIntelligenceBureau@detroitmi.gov">CrimeIntelligenceBureau@detroitmi.gov</a>.</p>
+			<h3>How is the data anonymized?</h3>
+			<p>The addresses and datapoints which appear in this tool are anonymized; instead of a specific street address, data points
+			get assigned to a specific block. We do this by randomly selecting a new point that is 1) within a certain distance
+			of the original crime and 2) a certain distance of the associated street segment. It does <b>not</b> accurately represent
+			where the incident happened.
+			<h3>Where does the data come from?</h3>
+			<p>The incidents that are used by the tool come from <a target="_blank" href="https://data.detroitmi.gov/">Detroit's open data portal</a>.
+			Find it at <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">DPD: All Crime Incidents, December 6, 2016 - Present</a>.</p>
+		</div>
 	</div>
+
+
 	<script src="./bundle.js"></script>
 </body>
 

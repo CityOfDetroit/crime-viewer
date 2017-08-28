@@ -119,21 +119,28 @@ map.on('load', function () {
           Locate.geocodeAddress(e.target.value).then(result => {
             let coords = result['candidates'][0]['location']
             console.log(Locate.identifyBounds(coords))
+
             Locate.makeRadiusPolygon(coords, 1500, Draw)
             filterObject = Filter.readInput()[0]
+
             Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
               blocks.features.forEach(b => {
                 filterObject.block_id.push(b.properties['geoid10'])
-              })
+              });
+
               Draw.deleteAll();
-              Filter.updateData(map, Draw, data, filterObject)
+              Filter.updateData(map, Draw, data, filterObject);
+
               // Draw.deleteAll()
               let unioned = turf.dissolve(blocks)
               unioned.features.forEach(f => {
                 Draw.add(f)
-              })
+              });
+
               map.fitBounds(turf.bbox(unioned), { padding: 50 })
-            })
+            });
+          });
+        }
 
         // locate an address and draw a radius around it
         document.getElementById('locate').addEventListener('keypress', e => {
@@ -155,9 +162,9 @@ map.on('load', function () {
 
               Filter.updateData(map, Draw, data, Filter.readInput()[0])
             });
-          });
+          }
+        });
 
-        }
       });
 
       map.on('draw.create', function (e) {
@@ -258,12 +265,22 @@ jQuery(document).ready(function () {
   });
 
   //close disclaimer box
-  jQuery('.disclaimer-close img').click(function () {
+  jQuery('.disclaimer-close img').click(function() {
     jQuery('.disclaimer').fadeOut();
   });
 
+  // show about on button click
+  jQuery('#about').on("click", function(e) {
+    jQuery('#about-content').show();
+  });
+
+  // hide about on x click
+  jQuery('.about-close img').click(function() {
+    jQuery('#about-content').hide();
+  });
+
   //reset filters
-  jQuery('.filters').click(function () {
+  jQuery('.filters').click(function() {
     //hide all visible dropdowns
     //jQuery('.dropdown-show').slideUp().removeClass('dropdown-show');
     if (jQuery(this).children('.filters-dropdown').hasClass('dropdown-show')) {
