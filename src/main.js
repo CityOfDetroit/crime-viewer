@@ -6,6 +6,7 @@ var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
 var FileSaver = require('file-saver');
+var html2canvas = require('html2canvas');
 
 import chroma from 'chroma-js';
 
@@ -112,11 +113,15 @@ map.on('load', function () {
             unit: 'px',
             format: [500, 500]
           })
-          
-          pdf.addImage(map.getCanvas().toDataURL('image/png'),
-          'png', 0, 0, 500, 500, null, 'FAST');
 
-          pdf.save('map.pdf');
+          pdf.addImage(map.getCanvas().toDataURL('image/png'), 'png', 0, 0, 500, 500, null, 'FAST');
+          
+          html2canvas(document.getElementById('point_details_tbl')).then(det => {
+            let image = det.toDataURL('image/png')
+            pdf.addImage(image, 'PNG', 20, 20);
+            pdf.save('map.pdf');            
+          })
+
         }
       }
 
