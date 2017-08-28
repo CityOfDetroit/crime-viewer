@@ -75,16 +75,8 @@
 	</nav>
 	<!--Map-->
 	<nav id="filters-menu">
-		<div class="search">
-				<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
-		</div>
-		<div id="loaded_view">
-			Between
-			<input id="from_date" type="date" min="2016-12-06"></input>
-			and
-			<input id="to_date" type="date" min="2016-12-06"></input>
-			there were <span id="crime_count">0</span> incidents in the City of Detroit.
-		</div>
+
+
 		<div id="filtered_view"></div>	
 		
 		<section class="filters" id="date-list">
@@ -92,6 +84,14 @@
 					<span>Date and Time</span>
 				</button>
 			<div class="filters-dropdown">
+
+					<div id="loaded_view">
+							Between
+							<input id="from_date" type="date" min="2016-12-06"></input>
+							and
+							<input id="to_date" type="date" min="2016-12-06"></input>
+							there were <span id="crime_count">0</span> incidents in the City of Detroit.
+						</div>
 				<span class="dropdown-title">Day of Week</span>
 
 				<input type="checkbox" class="dow-checkbox" id="dow-1-check" name="" />
@@ -123,10 +123,14 @@
 			</div>
 		</section>
 		<section class="filters" id="area-list">
+
 			<button>
 					<span>Area</span>
 				</button>
 			<div class="filters-dropdown">
+					<div class="search">
+							<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
+					</div>
 				<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
 				<label for="area-council-district">Council Districts</label>
 				<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
@@ -142,6 +146,15 @@
 		</section>
 		<section class="filters" id="reset-filters">
 			<button><span>Reset</span></button>
+		</section>
+		<section  class="meta-button" id="print">
+			<button><span>Print</span></button>
+		</section>
+		<section  class="meta-button" id="about">
+			<button><span>About</span></button>
+		</section>
+		<section  class="meta-button" id="share">
+			<button><span>Share</span></button>
 		</section>
 	</nav>
 	<div id='map'>
