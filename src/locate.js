@@ -8,7 +8,7 @@ const Locate = {
    * Send an address to the geocoder.
    * @param {string} address a street address in the CoD
    * @returns {Promise} res
-   */ take an address and return a promise */
+   */
   geocodeAddress: function(address) {
     const geocodeURL = 'https://gis.detroitmi.gov/arcgis/rest/services/DoIT/CompositeGeocoder/GeocodeServer/findAddressCandidates?'
     let params = {
