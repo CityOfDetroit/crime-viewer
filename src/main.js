@@ -5,11 +5,14 @@ var turf = require('@turf/turf');
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
+var FileSaver = require('file-saver');
+
 import chroma from 'chroma-js';
 
 global.jQuery = require('jquery');
 require('jq-accordion');
 require('jquery.scrollbar');
+var jsPDF = require('jspdf');
 
 import Helpers from './helpers.js';
 import Socrata from './socrata.js';
@@ -27,7 +30,8 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/light-v9',
   center: [-83.131, 42.350],
-  zoom: 10.75
+  zoom: 10.75,
+  preserveDrawingBuffer: true
 });
 
 var modes = MapboxDraw.modes;
@@ -99,9 +103,20 @@ map.on('load', function () {
         }
       });
 
-      document.onkeyup = function (e) {
-        if (e.keyCode == 192) {
-          Draw.changeMode('static')
+      // printing
+      document.onkeypress = function (e) {
+        if (e.keyCode == 96) {
+          console.log(map.getCanvas())
+          let pdf = new jsPDF({
+            orientation: 'l',
+            unit: 'px',
+            format: [500, 500]
+          })
+          
+          pdf.addImage(map.getCanvas().toDataURL('image/png'),
+          'png', 0, 0, 500, 500, null, 'FAST');
+
+          pdf.save('map.pdf');
         }
       }
 
