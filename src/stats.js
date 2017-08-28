@@ -12,7 +12,7 @@ const Stats = {
    * @param {array}
    * @returns {int}
    */
-  countFeatures: function(arr) {
+  countFeatures: function (arr) {
     return arr.length;
   },
 
@@ -22,7 +22,7 @@ const Stats = {
    * @param {string} - name of key in object
    * @returns {obj} - where keys are unique values for specified key above and values are integers
    */
-  countByKey: function(arr, key) {
+  countByKey: function (arr, key) {
     return _.countBy(arr, key);
   },
 
@@ -32,12 +32,12 @@ const Stats = {
    * @param {string} - html table id
    * @returns {}
    */
-  printAsTable: function(summaryStats, tblId) {
+  printAsTable: function (summaryStats, tblId) {
     // drop a key/value pair if the key is "null"
     summaryStats = _.omit(summaryStats, "null");
 
     // order from largest to smallest values
-    summaryStats = _.fromPairs(_.sortBy(_.toPairs(summaryStats), function(a) {
+    summaryStats = _.fromPairs(_.sortBy(_.toPairs(summaryStats), function (a) {
       return a[1];
     }).reverse());
 
@@ -70,10 +70,10 @@ const Stats = {
 
       // make the actual row
       tr += "<td>" + colorPreview + Helpers.toSentenceCase(key) + "</td>" + "<td>" + numeral(summaryStats[key]).format('0,0') + "</td></tr>";
-      
+
       tbody.innerHTML += tr;
     }
-    
+
     return tbody;
   },
 
@@ -81,21 +81,21 @@ const Stats = {
    * Prints a column chart
    * Ref http://api.highcharts.com/highcharts
    */
-  printAsHighchart: function(arr, key, chartId) {
+  printAsHighchart: function (arr, key, chartId) {
     // prep the data, don't include strange values like "Precinct HP"
     let summaryStats = _.countBy(arr, key);
     summaryStats = _.omit(summaryStats, ["null", "HP", "0"]);
 
     let properties = Object.keys(summaryStats).sort();
-    let counts = Object.keys(summaryStats).map(function(e) {
+    let counts = Object.keys(summaryStats).map(function (e) {
       return summaryStats[e];
     });
-    
+
     // lookup human-readable field name
     key = Data.fields[key];
 
     // define the chart
-    let chart = Highcharts.chart({ 
+    let chart = Highcharts.chart({
       chart: {
         renderTo: chartId,
         type: 'column',
@@ -121,7 +121,7 @@ const Stats = {
           enabled: false
         },
         labels: {
-          formatter: function() {
+          formatter: function () {
             return numeral(this.value).format('0a');
           }
         }
@@ -129,7 +129,7 @@ const Stats = {
       tooltip: {
         borderWidth: 1,
         borderColor: 'white',
-        formatter: function() {
+        formatter: function () {
           return numeral(this.y).format('0,0') + ' ' + this.series.name;
         }
       },
@@ -154,7 +154,7 @@ const Stats = {
    * @param {string} - html div id
    * @returns {}
    */
-  printLoadedView: function(timeA, timeB, data) {
+  printLoadedView: function (timeA, timeB, data) {
     jQuery("#from_date").val(moment(timeA).format("YYYY-MM-DD"))
     jQuery("#to_date").val(moment(timeB).format("YYYY-MM-DD"))
     jQuery("#crime_count").html(data.features.length)
@@ -167,25 +167,26 @@ const Stats = {
    * @param {string} divId html div id
    * @returns {}
    */
-  printFilteredView: function(features, humanFilter, divId) {
+  printFilteredView: function (features, humanFilter, divId) {
     let filtered_view = document.getElementById(divId);
-    if (_.flatten(Object.values(humanFilter)).length == 0) {let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
+    if (_.flatten(Object.values(humanFilter)).length == 0) {
+      let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
       jQuery('#filtered_view').fadeOut(550);
-      jQuery('#details').animate({height: currentViewHeight}, {complete:function(){jQuery('#filtered_view').empty()}}); 
+      jQuery('#details').animate({ height: currentViewHeight }, { complete: function () { jQuery('#filtered_view').empty() } });
       return filtered_view;
     }
     else {
       let html = `<hr><p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
       Object.entries(humanFilter).forEach(e => {
-        if(e[1].length > 0) {
+        if (e[1].length > 0) {
           html += `<li>${Helpers.toSentenceCase(e[0])}: ${e[1].join(", ")}`
         }
       })
       html += '</ul>'
       filtered_view.innerHTML = html;
-      jQuery('#filtered_view').fadeIn(500, function(){});
+      jQuery('#filtered_view').fadeIn(500, function () { });
       let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
-      jQuery('#details').animate({height: currentViewHeight}, {complete:function(){}});
+      jQuery('#details').animate({ height: currentViewHeight }, { complete: function () { } });
       return filtered_view;
     }
   },
@@ -209,48 +210,28 @@ const Stats = {
    * @param {string} - html div id
    * @returns {}
    */
-  printPointDetails: function(features, divId) {
+  printPointDetails: function (features, divId) {
     let detail = document.getElementById(divId);
+    let display_cols = {
+      "Report #": features[0].properties.report_number,
+      "Arrest Category": features[0].properties.offense_category,
+      "Offense Code": Data.state_codes[features[0].properties.state_offense_code],
+      "Timestamp": moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a"),
+      "Address": features[0].properties.address,
+      "Council District": features[0].properties.council_district,
+      "Precinct": features[0].properties.precinct
+    }
     detail.innerHTML = `
     <table>
     <colgroup>
-    <col style="width:35%">
-    <col style="width:65%">
-    </colgroup>  
-    <tr>
-      <th>Report #</th>
-      <td>${features[0].properties.report_number}</td>
-    </tr>
-    <tr>
-      <th>Arrest Category</th>
-      <td>${features[0].properties.offense_category}</td>
-    </tr>
-    <tr>
-      <th>Offense Code</th>
-      <td>${Data.state_codes[features[0].properties.state_offense_code]}</td>
-    </tr>
-    <tr>
-      <th>Timestamp</th>
-      <td>${moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a")}</td>
-    </tr>
-    <tr>
-      <th>Address</th>
-      <td>${features[0].properties.address}</td>
-    </tr>
-    <tr>
-      <th>Council District</th>
-      <td>${features[0].properties.council_district}</td>
-    </tr>
-    <tr>
-      <th>Precinct</th>
-      <td>${features[0].properties.precinct}</td>
-    </tr>
-    <tr>
-      <th>Neighborhood</th>
-      <td>${features[0].properties.neighborhood}</td>
-    </tr>
-   </table>
-    `
+      <col style="width:35%">
+      <col style="width:65%">
+    </colgroup>
+    ${Object.keys(display_cols).map(k => `
+      <tr><th>${k}</th></tr>
+      <tr><td>${display_cols[k]}</td></tr>
+    `).join("")}
+    </table>`
     return detail;
   }
 }
