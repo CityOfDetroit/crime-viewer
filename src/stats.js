@@ -218,6 +218,7 @@ const Stats = {
       "Offense Code": Data.state_codes[features[0].properties.state_offense_code],
       "Timestamp": moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a"),
       "Address": features[0].properties.address,
+      "Neighborhood": `${features[0].properties.neighborhood} (District ${features[0].properties.council_district}, Precinct ${features[0].properties.precinct})`
       // "Council District": features[0].properties.council_district,
       // "Precinct": features[0].properties.precinct
     }
