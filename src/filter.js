@@ -22,6 +22,7 @@ const Filter = {
       'precinct': [],
       'zip_code': [], 
       'council_district': [],
+      'block_id': []
     }
     let filterHuman = {
       "categories": [],
@@ -103,11 +104,6 @@ const Filter = {
   updateData: function(map, draw, data, filters) {
     // make a copy of the original fetched data
     let filteredData = _.cloneDeep(data);
-    let drawn = draw.getAll()
-    console.log(drawn)
-    if(drawn.features.length >= 1){
-      filteredData = turf.within(filteredData, drawn)
-    }
 
     Object.entries(filters).forEach(([k, v]) => {
       if (v.length < 1) {
@@ -121,9 +117,9 @@ const Filter = {
 
     // refresh counts to redraw chart in Stats tab based on selected area filter
     if (filters['council_district'].length > 0) {
-      Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
+      // Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
     } else {
-      Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
+      // Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
     }
 
     // refresh counts to redraw table in Stats tab
@@ -132,7 +128,6 @@ const Filter = {
 
     // refresh count of current incidents
     Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
-    console.log(filteredData);
   },
 
   /**
@@ -145,6 +140,23 @@ const Filter = {
     return _.filter(data, d => {
       return values.indexOf(eval(`d.properties.${key}`)) > -1 
     })
+  },
+  /**
+   * Reset everything
+   * @param {mapboxgl.Map} map mapboxgl.Map instance
+   * @param {MapboxDraw} draw MapboxDraw instance
+   * @param {Object} data originally fetched data
+   */
+  resetEverything: function(map, draw, data) {
+    // reset map bounds
+    map.flyTo({ center: [-83.131, 42.350], zoom: 10.75})
+    // copy of original data
+    map.getSource('incidents').setData(data);
+    // clear all Draw
+    draw.deleteAll()
+    // reset all filters
+    jQuery("input:checkbox").prop("checked", false)
+
   },
 
   newDrawnPolygon: function(draw, map) {

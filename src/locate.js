@@ -4,7 +4,11 @@ var Terraformer = require('terraformer')
 var arcgis = require('terraformer-arcgis-parser')
 
 const Locate = {
-  /* take an address and return a promise */
+  /**
+   * Send an address to the geocoder.
+   * @param {string} address a street address in the CoD
+   * @returns {Promise} res
+   */
   geocodeAddress: function(address) {
     const geocodeURL = 'https://gis.detroitmi.gov/arcgis/rest/services/DoIT/CompositeGeocoder/GeocodeServer/findAddressCandidates?'
     let params = {
@@ -23,7 +27,7 @@ const Locate = {
   /**
    * Take a LatLng and toss it against a MapServer/identify to see what polys it falls in.
    * @param {object} coords a coordinate object with x/y
-   * @returns {something}
+   * @returns {Promise} res
    */
   identifyBounds: function(coords) {
     const boundsEndpoint = 'https://gis.detroitmi.gov/arcgis/rest/services/DoIT/BoundsCheck/MapServer/identify?'
@@ -46,19 +50,19 @@ const Locate = {
   /**
    * Create a promise for an endpoint that returns intersecting census blocks.
    * @param {polygon} geometry A GeoJSON geometry.
-   * @returns {promise}
+   * @returns {Promise} res
    */
   getCensusBlocks: function(geometry) {
-    console.log(JSON.stringify(arcgis.convert(geometry)[0]['geometry']))
-    const endpoint = 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/0/query?'
+    const endpoint = 'http://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/0/query?'
     let params = {
       'where': '1=1',
       'geometryType': 'esriGeometryPolygon',
       'geometry': JSON.stringify(arcgis.convert(geometry)[0]['geometry']),
       'outFields': 'geoid10',
       'inSR': '4326',
-      'spatialRel': 'esriSpatialRelIntersects',
-      // 'returnGeometry': 'true',
+      'spatialRel': 'esriSpatialRelContains',
+      'returnGeometry': 'true',
+      'geometryPrecision': 5,
       'f': 'geojson'
     }
     return fetch(endpoint + $.param(params)).then((r) => {
@@ -66,16 +70,12 @@ const Locate = {
       return res
     })
   },
-  panToLatLng: function(gc_result, map) {
-    console.log(gc_result)
-    if (gc_result['candidates'].length > 0) {
-      let coords = gc_result['candidates'][0]['location']
-      map.flyTo({center: [coords['x'], coords['y']], zoom: 15})
-    }
-    else {
-      console.log("No candidates found!")
-    }
-  },
+  /**
+   * Given a set of coordinates, attach a new Polygon to MapboxDraw
+   * @param {object} coords x/y to draw radius from
+   * @param {integer} radius in meters
+   * @param {MapboxDraw} draw MapboxDraw instance
+   */
   makeRadiusPolygon: function(coords, radius, draw) {
     let search_radius = turf.buffer(turf.point([coords.x, coords.y]), radius, "meters")
     draw.deleteAll()

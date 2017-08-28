@@ -34,3 +34,16 @@ tr div {
   border: 1px black solid;
   display: inline-block;
 }
+
+#point_details th {
+  font-size: 0.9em;
+  border-bottom: 1px dotted black;
+  background-color: #ccc;
+  letter-spacing: 1px;
+}
+
+#point_details td {
+  background-color: #eee;
+  padding: 3px 10px;
+  font-size: 1em;
+}
