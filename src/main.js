@@ -135,31 +135,25 @@ map.on('load', function () {
               map.fitBounds(turf.bbox(unioned), { padding: 50 })
             })
 
-            // show a marker at the matched address
-            map.loadImage('../public/img/marker-15.svg', function (error, image) {
-              if (error) throw error;
-              map.addImage('marker-15', image);
-              map.addLayer({
-                "id": "address_marker",
-                "type": "symbol",
-                "source": {
-                  "type": "geojson",
-                  "data": {
-                    "type": "FeatureCollection",
-                    "features": [{
-                      "type": "Feature",
-                      "geometry": {
-                        "type": "Point",
-                        "coordinates": [coords.y, coords.x]
-                      }
-                    }]
-                  }
-                },
-                "layout": {
-                  "icon-image": "marker-15",
-                  "icon-size": 0.25
-                }
-              });
+        // locate an address and draw a radius around it
+        document.getElementById('locate').addEventListener('keypress', e => {
+          if (e.key == 'Enter') {
+            Locate.geocodeAddress(e.target.value).then(result => {
+              let coords = result['candidates'][0]['location']
+              console.log(Locate.identifyBounds(coords))
+
+              Locate.panToLatLng(result, map)
+              Locate.makeRadiusPolygon(coords, 1500, Draw)
+
+              // show a marker at the matched address
+              var el = document.createElement('div');
+              el.className = 'marker';
+              
+              new mapboxgl.Marker(el, { offset: [-50 / 2, -50 / 2] })
+              .setLngLat([coords.x, coords.y])
+              .addTo(map);
+
+              Filter.updateData(map, Draw, data, Filter.readInput()[0])
             });
           });
 

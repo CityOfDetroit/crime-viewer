@@ -30,7 +30,7 @@ const Locate = {
    * @returns {Promise} res
    */
   identifyBounds: function(coords) {
-    const boundsEndpoint = 'http://gis.detroitmi.gov/arcgis/rest/services/DoIT/BoundsCheck/MapServer/identify?'
+    const boundsEndpoint = 'https://gis.detroitmi.gov/arcgis/rest/services/DoIT/BoundsCheck/MapServer/identify?'
     let params = {
       'geometry': `${coords.x}, ${coords.y}`,
       'sr': 4326,
