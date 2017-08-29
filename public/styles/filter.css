@@ -56,21 +56,22 @@ input[type=radio]:checked + label{
     left: 10px;
 }
 #filters-menu{
-    background: white;
     display: inline-block;
     position: fixed;
     top: 0px;
     z-index: 500;
     width: 75%;
-    height: 90px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 .filters{
     display: inline-block;
     margin:7px 35px;
 }
-
-.filters button {
+#primary-nav{
+    background: white;
+    z-index: 100;
+    position: relative;
+}
+#primary-nav input {
     font-size: 1.25em;
     font-weight: 600;
     display: inline-block;
@@ -89,16 +90,8 @@ input[type=radio]:checked + label{
 }
 
 .filters-dropdown{
-    float: left;
-    position: absolute;
-    top: 50px;
-    background: white;
     margin-left:15px;
     padding: 15px;
-    max-width: 165px;
-    border-radius: 10px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
-    display: none;
 }
 
 .filters-dropdown article{
@@ -113,4 +106,14 @@ input[type=radio]:checked + label{
 .meta-button {
     display: block;
     text-align: right;
+}
+
+#primary-panel, #date-and-time, #location{
+    display: none;
+}
+#primary-panel{
+    background: azure;
+}
+.drop-shadow{
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }

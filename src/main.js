@@ -299,15 +299,35 @@ jQuery(document).ready(function () {
     jQuery('#about-content').hide();
   });
 
-  //reset filters
-  jQuery('.filters').click(function() {
-    //hide all visible dropdowns
-    //jQuery('.dropdown-show').slideUp().removeClass('dropdown-show');
-    if (jQuery(this).children('.filters-dropdown').hasClass('dropdown-show')) {
-      jQuery(this).children('.filters-dropdown').removeClass('dropdown-show').slideUp();
-    } else {
-      jQuery(this).children('.filters-dropdown').addClass('dropdown-show').slideDown();
+  function hidePanel(){
+        jQuery('#primary-panel').slideUp().removeClass('drop-shadow');
+        jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
+        jQuery('#map-overlay').fadeOut();
+  }
+
+  jQuery('#primary-nav input').click(function() {
+    var panelID = jQuery(this).attr('data-panel');
+    console.log(panelID);
+    if(jQuery('#primary-nav').hasClass('panel-show')){
+      if(jQuery(panelID).is(":visible")){
+        hidePanel();
+        jQuery(panelID).css('display', 'none');
+      }
+      else{
+        jQuery('#primary-panel .filters').fadeOut();
+        jQuery(panelID).fadeIn();
+      }
     }
+    else{
+      jQuery(panelID).css('display', 'inline-block');
+      jQuery('#primary-nav').removeClass('drop-shadow').addClass('panel-show');
+      jQuery('#primary-panel').slideDown().addClass('drop-shadow');
+      jQuery('#map-overlay').fadeIn();
+    }
+  });
+
+  jQuery('#map-overlay').click(function(){
+    hidePanel();
   });
 
 

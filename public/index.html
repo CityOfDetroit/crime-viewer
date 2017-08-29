@@ -7,10 +7,8 @@
 	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet'>
 	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.css' type='text/css'/>
-	<link href='./styles/jquery.accordion.css' rel='stylesheet'>
 	<link href='./styles/jquery.scrollbar.css' rel='stylesheet'>
 	<link href='./styles/tables.css' rel='stylesheet'>
-	<link href='./styles/accordion.css' rel='stylesheet'>
 	<link href='./styles/tabs.css' rel='stylesheet'>
 	<link href='./styles/filter.css' rel='stylesheet'>
 	<link href='./styles/main.css' rel='stylesheet'>
@@ -23,7 +21,6 @@
 		<div class="logo">
 			<img src="./img/green.png">
 			<h1>City of Detroit<br/>Crime Viewer</h1>
-	
 		</div>
 		<div class="tabs">
 			<ul class="tab-links" style="display: none;">
@@ -72,26 +69,22 @@
 			</div>
 		</div>
 	</nav>
-
 	<!--Map-->
 	<nav id="filters-menu">
-
-
-		<div id="filtered_view"></div>	
-		
-		<section class="filters" id="date-list">
-			<button>
-					<span>Date and Time</span>
-				</button>
-			<div class="filters-dropdown">
-
-					<div id="loaded_view">
-							Between
-							<input id="from_date" type="date" min="2016-12-06"></input>
-							and
-							<input id="to_date" type="date" min="2016-12-06"></input>
-							there were <span id="crime_count">0</span> incidents in the City of Detroit.
-						</div>
+		<div id="primary-nav" class="drop-shadow">
+			<input type="button" value="Date and Time" data-panel="#date-and-time">
+			<input type="button" value="Location" data-panel="#location">
+			<input type="button" value="Reset" data-panel="#reset-filters">
+		</div>
+		<div id="primary-panel">
+			<section class="filters" id="date-and-time">
+				<div id="loaded_view">
+					Between
+					<input id="from_date" type="date" min="2016-12-06"></input>
+					and
+					<input id="to_date" type="date" min="2016-12-06"></input>
+					there were <span id="crime_count">0</span> incidents in the City of Detroit.
+				</div>
 				<span class="dropdown-title">Day of Week</span>
 
 				<input type="checkbox" class="dow-checkbox" id="dow-1-check" name="" />
@@ -119,76 +112,47 @@
 				<label for="evening-check"><img src="./img/mooncloud.svg" alt=""/><span>5PM - 10PM</span></label>
 				<input type="checkbox" id="overnight-check" class="date-checkbox" name="" />
 				<label for="overnight-check"><img src="./img/overnight.svg" alt=""/><span>11PM - 4AM</span></label>
-
-			</div>
-		</section>
-		<section class="filters" id="area-list">
-
-			<button>
-					<span>Area</span>
-				</button>
-			<div class="filters-dropdown">
+			</section>
+			<section class="filters" id="location">
+				<div class="filters-dropdown">
 					<div class="search">
-							<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
+						<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
 					</div>
-				<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
-				<label for="area-council-district">Council Districts</label>
-				<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
-				<label for="area-precinct">Precincts</label>
-				<input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
-				<label for="area-neighborhood">Neighborhoods</label>
-				<input type="radio" data-control="" id="area-zipcode" name="currentArea" value="zipcode">
-				<label for="area-zipcode">Zip Codes</label>
-				<input type="radio" data-control="" id="area-custom" name="currentArea" value="custom">
-				<label for="area-custom">Draw Your Own</label>
-
-			</div>
-		</section>
-		<section class="filters" id="reset-filters">
-			<button><span>Reset</span></button>
-		</section>
-		<section  class="meta-button" id="print">
-			<button><span>Print</span></button>
-		</section>
-		<section  class="meta-button" id="about">
-			<button><span>About</span></button>
-		</section>
-		<section  class="meta-button" id="share">
-			<button><span>Share</span></button>
-		</section>
+					<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
+					<label for="area-council-district">Council Districts</label>
+					<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
+					<label for="area-precinct">Precincts</label>
+					<input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
+					<label for="area-neighborhood">Neighborhoods</label>
+					<input type="radio" data-control="" id="area-zipcode" name="currentArea" value="zipcode">
+					<label for="area-zipcode">Zip Codes</label>
+					<input type="radio" data-control="" id="area-custom" name="currentArea" value="custom">
+					<label for="area-custom">Draw Your Own</label>
+				</div>
+			</section>
+		</div>
+		<div id="secondary-nav">
+			<section  class="meta-button" id="print">
+				<button><span>Print</span></button>
+			</section>
+			<section  class="meta-button" id="about">
+				<button><span>About</span></button>
+			</section>
+			<section  class="meta-button" id="share">
+				<button><span>Share</span></button>
+			</section>
+		</div>
 	</nav>
-
+	<div id='map-overlay'>
+		
+	</div>
 	<div id='map'>
 		<div class="disclaimer">
 			<p><span class="disclaimer-close"><img src="./img/close.svg"></span><strong>Disclaimer:</strong><br/>In order to protect
 				the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See
 				ABOUT to learn more.</p>
 		</div>
-		<div id="about-content" style="display:none;">
-			<p><span class="about-close"><img src="./img/close.svg"></span></p>
-			<h2>About</h2>
-			<h3>Welcome to "TBD"!</h3>
-			<p>The City of Detroit's Police Department (DPD) and Department of Innovation and Technology (DoIT) are building a tool
-			for residents to visualize crime data. By putting information in the hands of residents, we hope to work together to
-			promote a safer community.</p>
-			<h3>How often is the data updated?</h3>
-			<p>The <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">open dataset</a>				which contains the incident data used by this tool is updated on a weekly basis and reflects incidents that have been
-			submittted to the Michigan Incident Crime Reporting tool (the date of submission is reflected in the "IBR Date" field
-			on Socrata). The data represented in this tool are preliminary in nature and subject to change.</p>
-			<p>Should you have questions about the data, you may contact the Commanding Officer of the Detroit Police Department's
-			Crime Intelligence Unit at 313-596-2250 or <a href="mailto:CrimeIntelligenceBureau@detroitmi.gov">CrimeIntelligenceBureau@detroitmi.gov</a>.</p>
-			<h3>How is the data anonymized?</h3>
-			<p>The addresses and datapoints which appear in this tool are anonymized; instead of a specific street address, data points
-			get assigned to a specific block. We do this by randomly selecting a new point that is 1) within a certain distance
-			of the original crime and 2) a certain distance of the associated street segment. It does <b>not</b> accurately represent
-			where the incident happened.
-			<h3>Where does the data come from?</h3>
-			<p>The incidents that are used by the tool come from <a target="_blank" href="https://data.detroitmi.gov/">Detroit's open data portal</a>.
-			Find it at <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">DPD: All Crime Incidents, December 6, 2016 - Present</a>.</p>
-		</div>
 	</div>
-
-
 	<script src="./bundle.js"></script>
 </body>
 

@@ -44,14 +44,21 @@ table td{
     outline-width: 5px;
 }
 
-#map { 
+#map, #map-overlay{ 
   position: absolute; 
   top: 0; 
   bottom: 0; 
   left: 25%;
-  width: calc(100% - 25%)
+  width: calc(100% - 25%);
 }
 
+#map-overlay{
+  background: white;
+  z-index: 450;
+  opacity: 0.5;
+  cursor: not-allowed;
+  display: none;
+}
 /* marks address searched */
 .marker {
   background-image: url('../img/marker-15.svg');
