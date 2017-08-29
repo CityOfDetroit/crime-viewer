@@ -7,13 +7,13 @@ var _ = require('lodash');
 var Slideout = require('slideout');
 var FileSaver = require('file-saver');
 var html2canvas = require('html2canvas');
+var jsPDF = require('jspdf');
 
 import chroma from 'chroma-js';
 
 global.jQuery = require('jquery');
 require('jq-accordion');
 require('jquery.scrollbar');
-var jsPDF = require('jspdf');
 
 import Helpers from './helpers.js';
 import Socrata from './socrata.js';
@@ -107,20 +107,34 @@ map.on('load', function () {
       // printing
       document.onkeypress = function (e) {
         if (e.keyCode == 96) {
-          console.log(map.getCanvas())
+
           let pdf = new jsPDF({
             orientation: 'l',
             unit: 'px',
-            format: [500, 500]
+            format: [612, 792]
           })
 
-          pdf.addImage(map.getCanvas().toDataURL('image/png'), 'png', 0, 0, 500, 500, null, 'FAST');
-          
-          html2canvas(document.getElementById('point_details_tbl')).then(det => {
-            let image = det.toDataURL('image/png')
-            pdf.addImage(image, 'PNG', 20, 20);
-            pdf.save('map.pdf');            
+          document.getElementById('map').style.width = '1500px';
+          document.getElementById('map').style.height = '900px';
+          map.resize()
+          map.once('render', m => {
+            pdf.addImage(map.getCanvas().toDataURL('image/png'), 'png', 10, 10, 500, 300, null, 'FAST');
+            pdf.save('map.pdf')            
+            document.getElementById('map').style.width = '75%';
+            document.getElementById('map').style.height = 'calc(100% - 90px)';
+            map.resize()
           })
+
+          
+
+
+          
+          // html2canvas(document.getElementById('point_details_tbl')).then(det => {
+          //   let image = det.toDataURL('image/png')
+          //   pdf.addImage(image, 'PNG', 20, 20);
+          //   pdf.save('map.pdf');            
+          // })
+
 
         }
       }
