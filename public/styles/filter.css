@@ -128,16 +128,21 @@ input[type=radio]:checked + label{
     width: 180px;
     height: 100%;
     background-color: #ddd;
-    padding: .5em 1em;
-    margin-right: 1em;
+    padding: .5em;
+    margin: .5em;
 }
 
 .filter-subcat.wide {
-    width: 250px;
+    width: 300px;
+}
+
+/* like the best size of t-shirt */
+.filter-subcat.xl {
+    width: 400px;
 }
 
 .filter-subcat.narrow {
-    width: 150px;
+    width: 130px;
 }
 
 .filter-subcat-title {
@@ -156,7 +161,7 @@ input[type=radio]:checked + label{
 }
 
 input[type=checkbox] {
-    transform: scale(1.5);
+    transform: scale(1.25);
   }
 
 .filter-instructions {
@@ -166,11 +171,11 @@ input[type=checkbox] {
     left: 0;
     font-style: 'italic';
     /* font-weight: 900; */
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
     font-size: .9em;
     color: #222;
 }
 
 #locate {
-    width: 240px;
+    width: 290px;
 }

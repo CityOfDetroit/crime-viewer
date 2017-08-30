@@ -221,4 +221,11 @@ table td{
       width: 27px;
       height: 27px;
    }
+
+   .sidebar-title {
+     margin: .5em 0em;
+     font-size: 1.1em;
+     letter-spacing: 1px;
+     border-bottom: 1px dotted black;
+   }
 /*}*/

@@ -224,6 +224,7 @@ const Stats = {
       // "Precinct": features[0].properties.precinct
     }
     detail.innerHTML = `
+    <h4 class="sidebar-title">Point Details</h4>
     <table id="point_details_tbl">
     <colgroup>
       <col style="width:35%">

@@ -21,7 +21,7 @@ table th + th
   text-align:right;
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
   background-color: #B7CDC2;
 }
 
@@ -38,7 +38,7 @@ tr div {
 #point_details th {
   font-size: 0.9em;
   border-bottom: 1px dotted black;
-  background-color: #ccc;
+  background-color: #B7CDC2;
   letter-spacing: 1px;
 }
 
