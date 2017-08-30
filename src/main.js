@@ -208,20 +208,6 @@ map.on('load', function () {
 
       })
 
-      // swap map boundary and chart axis based on selected area
-      jQuery('input[type=radio][name=currentArea]').change(function () {
-        if (this.value == 'custom') {
-          Filter.newDrawnPolygon(Draw, map);
-        }
-        else {
-          Draw.deleteAll();
-          Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-          // Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
-        }
-        // Filter.updateData(map, Draw, data, Filter.readInput()[0])
-      });
-
-
       // reset filters
       jQuery('#reset-filters').click(function () {
         jQuery('input:checkbox').removeAttr('checked');
@@ -269,6 +255,20 @@ jQuery(document).ready(function () {
         jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
         jQuery('#map-overlay').fadeOut();
   }
+
+  // swap map boundary and chart axis based on selected area
+  jQuery('input[type=radio][name=currentArea]').change(function () {
+    if (this.value == 'custom') {
+      Filter.newDrawnPolygon(Draw, map);
+      hidePanel();
+    }
+    else {
+      Draw.deleteAll();
+      Boundary.changeBoundary(map, Boundary.boundaries[this.value])
+      // Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+    }
+    // Filter.updateData(map, Draw, data, Filter.readInput()[0])
+  });
 
   jQuery('#primary-nav input').click(function() {
     var panelID = jQuery(this).attr('data-panel');
