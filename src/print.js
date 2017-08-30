@@ -49,13 +49,6 @@ const Print = {
             pdf.text(190, 30, `Showing crime categories: ${filter.categories.join(",")}`)
         }
 
-        // if (filter.categories.length === 0) {
-        //     pdf.text(190, 30, `Showing all days of week`)
-        // }
-        // else {
-        //     pdf.text(190, 30, `Showing days of week: ${filter.categories.join(",")}`)
-        // }
-
         if (filter.time.length === 0) {
             pdf.text(190, 40, `Showing all times`)
         }
@@ -83,7 +76,6 @@ const Print = {
                 },
                 drawCell: function(cell, data) {
                     if (data.column.dataKey === 0) {
-                        console.log(cell, data)
                         let rgb = colors[cell.raw] || [0,0,0]
                         pdf.setFillColor(rgb[0], rgb[1], rgb[2])
                         pdf.circle((cell.x - 10), (cell.y + cell.height/2), 5, 'F')

@@ -117,20 +117,35 @@
 				<label for="overnight-check"><img src="./img/overnight.svg" alt=""/><span>11PM - 4AM</span></label>
 			</section>
 			<section class="filters" id="location">
-				<div class="filters-dropdown">
-					<div class="search">
-						<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
-					</div>
-					<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
-					<label for="area-council-district">Council Districts</label>
-					<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
-					<label for="area-precinct">Precincts</label>
-					<input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
-					<label for="area-neighborhood">Neighborhoods</label>
-					<input type="radio" data-control="" id="area-zipcode" name="currentArea" value="zipcode">
-					<label for="area-zipcode">Zip Codes</label>
+				<div class="filter-instructions">You can restrict what area is shown here. You can <b>search</b> for an address, </b>draw your own</b> custom area, or <b>choose</b> from pre-made boundaries:</div>
+				<div class='filter-subcat wide' id="geocode_search">
+					<span class='filter-subcat-title'>Search</span>
+					<input id="locate" name="search" placeholder="Find a place: '8515 W Chicago', 'Van Dyke & Harper'" type="text">
+				</div>
+				<div class='filter-subcat narrow'>
+					<span class='filter-subcat-title'>Custom</span>
 					<input type="radio" data-control="" id="area-custom" name="currentArea" value="custom">
-					<label for="area-custom">Draw Your Own</label>
+					<label for="area-custom">Draw area</label>
+				</div>
+				<div class='filter-subcat narrow'>
+					<span class='filter-subcat-title'>Council districts</span>
+					<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
+					<label for="area-council-district">Show</label>
+				</div>
+				<div class='filter-subcat narrow'>
+					<span class='filter-subcat-title'>Police precincts</span>
+					<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
+					<label for="area-precinct">Show</label>
+				</div>
+				<div class='filter-subcat narrow'>
+					<span class='filter-subcat-title'>Neighborhoods</span>
+					<input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
+					<label for="area-neighborhood">Show</label>
+				</div>
+				<div class='filter-subcat narrow'>
+					<span class='filter-subcat-title'>Zip codes</span>
+					<input type="radio" data-control="" id="area-zip-code" name="currentArea" value="zipcode">
+					<label for="area-zip-code">Show</label>
 				</div>
 			</section>
 		</div>

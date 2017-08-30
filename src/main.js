@@ -128,7 +128,7 @@ map.on('load', function () {
               });
 
               Draw.deleteAll();
-              Filter.updateData(map, Draw, data, filterObject);
+              filteredData = Filter.updateData(map, Draw, data, filterObject);
 
               // Draw.deleteAll()
               let unioned = turf.dissolve(blocks)
