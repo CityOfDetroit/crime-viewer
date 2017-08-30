@@ -7,7 +7,7 @@ const $ = require('jquery');
 
 function computeColors() {
     /**
-     * @returns {array} - An MapboxGL stops array for symbolizing offense codes
+     * @returns {array} colors An MapboxGL stops array for symbolizing offense codes
      */
     let colors = []
     Object.entries(Data.offenses).forEach(([k, v]) => {
@@ -78,7 +78,8 @@ const Init = {
                     'base': 1.25,
                     'stops': [
                         [8, 3],
-                        [19, 9]
+                        [17, 9],
+                        [19, 12]
                     ]
                 },
                 "circle-opacity": {
@@ -115,14 +116,16 @@ const Init = {
      * @returns {undefined}
      */
     populateSidebar: function() {
-        let offenseHtml = ''
+        let offenseHtml = `<div class="filter-instructions">Select different categories of crime to visualize:</div>`
         Object.entries(Data.offenses).forEach(([k,v]) => {
             offenseHtml += `
-                <p>
-                ${v[0].top}</p>
+                <div class='filter-subcat'>
+                    <span class='filter-subcat-title'>${v[0].top}</span>
                     ${v.map (o => `
+                    <div class='filter-subcat-input'>
                     <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.state_codes.join(" ")}" data-name="${o.name}"/>
-                    <label for="${o.name.toLowerCase().replace(' ','-')}-check"></label> ${Helpers.toSentenceCase(o.name)}`).join("")}`
+                    <label for="${o.name.toLowerCase().replace(' ','-')}-check">${Helpers.toSentenceCase(o.name)}</label></div>`).join("")}
+                </div>`
         })
         $('#categories').html(offenseHtml);
     }

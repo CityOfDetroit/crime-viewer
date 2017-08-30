@@ -121,3 +121,44 @@ input[type=radio]:checked + label{
 .inline-block{
     display: inline-block;
 }
+
+.filter-subcat {
+    display: inline-block;
+    vertical-align: text-top;
+    width: 200px;
+    height: 100%;
+    background-color: #ddd;
+    padding: .5em 1em;
+    margin-right: 1em;
+}
+
+.filter-subcat-title {
+    position: relative;
+    top: 0;
+    margin-bottom: .5em;
+    font-size: 1.1em;
+    display: block;
+    position: relative;
+    font-weight: 900;
+}
+
+.filter-subcat-input {
+    display: block;
+    padding: 5px 1px;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+  }
+
+.filter-instructions {
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    font-style: 'italic';
+    /* font-weight: 900; */
+    margin-bottom: .5em;
+    font-size: .9em;
+    color: #222;
+}
