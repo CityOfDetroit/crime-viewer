@@ -295,28 +295,31 @@ jQuery(document).ready(function () {
   });
 
   function hidePanel(){
-        jQuery('#primary-panel').slideUp().removeClass('drop-shadow');
-        jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
+        jQuery('#primary-panel').slideUp(400, function(){
+          jQuery('#primary-panel .filters').css('display', 'none');
+          jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
+        }).removeClass('drop-shadow');
         jQuery('#map-overlay').fadeOut();
   }
 
   jQuery('#primary-nav input').click(function() {
     var panelID = jQuery(this).attr('data-panel');
-    console.log(panelID);
     if(jQuery('#primary-nav').hasClass('panel-show')){
       if(jQuery(panelID).is(":visible")){
+        console.log('309');
         hidePanel();
-        jQuery(panelID).css('display', 'none');
       }
       else{
         jQuery('#primary-panel .filters').fadeOut();
-        jQuery(panelID).fadeIn();
+        jQuery(panelID).fadeIn().css('display', 'inline-block');
       }
     }
     else{
       jQuery(panelID).css('display', 'inline-block');
       jQuery('#primary-nav').removeClass('drop-shadow').addClass('panel-show');
-      jQuery('#primary-panel').slideDown().addClass('drop-shadow');
+      jQuery('#primary-panel').slideDown(400, function(){
+        jQuery(this).addClass('drop-shadow');
+      });
       jQuery('#map-overlay').fadeIn();
     }
   });
