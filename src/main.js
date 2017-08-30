@@ -5,7 +5,7 @@ var turf = require('@turf/turf');
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
-var FileSaver = require('file-saver');
+var FileSaver = require('filesaver.js');
 var html2canvas = require('html2canvas');
 var jsPDF = require('jspdf');
 
@@ -23,6 +23,7 @@ import Locate from './locate.js';
 import Boundary from './boundary.js';
 import Data from './data.js';
 import Init from './init.js';
+import Router from './router.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -34,6 +35,17 @@ var map = new mapboxgl.Map({
   zoom: 10.75,
   preserveDrawingBuffer: true
 });
+
+// get current zoom level and center of map
+var zoom = map.getZoom();
+var center = map.getCenter();
+
+// set initial URL params
+var router = new Router();
+router.updateURLParams({'zoom': zoom,'lng': center.lng,'lat': center.lat});
+
+var currentRouting = router.loadURLRouting();
+console.log(currentRouting);
 
 var modes = MapboxDraw.modes;
 modes.static = StaticMode;
@@ -98,10 +110,17 @@ map.on('load', function () {
         var features = map.queryRenderedFeatures(e.point, {
           layers: ['incidents_point']
         });
+        
         if (features.length > 0) {
           map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
           Stats.printPointDetails(features, 'point_details');
         }
+
+        // update routing
+        let zoom = map.getZoom()
+        let center = map.getCenter()
+        router.updateURLParams({'zoom': zoom,'lng': center.lng,'lat': center.lat});
+        var currentRouting = router.loadURLRouting();
       });
 
       // printing
