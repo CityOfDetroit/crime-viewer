@@ -58,11 +58,12 @@ const Stats = {
       let tr = "<tr>";
 
       // show each keys unique point color, or black by default
-      let colorIndex = _.findKey(allColorsLookup, { 'name': key });
-      let colorCode = '';
-      if (colorIndex > 0) {
-        colorCode = allColorsLookup[colorIndex].color;
-      } else {
+      let colorEntry = _.find(allColorsLookup, c => { return c.name == key})
+      let colorCode = ''
+      if (colorEntry) {
+        colorCode = colorEntry.color
+      }
+      else {
         colorCode = '#000'
       }
 

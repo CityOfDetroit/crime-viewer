@@ -154,8 +154,8 @@ const Data = {
       { name: 'STOLEN VEHICLE', state_codes: ['2401', '2402', '2403'], top: 'Property Crimes', color: chroma(colors.property).darken(2).desaturate().hex() }
     ],
     violent: [
-      // { name: 'ASSAULT', state_codes: ['1301'], top: 'Violent Crimes', color: chroma(colors.violent).hex() },
-      { name: 'AGGRAVATED ASSAULT', state_codes: ['1301', '1302', '1303'], top: 'Violent Crimes', color: chroma(colors.violent).darken(1).hex() },
+      { name: 'ASSAULT', state_codes: ['1302'], top: 'Violent Crimes', color: chroma(colors.violent).hex() },
+      { name: 'AGGRAVATED ASSAULT', state_codes: ['1301', '1303'], top: 'Violent Crimes', color: chroma(colors.violent).darken(1).hex() },
       { name: 'SEXUAL ASSAULT', state_codes: ['1171', '1172', '1173', '1174', '1175', '1176', '1177', '1178', '3601', '3692'], top: 'Violent Crimes', color: chroma(colors.violent).darken(2).hex() },
       { name: 'HOMICIDE', state_codes: ['0901', '0902', '0903', '0904'], top: 'Violent Crimes', color: chroma(colors.murder).hex() },
       // { name: 'JUSTIFIABLE HOMICIDE', state_codes: ['0904'], top: 'Violent Crimes', color: chroma(colors.murder).desaturate().darken().hex() },

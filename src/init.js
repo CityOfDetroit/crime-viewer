@@ -115,21 +115,16 @@ const Init = {
      * @returns {undefined}
      */
     populateSidebar: function() {
-        let offenseHtml = `
-        <section class="filters" id="categories-list">
-        <button><span>Crime Type</span></button>
-        <div class="filters-dropdown">
-        `
+        let offenseHtml = ''
         Object.entries(Data.offenses).forEach(([k,v]) => {
             offenseHtml += `
-                <span>
-                ${v[0].top}</span>
-                    ${v.map (o => `<div class="offense_category">
+                <p>
+                ${v[0].top}</p>
+                    ${v.map (o => `
                     <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.state_codes.join(" ")}" data-name="${o.name}"/>
-                    <label for="${o.name.toLowerCase().replace(' ','-')}-check"></label> ${Helpers.toSentenceCase(o.name)}`).join("")}</div>`
+                    <label for="${o.name.toLowerCase().replace(' ','-')}-check"></label> ${Helpers.toSentenceCase(o.name)}`).join("")}`
         })
-        offenseHtml += `</div></section>`
-        $('#date-list').before(offenseHtml)
+        $('#categories').html(offenseHtml);
     }
 }
 
