@@ -20,14 +20,14 @@ const Boundary = {
             "line-join": "round"
           },
           "paint": {
-              "line-color": "rgba(150,230,230,1)",
+              "line-color": "rgb(110,130,230)",
               "line-opacity": 1,
               "line-width": {
                   stops: [
                       [8, 0.5],
                       [11, 2],
-                      [13, 4],
-                      [22, 10]
+                      [13, 3],
+                      [22, 8]
                   ]
               }
           }

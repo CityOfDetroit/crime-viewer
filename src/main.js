@@ -5,9 +5,6 @@ var turf = require('@turf/turf');
 var moment = require('moment');
 var _ = require('lodash');
 var Slideout = require('slideout');
-var FileSaver = require('file-saver');
-var html2canvas = require('html2canvas');
-var jsPDF = require('jspdf');
 
 import chroma from 'chroma-js';
 
@@ -23,13 +20,14 @@ import Locate from './locate.js';
 import Boundary from './boundary.js';
 import Data from './data.js';
 import Init from './init.js';
+import Print from './print.js';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjajZ6YngxeTUwbTU4Mndxa2lydzE0MmlkIn0.tccRHH0Pt2yjRz16ioQH7g';
 
 // define the map
 var map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/light-v9',
+  style: 'mapbox://styles/cityofdetroit/cj6zbpw6n2gxq2ro5hfc3n1ip',
   center: [-83.131, 42.350],
   zoom: 10.75,
   preserveDrawingBuffer: true
@@ -49,6 +47,7 @@ var Draw = new MapboxDraw(drawOptions);
 map.addControl(Draw)
 
 let data = null;
+let filteredData = null;
 let filterObject = null;
 
 // load the map
@@ -104,41 +103,6 @@ map.on('load', function () {
         }
       });
 
-      // printing
-      document.onkeypress = function (e) {
-        if (e.keyCode == 96) {
-
-          let pdf = new jsPDF({
-            orientation: 'l',
-            unit: 'px',
-            format: [612, 792]
-          })
-
-          document.getElementById('map').style.width = '1500px';
-          document.getElementById('map').style.height = '900px';
-          map.resize()
-          map.once('render', m => {
-            pdf.addImage(map.getCanvas().toDataURL('image/png'), 'png', 10, 10, 500, 300, null, 'FAST');
-            pdf.save('map.pdf')            
-            document.getElementById('map').style.width = '75%';
-            document.getElementById('map').style.height = 'calc(100% - 90px)';
-            map.resize()
-          })
-
-          
-
-
-          
-          // html2canvas(document.getElementById('point_details_tbl')).then(det => {
-          //   let image = det.toDataURL('image/png')
-          //   pdf.addImage(image, 'PNG', 20, 20);
-          //   pdf.save('map.pdf');            
-          // })
-
-
-        }
-      }
-
       map.on('mouseenter', 'incidents_point', function (e) {
         map.getCanvas().style.cursor = 'crosshair'
       });
@@ -146,6 +110,11 @@ map.on('load', function () {
       map.on('mouseout', 'incidents_point', function (e) {
         map.getCanvas().style.cursor = ''
       });
+
+      // printing
+      document.getElementById('print').addEventListener('mousedown', e => {
+        Print.printView(map, filteredData, Filter.readInput()[1])
+      })
 
       // locate an address and draw a radius around it
       document.getElementById('locate').addEventListener('keypress', e => {
@@ -188,7 +157,8 @@ map.on('load', function () {
           blocks.features.forEach(b => {
             filterObject.block_id.push(b.properties['geoid10'])
           })
-          Filter.updateData(map, Draw, data, filterObject)
+          filteredData = Filter.updateData(map, Draw, data, filterObject)
+          console.log(data)
           Draw.deleteAll()
           let unioned = turf.dissolve(blocks)
           unioned.features.forEach(f => {

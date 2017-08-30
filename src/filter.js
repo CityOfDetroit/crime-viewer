@@ -25,10 +25,13 @@ const Filter = {
       'block_id': []
     }
     let filterHuman = {
+      // "date_range": [],
       "categories": [],
       "time": [],
       "area": []
     }
+
+    // filterHuman['date_range'] = [$('#from_date')[0].value, $('#to_date')[0].value]
 
     _.each($('input.offense-checkbox'), d => {
       if (d.checked) {
@@ -127,7 +130,9 @@ const Filter = {
     Stats.printAsTable(incidentsByCategory, 'tbody');
 
     // refresh count of current incidents
-    Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
+    // Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
+
+    return filteredData;
   },
 
   /**
