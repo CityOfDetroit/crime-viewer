@@ -346,7 +346,7 @@ jQuery(document).ready(function () {
 
 
 
-  jQuery(".dropdown-button").click(function() {
+  jQuery("input.dropdown-button").click(function() {
     console.log(this)
     var panelID = jQuery(this).attr('data-panel');
     if(jQuery('#primary-nav').hasClass('panel-show')){
