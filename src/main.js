@@ -218,6 +218,9 @@ map.on('load', function () {
         let url = Socrata.makeUrl("9i6z-cm98", params);
         Socrata.fetchData(url).then(d => {
           data = d
+          for (let i = 0; i < data.features.length; i++) {
+            data.features[i].properties.day = moment(data.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
+          }
           // Stats.printLoadedView(fromDt, toDt, data)
           if(filterObject && filterObject.block_id.length > 0) {
             let blocks = filterObject.block_id

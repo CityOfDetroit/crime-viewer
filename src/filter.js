@@ -114,7 +114,11 @@ const Filter = {
     // refresh counts to redraw table in Stats tab
     let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
     Stats.printAsTable(incidentsByCategory, 'tbody');
-
+    for (let i = 0; i < data.features.length; i++) {
+      data.features[i].properties.day = moment(data.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
+    }
+    Stats.printAsLineChart(filteredData.features, 'properties.day', 'line-chart-container');
+    
     // refresh count of current incidents
     // Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
 
