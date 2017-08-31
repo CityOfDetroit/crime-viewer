@@ -201,7 +201,7 @@ map.on('load', function () {
       })
 
       jQuery("input[name!='currentArea']").change(function () {
-        if(filterObject && filterObject.block_id.length > 0) {
+        if(filterObject.block_id.length > 0) {
           let blocks = filterObject.block_id
           filterObject = Filter.readInput()[0]
           filterObject.block_id = blocks
@@ -209,7 +209,7 @@ map.on('load', function () {
         else {
           filterObject = Filter.readInput()[0]
         }
-        Filter.updateData(map, Draw, data, filterObject)
+        filteredData = Filter.updateData(map, Draw, data, filterObject)
       })
 
       jQuery("input[type=date]").change(function(){
@@ -320,7 +320,7 @@ jQuery(document).ready(function () {
     }
   });
 
-  jQuery("#primary-nav input[value!='Reset']").click(function() {
+  jQuery("#primary-nav input[class!='meta-button']").click(function() {
     var panelID = jQuery(this).attr('data-panel');
     if(jQuery('#primary-nav').hasClass('panel-show')){
       if(jQuery(panelID).is(":visible")){

@@ -65,7 +65,8 @@ const Print = {
             summaryStats = _.omit(summaryStats, "null");
             pdf.addImage(map.getCanvas().toDataURL('image/png'), 190, 50, 600, 360, null, 'FAST')
             mapDiv.style.width = 'calc(100% - 25%)';
-            mapDiv.style.height = 'calc(100% - 90px)'
+            mapDiv.style.height = 'calc(100% - 74px)'
+            map.resize()
             var columns = ["Offense Category", "Count"];
             var rows = _.sortBy(_.toPairs(summaryStats), function(a) { return a[1] }).reverse()
             pdf.autoTable(columns, rows, {
