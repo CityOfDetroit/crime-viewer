@@ -88,11 +88,11 @@ const Stats = {
     summaryStats = _.omit(summaryStats, ["null", "HP", "0"]);
 
     let properties = Object.keys(summaryStats).sort();
-    let counts = Object.keys(summaryStats).map(function (e) {
+    let counts = Object.keys(summaryStats).map(function(e) {
       return summaryStats[e];
     });
 
-    // lookup human-readable field name
+    // lookup human-readable field names for locations
     key = Data.fields[key];
 
     // define the chart
@@ -132,7 +132,7 @@ const Stats = {
         borderWidth: 1,
         borderColor: 'white',
         formatter: function () {
-          return numeral(this.y).format('0,0') + ' ' + this.series.name;
+          return numeral(this.y).format('0,0') + ' ' + this.series.name + ' in ' + this.x;
         }
       },
       legend: {
@@ -151,7 +151,70 @@ const Stats = {
   },
 
   printAsLineChart: function(arr, key, chartId) {
-    
+    let summaryStats = _.countBy(arr, key);
+    let properties = Object.keys(summaryStats).sort();
+    let counts = Object.keys(summaryStats).map(function(e) {
+      return summaryStats[e];
+    });
+
+    // lookup human-readable field names for locations
+    key = Data.fields[key];
+
+    // define the chart
+    let chart = Highcharts.chart({
+      chart: {
+        renderTo: chartId,
+        type: 'line',
+        style: {
+          fontFamily: 'inherit'
+        }
+      },
+      colors: ['#279989'],
+      title: {
+        text: '<b>Incidents by ' + key + '</b>',
+        style: {
+          fontSize: 19
+        },
+        align: 'center'
+      },
+      xAxis: {
+        categories: properties,
+        title: {
+          text: key,
+          enabled: false
+        },
+        minTickInterval: 2
+      },
+      yAxis: {
+        title: {
+          enabled: false
+        },
+        labels: {
+          formatter: function () {
+            return numeral(this.value).format('0a');
+          }
+        }
+      },
+      tooltip: {
+        borderWidth: 1,
+        borderColor: 'white',
+        formatter: function () {
+          return numeral(this.y).format('0,0') + ' ' + this.series.name + ' on ' + moment(this.x).format('MM-DD-YYYY');
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Incidents',
+        data: counts
+      }]
+    });
+
+    return chart
   },
 
   /** 

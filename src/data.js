@@ -180,7 +180,8 @@ const Data = {
     'properties.council_district': 'Council District',
     'properties.precinct': 'Precinct',
     'properties.zip_code': 'Zip Code',
-    'properties.neighborhood': 'Neighborhoods'
+    'properties.neighborhood': 'Neighborhoods',
+    'properties.day': 'Date'
   }
 };
 
