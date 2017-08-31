@@ -205,6 +205,7 @@ map.on('load', function () {
         else {
           filterObject = Filter.readInput()[0]
         }
+        console.log(currentBoundary)
         filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
       })
 
@@ -228,7 +229,8 @@ map.on('load', function () {
           else {
             filterObject = Filter.readInput()[0]
           }
-          filteredData = Filter.updateData(map, Draw, data, filterObject)
+          console.log(currentBoundary)
+          filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
         })
 
       })
@@ -305,10 +307,8 @@ jQuery(document).ready(function () {
     else {
       Draw.deleteAll();
       filterObject.block_id = []
-      filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
-      currentBoundary = Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-      console.log(currentBoundary)
-      Stats.printAsHighchart(data.features, `properties.${currentBoundary}`, 'chart-container');
+      filteredData = Filter.updateData(map, Draw, data, filterObject, this.value)
+      currentBoundary = Boundary.changeBoundary(map, Boundary.boundaries[this.value])     
     }
     // Filter.updateData(map, Draw, data, Filter.readInput()[0])
   });
