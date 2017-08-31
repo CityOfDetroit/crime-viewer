@@ -48,7 +48,19 @@ map.addControl(Draw)
 
 let data = null;
 let filteredData = null;
-let filterObject = {};
+let filterObject = {
+  // offense code
+  'state_offense_code': [],
+  // time
+  'hour_of_day': [],
+  'day_of_week': [],
+  // location
+  'neighborhood': [],
+  'precinct': [],
+  'zip_code': [], 
+  'council_district': [],
+  'block_id': []
+}
 
 // load the map
 map.on('load', function () {
