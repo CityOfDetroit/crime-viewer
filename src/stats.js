@@ -183,14 +183,21 @@ const Stats = {
           text: key,
           enabled: false
         },
-        minTickInterval: 2
+        labels: {
+          formatter: function() {
+            return moment(this.value).format('MM-DD-YYYY');
+          }
+        },
+        tickPositioner: function() {
+          return [this.dataMin, this.dataMax];
+        }
       },
       yAxis: {
         title: {
           enabled: false
         },
         labels: {
-          formatter: function () {
+          formatter: function() {
             return numeral(this.value).format('0a');
           }
         }
