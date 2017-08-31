@@ -212,5 +212,5 @@ input[type=checkbox] {
 }
 
 #readable_filter_text ul{
-    /* margin: 0; */
+    margin: .25em;
 }
