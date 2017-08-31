@@ -2,7 +2,7 @@ const Boundary = {
     boundaries: {
         council_district: {'name': 'Council Districts', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Council_Districts/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
         neighborhood: {'name': 'Neighborhoods', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
-        zipcode: {'name': 'Zip Codes', 'url': 'https://data.detroitmi.gov/resource/f439-mtjv.geojson' },
+        zip_code: {'name': 'Zip Codes', 'url': 'https://data.detroitmi.gov/resource/f439-mtjv.geojson' },
         precinct: {'name': 'Police Precincts', 'url': 'https://data.detroitmi.gov/resource/mena-2vrg.geojson' }
     },
     addBoundary: function(map, boundary) {

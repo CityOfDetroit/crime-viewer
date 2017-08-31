@@ -25,13 +25,13 @@ const Filter = {
       'block_id': []
     }
     let filterHuman = {
-      // "date_range": [],
+      "date_range": [],
       "categories": [],
-      "time": [],
-      "area": []
+      "weekdays": [],
+      "dayparts": [],
     }
 
-    // filterHuman['date_range'] = [$('#from_date')[0].value, $('#to_date')[0].value]
+    filterHuman['date_range'] = [$('#from_date')[0].value, $('#to_date')[0].value]
 
     _.each($('input.offense-checkbox'), d => {
       if (d.checked) {
@@ -46,7 +46,7 @@ const Filter = {
     Data.days_of_week.forEach(i => {
       let elem = document.getElementById(`dow-${i.number}-check`)
       if(elem.checked){
-        filterHuman.time.push(`on a ${i.name}`)
+        filterHuman.weekdays.push(`${i.name}`)
         filterObject['day_of_week'].push(i.number.toString())
       }
     })
@@ -55,26 +55,10 @@ const Filter = {
     Data.parts_of_day.forEach(i => {
       let elem = document.getElementById(`${i.name.toLowerCase()}-check`)
       if(elem.checked){
-        filterHuman.time.push(`during ${i.name}`)
+        filterHuman.dayparts.push(`${i.name}`)
         filterObject['hour_of_day'] = filterObject['hour_of_day'].concat(i.hours.map(i => i.toString()))
       }
     })
-
-    // Data.council_districts.forEach(i => {
-    //   let elem = document.getElementById(`district-${i.number}-check`)
-    //   if(elem.checked){
-    //     filterHuman.area.push(`in District ${i.number.toString()}`)
-    //     filterObject['council_district'].push(i.number.toString())
-    //   }
-    // })
-
-    // Data.precincts.forEach(i => {
-    //   let elem = document.getElementById(`precinct-${parseInt(i.number)}-check`)
-    //   if(elem.checked){
-    //     filterHuman.area.push(`in precinct ${i.number.toString()}`)
-    //     filterObject['precinct'].push(i.number.toString())
-    //   }
-    // })
 
     return [filterObject, filterHuman]
   },
@@ -121,11 +105,11 @@ const Filter = {
     // refresh counts to redraw chart in Stats tab based on selected area filter
     var currentArea = $("#location input:checked")
 
-    if (filters['council_district'].length > 0) {
-      Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
-    } else {
-      Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
-    }
+    // if (filters['council_district'].length > 0) {
+    //   Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
+    // } else {
+    //   Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
+    // }
 
     // refresh counts to redraw table in Stats tab
     let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
@@ -163,7 +147,6 @@ const Filter = {
     draw.deleteAll()
     // reset all filters
     jQuery("input:checkbox").prop("checked", false)
-
   },
 
   newDrawnPolygon: function(draw, map) {

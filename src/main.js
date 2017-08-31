@@ -48,7 +48,7 @@ map.addControl(Draw)
 
 let data = null;
 let filteredData = null;
-let filterObject = null;
+let filterObject = {};
 
 // load the map
 map.on('load', function () {
@@ -66,7 +66,7 @@ map.on('load', function () {
     const ds = "9i6z-cm98"
     let params = {
       "$limit": 50000,
-      "$select": "crime_id,location,address,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
+      "$select": "crime_id,location,address,block_id,zip_code,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
     };
     params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(28, response[0].incident_timestamp)}'`
     let url = Socrata.makeUrl(ds, params);
@@ -197,7 +197,7 @@ map.on('load', function () {
         let toDt = jQuery('#to_date')[0].value
         let params = {
           "$limit": 50000,
-          "$select": "crime_id,location,address,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
+          "$select": "crime_id,location,address,zip_code,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
         };
         params["$where"] = `incident_timestamp >= '${fromDt}' and incident_timestamp <= '${toDt}'`
         let url = Socrata.makeUrl("9i6z-cm98", params);
@@ -218,9 +218,10 @@ map.on('load', function () {
       })
 
       // reset filters
-      jQuery('#reset-filters').click(function () {
-        jQuery('input:checkbox').removeAttr('checked');
+      jQuery('#reset').click(function () {
         Filter.resetEverything(map, Draw, data)
+        filterObject = {}
+        filteredData = Filter.updateData(map, Draw, data, filterObject)
       });
 
     })
@@ -298,7 +299,7 @@ jQuery(document).ready(function () {
     }
   });
 
-  jQuery('#primary-nav input').click(function() {
+  jQuery("#primary-nav input[value!='Reset']").click(function() {
     var panelID = jQuery(this).attr('data-panel');
     if(jQuery('#primary-nav').hasClass('panel-show')){
       if(jQuery(panelID).is(":visible")){
