@@ -195,15 +195,15 @@ const Stats = {
   // /** 
   //  * Prints time range
   //  */
-  // printTimeRange: function(timeA, timeB, divId) {
-  //   let time_range = document.getElementById(divId);
+  printTimeRange: function(timeA, timeB, divId) {
+    let time_range = document.getElementById(divId);
 
-  //   let p = document.createElement("p");
-  //   p.innerHTML = moment(timeA).format("MM/DD/YY") + " to " + moment(timeB).format("MM/DD/YY");
-  //   time_range.appendChild(p);
+    let p = document.createElement("p");
+    p.innerHTML = moment(timeA).format("MM/DD/YY") + " to " + moment(timeB).format("MM/DD/YY");
+    time_range.appendChild(p);
 
-  //   return time_range;
-  // },
+    return time_range;
+  },
 
   /** 
    * Display details of point on the map
@@ -213,6 +213,7 @@ const Stats = {
    */
   printPointDetails: function (features, divId) {
     let detail = document.getElementById(divId);
+
     let display_cols = {
       "Report #": features[0].properties.report_number,
       "Arrest Category": features[0].properties.offense_category,
@@ -220,21 +221,24 @@ const Stats = {
       "Timestamp": moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a"),
       "Address": features[0].properties.address,
       "Neighborhood": `${features[0].properties.neighborhood} (District ${features[0].properties.council_district}, Precinct ${features[0].properties.precinct})`
-      // "Council District": features[0].properties.council_district,
-      // "Precinct": features[0].properties.precinct
-    }
+    };
+
     detail.innerHTML = `
-    <h4 class="sidebar-title">Point Details</h4>
+    <h4 class="sidebar-title">
+      Point Details
+      <span class="point-details-close"><img src="./img/close.svg"></span>
+    </h4>
     <table id="point_details_tbl">
-    <colgroup>
-      <col style="width:35%">
-      <col style="width:65%">
-    </colgroup>
-    ${Object.keys(display_cols).map(k => `
-      <tr><th>${k}</th></tr>
-      <tr><td>${display_cols[k]}</td></tr>
-    `).join("")}
+      <colgroup>
+        <col style="width:35%">
+        <col style="width:65%">
+      </colgroup>
+      ${Object.keys(display_cols).map(k => `
+        <tr><th>${k}</th></tr>
+        <tr><td>${display_cols[k]}</td></tr>
+      `).join("")}
     </table>`
+
     return detail;
   }
 }

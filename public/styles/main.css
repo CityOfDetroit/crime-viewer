@@ -171,11 +171,17 @@ table td{
 
 #about-content {
   position: block;
-  font-size: larger;
+  font-size: 1.2em;
   width: 90%;
   height: 100%;
-  margin: 250px auto;
+  margin: 100px auto;
   background-color: white;
+}
+
+#about-header {
+  padding-bottom: 5px;
+  border-bottom: 1px dotted black;
+  font-size: 2em;
 }
 
 /*@media screen and (min-width: 800px) {*/
@@ -220,6 +226,13 @@ table td{
       cursor: pointer;
       width: 27px;
       height: 27px;
+   }
+
+   .point-details-close img{
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      float: right;
    }
 
    .sidebar-title {

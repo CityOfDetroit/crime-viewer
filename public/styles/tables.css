@@ -4,7 +4,7 @@ table {
 }
 
 tr {
-  font-size: small;
+  font-size: 1em;
 }
 
 table td,
@@ -43,7 +43,7 @@ tr div {
 }
 
 #point_details td {
-  background-color: #eee;
+  background-color: white;
   padding: 3px 10px;
   font-size: 1em;
 }

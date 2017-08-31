@@ -250,16 +250,21 @@ jQuery(document).ready(function () {
     jQuery('#about-content').hide();
   });
 
-  function hidePanel(){
-        jQuery('#primary-panel').slideUp(400, function(){
-          jQuery('#primary-panel .filters').css('display', 'none');
-          jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
-        }).removeClass('drop-shadow');
-        jQuery('#map-overlay').fadeOut();
+  // todo: remove point details on x click
+  jQuery('.point-details-close img').click(function() {
+    jQuery('#point_details').remove();
+  });
+
+  function hidePanel() {
+    jQuery('#primary-panel').slideUp(400, function() {
+      jQuery('#primary-panel .filters').css('display', 'none');
+      jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
+    }).removeClass('drop-shadow');
+    jQuery('#map-overlay').fadeOut();
   }
 
   // swap map boundary and chart axis based on selected area
-  jQuery('input[type=radio][name=currentArea]').change(function () {
+  jQuery('input[type=radio][name=currentArea]').change(function() {
     if (this.value == 'custom') {
       Filter.newDrawnPolygon(Draw, map);
       hidePanel();
@@ -294,7 +299,7 @@ jQuery(document).ready(function () {
     }
   });
 
-  jQuery('#map-overlay').click(function(){
+  jQuery('#map-overlay').click(function() {
     hidePanel();
   });
 
