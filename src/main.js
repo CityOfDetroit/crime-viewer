@@ -158,7 +158,6 @@ map.on('load', function () {
             filterObject.block_id.push(b.properties['geoid10'])
           })
           filteredData = Filter.updateData(map, Draw, data, filterObject)
-          console.log(data)
           Draw.deleteAll()
           let unioned = turf.dissolve(blocks)
           unioned.features.forEach(f => {
@@ -167,6 +166,7 @@ map.on('load', function () {
           map.fitBounds(turf.bbox(unioned), { padding: 50 })
           map.setPaintProperty('incidents_point', 'circle-opacity', { 'stops': [[9, 0.75], [19, 1]] })
           map.setPaintProperty('incidents_point', 'circle-stroke-opacity', { 'stops': [[9, 0.2], [19, 1]] })
+          console.log(filterObject)
         })
       });
 
@@ -180,7 +180,7 @@ map.on('load', function () {
       })
 
       jQuery("input[name!='currentArea']").change(function () {
-        if(filterObject) {
+        if(filterObject && filterObject.block_id.length > 0) {
           let blocks = filterObject.block_id
           filterObject = Filter.readInput()[0]
           filterObject.block_id = blocks
@@ -192,7 +192,6 @@ map.on('load', function () {
       })
 
       jQuery("input[type=date]").change(function(){
-        Filter.resetEverything(map, Draw, data)
         let fromDt = jQuery('#from_date')[0].value
         let toDt = jQuery('#to_date')[0].value
         let params = {
@@ -203,7 +202,16 @@ map.on('load', function () {
         let url = Socrata.makeUrl("9i6z-cm98", params);
         Socrata.fetchData(url).then(d => {
           data = d
-          Stats.printLoadedView(fromDt, toDt, data)
+          // Stats.printLoadedView(fromDt, toDt, data)
+          if(filterObject && filterObject.block_id.length > 0) {
+            let blocks = filterObject.block_id
+            filterObject = Filter.readInput()[0]
+            filterObject.block_id = blocks
+          }
+          else {
+            filterObject = Filter.readInput()[0]
+          }
+          filteredData = Filter.updateData(map, Draw, data, filterObject)
         })
 
       })
@@ -282,6 +290,8 @@ jQuery(document).ready(function () {
     }
     else {
       Draw.deleteAll();
+      filterObject.block_id = []
+      filteredData = Filter.updateData(map, Draw, data, filterObject)
       Boundary.changeBoundary(map, Boundary.boundaries[this.value])
       Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
     }

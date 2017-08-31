@@ -42,18 +42,18 @@ const Init = {
                 "visibility": "visible"
             },
             "paint": {
-                "circle-color": 'rgba(0,0,0,1)',
+                "circle-color": 'rgba(250,0,0,1)',
                 "circle-radius": {
                     'base': 1.25,
                     'stops': [
-                        [8, 5.5],
-                        [19, 15]
+                        [8, 7.5],
+                        [19, 25]
                     ]
                 },
                 "circle-opacity": {
                     'stops': [
-                        [9, 0.15],
-                        [19, 0.5]
+                        [9, 0.35],
+                        [19, 0.75]
                     ]
                 }
             }
