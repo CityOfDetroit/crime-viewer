@@ -90,8 +90,23 @@ input[type=radio]:checked + label{
     z-index: 100;
     outline: none;
     cursor: pointer;
-    width: 160px;
+    width: 80px;
     text-align:center;
+}
+
+#primary-nav label.dropdown-button {
+    width: 170px;
+}
+
+#primary-nav label.reset-button {
+    background: orange;
+    color: #222;
+}
+
+#primary-nav label .meta-button{
+    background: #ddd;
+    color: #222;
+    width: 100px;
 }
 
 #primary-nav .dropdown-arrow img{

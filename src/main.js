@@ -129,11 +129,6 @@ map.on('load', function () {
         map.getCanvas().style.cursor = ''
       });
 
-      // printing
-      document.getElementById('print').addEventListener('mousedown', e => {
-        Print.printView(map, filteredData, Filter.readInput()[1])
-      })
-
       // locate an address and draw a radius around it
       document.getElementById('locate').addEventListener('keypress', e => {
         if (e.key == 'Enter') {
@@ -235,26 +230,6 @@ map.on('load', function () {
         })
 
       })
-
-      // reset filters
-      jQuery('#reset').click(function () {
-        Filter.resetEverything(map, Draw, data)
-        filterObject = {
-          // offense code
-          'state_offense_code': [],
-          // time
-          'hour_of_day': [],
-          'day_of_week': [],
-          // location
-          'neighborhood': [],
-          'precinct': [],
-          'zip_code': [], 
-          'council_district': [],
-          'block_id': []
-        }
-        filteredData = Filter.updateData(map, Draw, data, filterObject)
-      });
-
     })
   })
     .catch(e => console.log("Booo", e));
@@ -335,7 +310,37 @@ jQuery(document).ready(function () {
     // Filter.updateData(map, Draw, data, Filter.readInput()[0])
   });
 
-  jQuery('#primary-nav input').click(function() {
+
+  jQuery(".meta-button").click(function(){
+    if(this.id == 'print-button') {
+      Print.printView(map, filteredData || data, Filter.readInput()[1])
+    }
+    if(this.id == 'about-button') {
+      jQuery('#about-content').show();
+    }
+    if(this.id == 'reset-button') {
+      Filter.resetEverything(map, Draw, data)
+      filterObject = {
+        // offense code
+        'state_offense_code': [],
+        // time
+        'hour_of_day': [],
+        'day_of_week': [],
+        // location
+        'neighborhood': [],
+        'precinct': [],
+        'zip_code': [], 
+        'council_district': [],
+        'block_id': []
+      }
+      filteredData = Filter.updateData(map, Draw, data, filterObject)
+    }
+  })
+
+
+
+  jQuery(".dropdown-button").click(function() {
+    console.log(this)
     var panelID = jQuery(this).attr('data-panel');
     if(jQuery('#primary-nav').hasClass('panel-show')){
       if(jQuery(panelID).is(":visible")){
