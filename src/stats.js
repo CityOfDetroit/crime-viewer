@@ -106,10 +106,11 @@ const Stats = {
       },
       colors: ['#279989'],
       title: {
-        text: '<b>Crime Incidents by ' + key + '</b>',
+        text: '<b>Incidents by ' + key + '</b>',
         style: {
-          fontSize: 16
-        }
+          fontSize: 19
+        },
+        align: 'center'
       },
       xAxis: {
         categories: properties,

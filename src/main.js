@@ -87,7 +87,7 @@ map.on('load', function () {
       Stats.printLoadedView(minTime, maxTime, data);
 
       // populate an initial chart and table in the Stats tab
-      // Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
+      Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
       Stats.printAsTable(incidentsByCategory, 'tbody');
 
       // load the source data and point, highlight styles
@@ -250,6 +250,17 @@ jQuery(document).ready(function () {
     jQuery('#about-content').hide();
   });
 
+  // toggle between chart and table on button clicks
+  jQuery('#show-charts').click(function() {
+    jQuery('#table-container').hide();
+    jQuery('#chart-container').show();
+  });
+
+  jQuery('#show-table').click(function() {
+    jQuery('#table-container').show();
+    jQuery('#chart-container').hide();
+  });
+
   // todo: remove point details on x click
   jQuery('.point-details-close img').click(function() {
     jQuery('#point_details').remove();
@@ -272,7 +283,7 @@ jQuery(document).ready(function () {
     else {
       Draw.deleteAll();
       Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-      // Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+      Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
     }
     // Filter.updateData(map, Draw, data, Filter.readInput()[0])
   });
