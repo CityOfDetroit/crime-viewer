@@ -115,7 +115,7 @@ input[type=radio]:checked + label{
 }
 
 .rotate{
-    transform: rotate(180deg);
+    transform: translateY(-30%) rotate(180deg);
 }
 
 #primary-nav .meta-button {
