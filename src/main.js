@@ -215,7 +215,7 @@ map.on('load', function () {
 
       jQuery("input[type=date]").change(function(){
         let fromDt = jQuery('#from_date')[0].value
-        let toDt = jQuery('#to_date')[0].value
+        let toDt = jQuery('#to_date')[0].value + 'T23:59:59.000'
         let params = {
           "$limit": 50000,
           "$select": "crime_id,location,address,zip_code,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"

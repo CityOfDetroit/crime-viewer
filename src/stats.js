@@ -327,7 +327,7 @@ const Stats = {
 
     detail.innerHTML = `
     <h4 class="sidebar-title">
-      Point Details
+      Incident details
       <span class="point-details-close"><img src="./img/close.svg"></span>
     </h4>
     <table id="point_details_tbl">
