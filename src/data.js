@@ -178,7 +178,9 @@ const Data = {
 
   fields: {
     'properties.council_district': 'Council District',
-    'properties.precinct': 'Precinct'
+    'properties.precinct': 'Precinct',
+    'properties.zip_code': 'Zip Code',
+    'properties.neighborhood': 'Neighborhoods'
   }
 };
 
