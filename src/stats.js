@@ -150,6 +150,10 @@ const Stats = {
     return chart
   },
 
+  printAsLineChart: function(arr, key, chartId) {
+    
+  },
+
   /** 
    * Prints loaded view
    * @param {array} - list of features
@@ -193,9 +197,9 @@ const Stats = {
     }
   },
 
-  // /** 
-  //  * Prints time range
-  //  */
+  /** 
+   * Prints time range
+   */
   printTimeRange: function(timeA, timeB, divId) {
     let time_range = document.getElementById(divId);
 

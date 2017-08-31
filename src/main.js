@@ -78,6 +78,13 @@ map.on('load', function () {
       let totalIncidents = Stats.countFeatures(data.features);
       let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
 
+      // group timestamps by full day, add new json property
+      for (let i = 0; i < data.features.length; i++) {
+        data.features[i].properties.day = moment(data.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
+      }
+
+      let incidentsByDay = Stats.countByKey(data.features, 'properties.day');
+
       // get the earliest and latest incident dates
       let uniqueTimestamps = [...new Set(data['features'].map(item => item.properties['incident_timestamp']))];
       let minTime = _.min(uniqueTimestamps);
