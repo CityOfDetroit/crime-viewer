@@ -255,7 +255,7 @@ const Stats = {
     console.log(humanFilter)
     let filtered_view = document.getElementById(divId);
     let html = `
-      showing <b>${numeral(features.length).format(0,0)} incidents</b> which occurred from <b>${humanFilter.date_range[0]}</b> to <b>${humanFilter.date_range[1]}</b>
+      showing <b>${numeral(features.length).format(0,0)} incidents</b><br/>which occurred from <b>${humanFilter.date_range[0]}</b> to <b>${humanFilter.date_range[1]}</b>
       <ul>
     `
     if (humanFilter.categories.length > 0) {
