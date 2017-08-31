@@ -3,6 +3,7 @@ import Stats from './stats.js'
 const turf = require('@turf/turf')
 const _ = require('lodash')
 const $ = require('jquery')
+const moment = require('moment')
 
 const Filter = {
   /**
@@ -88,7 +89,7 @@ const Filter = {
    * @param {FeatureCollection} data
    * @param {Object} filters
    */
-  updateData: function(map, draw, data, filters) {
+  updateData: function(map, draw, data, filters, boundary) {
     // make a copy of the original fetched data
     let filteredData = _.cloneDeep(data);
 
@@ -99,24 +100,19 @@ const Filter = {
         filteredData.features = Filter.filterFeatures(filteredData.features, k, v)
       }
     });
-
+    console.log(boundary)
     map.getSource('incidents').setData(filteredData);
 
     // refresh counts to redraw chart in Stats tab based on selected area filter
-    var currentArea = $("#location input:checked")
-
-    // if (filters['council_district'].length > 0) {
-    //   Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
-    // } else {
-    //   Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
-    // }
-
+    Stats.printAsHighchart(filteredData.features, `properties.${boundary}`, 'chart-container');    
+    
     // refresh counts to redraw table in Stats tab
     let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
     Stats.printAsTable(incidentsByCategory, 'tbody');
-    for (let i = 0; i < data.features.length; i++) {
-      data.features[i].properties.day = moment(data.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
+    for (let i = 0; i < filteredData.features.length; i++) {
+      filteredData.features[i].properties.day = moment(filteredData.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
     }
+    console.log(filteredData)
     Stats.printAsLineChart(filteredData.features, 'properties.day', 'line-chart-container');
     
     // refresh count of current incidents

@@ -46,6 +46,7 @@ var Draw = new MapboxDraw(drawOptions);
 
 map.addControl(Draw)
 
+let currentBoundary = 'council_districts'
 let data = null;
 let filteredData = null;
 let filterObject = {
@@ -143,7 +144,7 @@ map.on('load', function () {
               });
 
               Draw.deleteAll();
-              filteredData = Filter.updateData(map, Draw, data, filterObject);
+              filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary);
 
               // Draw.deleteAll()
               let unioned = turf.dissolve(blocks)
@@ -172,7 +173,7 @@ map.on('load', function () {
           blocks.features.forEach(b => {
             filterObject.block_id.push(b.properties['geoid10'])
           })
-          filteredData = Filter.updateData(map, Draw, data, filterObject)
+          filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
           Draw.deleteAll()
           let unioned = turf.dissolve(blocks)
           unioned.features.forEach(f => {
@@ -204,7 +205,7 @@ map.on('load', function () {
         else {
           filterObject = Filter.readInput()[0]
         }
-        filteredData = Filter.updateData(map, Draw, data, filterObject)
+        filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
       })
 
       jQuery("input[type=date]").change(function(){
@@ -295,17 +296,19 @@ jQuery(document).ready(function () {
   }
 
   // swap map boundary and chart axis based on selected area
-  jQuery('input[type=radio][name=currentArea]').change(function() {
+  jQuery('input[type=radio][name=currentArea]').change(function(e) {
     if (this.value == 'custom') {
+      console.log(e)      
       Filter.newDrawnPolygon(Draw, map);
       hidePanel();
     }
     else {
       Draw.deleteAll();
       filterObject.block_id = []
-      filteredData = Filter.updateData(map, Draw, data, filterObject)
-      Boundary.changeBoundary(map, Boundary.boundaries[this.value])
-      Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
+      filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
+      currentBoundary = Boundary.changeBoundary(map, Boundary.boundaries[this.value])
+      console.log(currentBoundary)
+      Stats.printAsHighchart(data.features, `properties.${currentBoundary}`, 'chart-container');
     }
     // Filter.updateData(map, Draw, data, Filter.readInput()[0])
   });
@@ -333,7 +336,7 @@ jQuery(document).ready(function () {
         'council_district': [],
         'block_id': []
       }
-      filteredData = Filter.updateData(map, Draw, data, filterObject)
+      filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
     }
   })
 

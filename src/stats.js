@@ -83,6 +83,7 @@ const Stats = {
    * Ref http://api.highcharts.com/highcharts
    */
   printAsHighchart: function (arr, key, chartId) {
+    console.log(key)
     // prep the data, don't include strange values like "Precinct HP"
     let summaryStats = _.countBy(arr, key);
     summaryStats = _.omit(summaryStats, ["null", "HP", "0"]);
