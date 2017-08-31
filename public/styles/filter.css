@@ -72,6 +72,9 @@ input[type=radio]:checked + label{
     position: relative;
 }
 #primary-nav input {
+    display: none;
+}
+#primary-nav label{
     font-size: 1.25em;
     font-weight: 600;
     display: inline-block;
@@ -80,30 +83,30 @@ input[type=radio]:checked + label{
     background: #279989;
     color: white;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 3px;
     margin: 13px;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     position: relative;
     z-index: 100;
     outline: none;
     cursor: pointer;
+    width: 160px;
+    text-align:center;
 }
 
-#primary-nav input.meta-button {
+#primary-nav .dropdown-arrow img{
+    margin-left: 5px;
+    max-width: 15px;
+}
+
+.rotate{
+    transform: rotate(180deg);
+}
+
+#primary-nav .meta-button {
     background: #ddd;
     color: #222;
 }
-
-.filters-dropdown{
-    margin-left:15px;
-    padding: 15px;
-}
-
-.filters-dropdown article{
-    display: inline-block;
-    min-width: 55px;
-}
-
 .dropdown-title{
     display: block;
 }

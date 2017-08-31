@@ -23,17 +23,6 @@
 			<h1>City of Detroit<br/>Crime Viewer</h1>
 		</div>
 		<div class="tabs">
-			<ul class="tab-links" style="display:none;">
-				<li class="active">
-					<a href="#tab1">Filters</a>
-				</li>
-				<li>
-					<a href="#tab2">Stats</a>
-				</li>
-				<li>
-					<a href="#tab3">About</a>
-				</li>
-			</ul>
 			<div class="tab-content scrollbar-macosx">
 				<div class="tab active" id="tab2">
 					<div id="point_details"></div>	
@@ -62,13 +51,20 @@
 	<!--Map-->
 	<nav id="filters-menu">
 		<div id="primary-nav" class="drop-shadow">
-			<input type="button" value="Crime Types" data-panel="#categories">
-			<input type="button" value="Date and Time" data-panel="#date-and-time">
-			<input type="button" value="Location" data-panel="#location">
-			<input type="button" class="meta-button" value="Reset" id="reset">
-			<input type="button" class="meta-button" value="Print" id="print">
-			<input type="button" class="meta-button" value="About" id="about">
-			<input type="button" class="meta-button" value="Share" id="share">
+			<input type="button" class="dropdown-button" id="categories-dropdown-button" data-panel="#categories">
+			<label for="categories-dropdown-button">Crime Types<span id="categories-arrow" class="dropdown-arrow"><img src="./img/arrow.svg"/></span></label>
+			<input type="button"class="dropdown-button" id="date-and-time-dropdown-button" data-panel="#date-and-time">
+			<label for="date-and-time-dropdown-button">Date and Time<span id="date-and-time-arrow" class="dropdown-arrow"><img src="./img/arrow.svg"/></span></label>
+			<input type="button" class="dropdown-button" id="location-dropdown-button" data-panel="#location">
+			<label for="location-dropdown-button">Location<span id="location-arrow" class="dropdown-arrow"><img src="./img/arrow.svg"/></span></label>
+			<input type="button" id="reset-button" data-panel="#reset-filters">
+			<label for="reset-button">Reset</label>
+			<input type="button" id="print-button">
+			<label for="print-button" class="meta-button">Print</label>
+			<input type="button" id="about-button">
+			<label for="about-button" class="meta-button">About</label>
+			<input type="button"id="share-button">
+			<label for="share-button" class="meta-button">Share</label>
 		</div>
 		<div id="primary-panel">
 			<section class="filters" id="categories">
