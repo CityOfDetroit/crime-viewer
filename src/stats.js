@@ -95,7 +95,8 @@ const Stats = {
     // lookup human-readable field names for locations
     key = Data.fields[key];
 
-    // define the chart
+    if (properties.length < 20) {
+          // define the chart
     let chart = Highcharts.chart({
       chart: {
         renderTo: chartId,
@@ -148,6 +149,64 @@ const Stats = {
     });
 
     return chart
+
+    } else {
+      let chart = Highcharts.chart({
+      chart: {
+        renderTo: chartId,
+        type: 'bar',
+        style: {
+          fontFamily: 'inherit'
+        }
+      },
+      colors: ['#279989'],
+      title: {
+        text: '<b>Incidents by ' + key + '</b>',
+        style: {
+          fontSize: 19
+        },
+        align: 'center'
+      },
+      xAxis: {
+        categories: properties,
+        title: {
+          enabled: false
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Incidents'
+        },
+        labels: {
+          formatter: function () {
+            return numeral(this.value).format('0a');
+          }
+        }
+      },
+      tooltip: {
+        borderWidth: 1,
+        borderColor: 'white',
+        formatter: function () {
+          return numeral(this.y).format('0,0') + ' ' + this.series.name + ' in ' + this.x;
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Incidents',
+        data: counts
+      }]
+    });
+
+          return chart
+
+    }
+
+
   },
 
   printAsLineChart: function(arr, key, chartId) {
