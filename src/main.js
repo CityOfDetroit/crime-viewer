@@ -309,11 +309,13 @@ jQuery(document).ready(function () {
     jQuery('#point_details').remove();
   });
 
+
   function hidePanel() {
     jQuery('#primary-panel').slideUp(400, function() {
       jQuery('#primary-panel .filters').css('display', 'none');
       jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
     }).removeClass('drop-shadow');
+    jQuery('.rotate').removeClass('rotate');
     jQuery('#map-overlay').fadeOut();
   }
 
@@ -330,22 +332,26 @@ jQuery(document).ready(function () {
       Boundary.changeBoundary(map, Boundary.boundaries[this.value])
       Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
     }
+    // Filter.updateData(map, Draw, data, Filter.readInput()[0])
   });
 
-  jQuery("#primary-nav input[class!='meta-button']").click(function() {
+  jQuery('#primary-nav input').click(function() {
     var panelID = jQuery(this).attr('data-panel');
     if(jQuery('#primary-nav').hasClass('panel-show')){
       if(jQuery(panelID).is(":visible")){
-        console.log('309');
         hidePanel();
       }
       else{
         jQuery('#primary-panel .filters').fadeOut();
+        jQuery('.rotate').removeClass('rotate');
+        jQuery(panelID+'-arrow img').addClass('rotate');
         jQuery(panelID).fadeIn().css('display', 'inline-block');
       }
     }
     else{
       jQuery(panelID).css('display', 'inline-block');
+        jQuery('.rotate').removeClass('rotate');
+        jQuery(panelID+'-arrow img').addClass('rotate');
       jQuery('#primary-nav').removeClass('drop-shadow').addClass('panel-show');
       jQuery('#primary-panel').slideDown(400, function(){
         jQuery(this).addClass('drop-shadow');
@@ -357,7 +363,6 @@ jQuery(document).ready(function () {
   jQuery('#map-overlay').click(function() {
     hidePanel();
   });
-
 
   /*initiate slideout
   var slideout = new Slideout({
