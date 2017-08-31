@@ -116,7 +116,7 @@ const Filter = {
     Stats.printAsLineChart(filteredData.features, 'properties.day', 'line-chart-container');
     
     // refresh count of current incidents
-    // Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'filtered_view');
+    Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'readable_filter_text');
 
     return filteredData;
   },

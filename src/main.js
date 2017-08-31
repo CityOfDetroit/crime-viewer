@@ -102,9 +102,13 @@ map.on('load', function () {
       let uniqueTimestamps = [...new Set(data['features'].map(item => item.properties['incident_timestamp']))];
       let minTime = _.min(uniqueTimestamps);
       let maxTime = _.max(uniqueTimestamps);
+      jQuery('#from_date').val(minTime.slice(0, 10))
+      jQuery('#to_date').val(maxTime.slice(0, 10))
+      console.log(minTime, maxTime)
 
       // count incidents currently viewing
-      Stats.printLoadedView(minTime, maxTime, data);
+      console.log(Filter.readInput()[1])
+      Stats.printFilteredView(data.features, Filter.readInput()[1], 'readable_filter_text')
 
       // populate an initial chart and table in the Stats tab
       Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');

@@ -252,27 +252,42 @@ const Stats = {
    * @returns {}
    */
   printFilteredView: function (features, humanFilter, divId) {
+    console.log(humanFilter)
     let filtered_view = document.getElementById(divId);
-    if (_.flatten(Object.values(humanFilter)).length == 0) {
-      let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
-      jQuery('#filtered_view').fadeOut(550);
-      jQuery('#details').animate({ height: currentViewHeight }, { complete: function () { jQuery('#filtered_view').empty() } });
-      return filtered_view;
+    let html = `
+      showing <b>${numeral(features.length)} incidents</b> which occurred from <b>${humanFilter.date_range[0]}</b> to <b>${humanFilter.date_range[1]}</b>
+      <ul>
+    `
+    if (humanFilter.categories.length > 0) {
+      html += `<li>Categories: <b>${humanFilter.categories.join(", ")}</b></li>`
     }
-    else {
-      let html = `<hr><p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
-      Object.entries(humanFilter).forEach(e => {
-        if (e[1].length > 0) {
-          html += `<li>${Helpers.toSentenceCase(e[0])}: ${e[1].join(", ")}`
-        }
-      })
-      html += '</ul>'
-      filtered_view.innerHTML = html;
-      jQuery('#filtered_view').fadeIn(500, function () { });
-      let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
-      jQuery('#details').animate({ height: currentViewHeight }, { complete: function () { } });
-      return filtered_view;
+    if (humanFilter.weekdays.length > 0) {
+      html += `<li>Days of Week: <b>${humanFilter.weekdays.join(", ")}</b></li>`
     }
+    if (humanFilter.dayparts.length > 0) {
+      html += `<li>Times of Day: <b>${humanFilter.dayparts.join(", ")}</b></li>`
+    }
+    filtered_view.innerHTML = html
+    // if (_.flatten(Object.values(humanFilter)).length == 0) {
+    //   let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
+    //   jQuery('#filtered_view').fadeOut(550);
+    //   jQuery('#details').animate({ height: currentViewHeight }, { complete: function () { jQuery('#filtered_view').empty() } });
+    //   return filtered_view;
+    // }
+    // else {
+    //   let html = `<hr><p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
+    //   Object.entries(humanFilter).forEach(e => {
+    //     if (e[1].length > 0) {
+    //       html += `<li>${Helpers.toSentenceCase(e[0])}: ${e[1].join(", ")}`
+    //     }
+    //   })
+    //   html += '</ul>'
+    //   filtered_view.innerHTML = html;
+    //   jQuery('#filtered_view').fadeIn(500, function () { });
+    //   let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
+    //   jQuery('#details').animate({ height: currentViewHeight }, { complete: function () { } });
+    //   return filtered_view;
+    // }
   },
 
   /** 

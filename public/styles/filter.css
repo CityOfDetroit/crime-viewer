@@ -202,3 +202,15 @@ input[type=checkbox] {
 #locate {
     width: 290px;
 }
+
+#readable_filter_text{
+    display: block;
+    position: relative;
+    font-size: .9em;
+    margin-top: .5em;
+    padding: .5em 1em;
+}
+
+#readable_filter_text ul{
+    margin: 0;
+}
