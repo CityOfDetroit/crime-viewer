@@ -49,11 +49,11 @@ const Print = {
             pdf.text(190, 30, `Showing crime categories: ${filter.categories.join(",")}`)
         }
 
-        if (filter.time.length === 0) {
+        if (filter.weekdays.length === 0 && filter.dayparts.length === 0) {
             pdf.text(190, 40, `Showing all times`)
         }
         else {
-            pdf.text(190, 40, `Showing these times: ${filter.time.join(",")}`)
+            pdf.text(190, 40, `Showing these times: ${filter.weekdays.join(",")} ${filter.dayparts.join(",")}`)
         }
 
         let mapDiv = document.getElementById('map')
