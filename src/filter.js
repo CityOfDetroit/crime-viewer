@@ -119,10 +119,12 @@ const Filter = {
     map.getSource('incidents').setData(filteredData);
 
     // refresh counts to redraw chart in Stats tab based on selected area filter
+    var currentArea = $("#location input:checked")
+
     if (filters['council_district'].length > 0) {
-      // Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
+      Stats.printAsHighchart(filteredData.features, `properties.council_district`, 'chart-container');
     } else {
-      // Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
+      Stats.printAsHighchart(filteredData.features, `properties.precinct`, 'chart-container');
     }
 
     // refresh counts to redraw table in Stats tab
@@ -165,6 +167,7 @@ const Filter = {
   },
 
   newDrawnPolygon: function(draw, map) {
+    draw.deleteAll()
     map.setPaintProperty('incidents_point', 'circle-opacity', 0.05)
     map.setPaintProperty('incidents_point', 'circle-stroke-opacity', 0.05)
     draw.changeMode('draw_polygon')

@@ -168,6 +168,7 @@ map.on('load', function () {
           map.setPaintProperty('incidents_point', 'circle-stroke-opacity', { 'stops': [[9, 0.2], [19, 1]] })
           console.log(filterObject)
         })
+        jQuery('#area-custom').prop('checked', false);        
       });
 
       map.on('moveend', function (e) {
@@ -295,7 +296,6 @@ jQuery(document).ready(function () {
       Boundary.changeBoundary(map, Boundary.boundaries[this.value])
       Stats.printAsHighchart(data.features, `properties.${this.value}`, 'chart-container');
     }
-    // Filter.updateData(map, Draw, data, Filter.readInput()[0])
   });
 
   jQuery('#primary-nav input').click(function() {
