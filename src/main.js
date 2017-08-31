@@ -107,6 +107,7 @@ map.on('load', function () {
 
       // populate an initial chart and table in the Stats tab
       Stats.printAsHighchart(data.features, 'properties.council_district', 'chart-container');
+      Stats.printAsLineChart(data.features, 'properties.day', 'line-chart-container');
       Stats.printAsTable(incidentsByCategory, 'tbody');
 
       // load the source data and point, highlight styles
@@ -283,6 +284,7 @@ jQuery(document).ready(function () {
   jQuery('#show-charts').click(function() {
     jQuery('#table-container').hide();
     jQuery('#chart-container').show();
+    jQuery('#line-chart-container').show();
   });
 
   jQuery('#show-table').click(function() {
