@@ -116,7 +116,7 @@ const Init = {
      * @returns {undefined}
      */
     populateSidebar: function() {
-        let offenseHtml = `<div class="filter-instructions">Select different categories of crime to visualize:</div>`
+        let offenseHtml = `<div class="filter-instructions">These filters display incidents based on <b>what</b> the arrest charge was.<br/>You can choose from several types of <b>violent, nonviolent, or other</b> crime categories.</div>`
         Object.entries(Data.offenses).forEach(([k,v]) => {
             offenseHtml += `
                 <div class='filter-subcat'>
