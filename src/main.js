@@ -239,7 +239,19 @@ map.on('load', function () {
       // reset filters
       jQuery('#reset').click(function () {
         Filter.resetEverything(map, Draw, data)
-        filterObject = {}
+        filterObject = {
+          // offense code
+          'state_offense_code': [],
+          // time
+          'hour_of_day': [],
+          'day_of_week': [],
+          // location
+          'neighborhood': [],
+          'precinct': [],
+          'zip_code': [], 
+          'council_district': [],
+          'block_id': []
+        }
         filteredData = Filter.updateData(map, Draw, data, filterObject)
       });
 
