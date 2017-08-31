@@ -90,12 +90,10 @@ map.on('load', function () {
       let totalIncidents = Stats.countFeatures(data.features);
       let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
 
-      // group timestamps by full day, add new json property
+      // group timestamps by full day, add new json property to data
       for (let i = 0; i < data.features.length; i++) {
         data.features[i].properties.day = moment(data.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
       }
-
-      let incidentsByDay = Stats.countByKey(data.features, 'properties.day');
 
       // get the earliest and latest incident dates
       let uniqueTimestamps = [...new Set(data['features'].map(item => item.properties['incident_timestamp']))];
@@ -165,7 +163,6 @@ map.on('load', function () {
         }
       });
       
-
       map.on('draw.create', function (e) {
         filterObject = Filter.readInput()[0]
         Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
@@ -218,9 +215,13 @@ map.on('load', function () {
         let url = Socrata.makeUrl("9i6z-cm98", params);
         Socrata.fetchData(url).then(d => {
           data = d
+<<<<<<< HEAD
           for (let i = 0; i < data.features.length; i++) {
             data.features[i].properties.day = moment(data.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
           }
+=======
+
+>>>>>>> cedc58ec6a9e3dd4330f8973567043518b9a30f3
           // Stats.printLoadedView(fromDt, toDt, data)
           if(filterObject && filterObject.block_id.length > 0) {
             let blocks = filterObject.block_id
@@ -230,6 +231,7 @@ map.on('load', function () {
           else {
             filterObject = Filter.readInput()[0]
           }
+
           filteredData = Filter.updateData(map, Draw, data, filterObject)
         })
 
@@ -280,6 +282,7 @@ jQuery(document).ready(function () {
   jQuery('#show-table').click(function() {
     jQuery('#table-container').show();
     jQuery('#chart-container').hide();
+    jQuery('#line-chart-container').hide();
   });
 
   // todo: remove point details on x click
