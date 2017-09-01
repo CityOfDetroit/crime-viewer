@@ -297,16 +297,6 @@ jQuery(document).ready(function () {
     jQuery('#point_details').remove();
   });
 
-
-  function hidePanel() {
-    jQuery('#primary-panel').slideUp(400, function() {
-      jQuery('#primary-panel .filters').css('display', 'none');
-      jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
-    }).removeClass('drop-shadow');
-    jQuery('.rotate').removeClass('rotate');
-    jQuery('#map-overlay').fadeOut();
-  }
-
   // swap map boundary and chart axis based on selected area
   jQuery('input[type=radio][name=currentArea]').change(function(e) {
     if (this.value == 'custom') {
@@ -350,26 +340,44 @@ jQuery(document).ready(function () {
     }
   })
 
-
+  function hidePanel() {
+    jQuery('#map-overlay').fadeOut();
+    jQuery('#primary-panel').slideUp(400, function() {
+      jQuery('#primary-panel .filters').css('display', 'none');
+      jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
+    }).removeClass('drop-shadow');
+    jQuery('.rotate').removeClass('rotate');
+  }
 
   jQuery("input.dropdown-button").click(function() {
-    console.log(this)
     var panelID = jQuery(this).attr('data-panel');
+    //if panel is already shown
     if(jQuery('#primary-nav').hasClass('panel-show')){
+      //if button clicked is already shown
       if(jQuery(panelID).is(":visible")){
         hidePanel();
       }
+      //if panel is already down, but button clicked is not yet shown
       else{
-        jQuery('#primary-panel .filters').fadeOut();
         jQuery('.rotate').removeClass('rotate');
         jQuery(panelID+'-arrow img').addClass('rotate');
-        jQuery(panelID).fadeIn().css('display', 'inline-block');
+        jQuery('#primary-panel').slideUp(400, function() {
+          jQuery('#primary-panel .filters').css('display', 'none');
+          jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
+          jQuery('#primary-panel').slideDown(600, function(){
+          jQuery('#primary-nav').addClass('panel-show');
+            jQuery(panelID).css('display', 'inline-block');
+            jQuery(this).addClass('drop-shadow');
+          });
+        }).removeClass('drop-shadow');
+        
       }
     }
+    //if panel is not shown
     else{
       jQuery(panelID).css('display', 'inline-block');
-        jQuery('.rotate').removeClass('rotate');
-        jQuery(panelID+'-arrow img').addClass('rotate');
+      jQuery('.rotate').removeClass('rotate');
+      jQuery(panelID+'-arrow img').addClass('rotate');
       jQuery('#primary-nav').removeClass('drop-shadow').addClass('panel-show');
       jQuery('#primary-panel').slideDown(400, function(){
         jQuery(this).addClass('drop-shadow');
