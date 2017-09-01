@@ -156,7 +156,7 @@ input[type=radio]:checked + label{
     display: none;
 }
 #primary-panel{
-    background: azure;
+    background: #FFFFFF;
 }
 .drop-shadow{
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);

@@ -1,12 +1,18 @@
 import chroma from 'chroma-js';
 
 const colors = {
-  'property': "limegreen",
-  'violent': "orange",
-  'murder': "red",
-  'admin': "purple",
-  'other': "gray"
-  };
+  bail: "#9b874a",
+  admin: "#9d63cb",
+  drugs: "#4ba98c",
+  homicide: "red",
+  car: "#7088c8",
+  larceny: "#7fb235",
+  assault: "#c55d93",
+  robbery: "#c69932",
+  property: "#56a959",
+  arson: "#ce5c2f",
+  other: "#444"
+}
   
 const Data = {
   council_districts: [
@@ -145,29 +151,65 @@ const Data = {
     "7571": "Solicitation: Any Solicitation Except Prostitution"
   },
 
+  // offense2: {
+  //   OtherCrimes: [
+  //     { name: 'DISORDERLY CONDUCT', color: chroma(colors.admin).hex() },
+  //   ]
+  // }
+  // STOLEN VEHICLE
+  // DANGEROUS DRUGS
+  // ROBBERY
+  // HOMICIDE
+  // LARCENY
+  // SEX OFFENSES
+  // OUIL
+  // RUNAWAY
+  // STOLEN PROPERTY
+  // DAMAGE TO PROPERTY
+  // OTHER
+  // OBSTRUCTING JUDICIARY
+  // MISCELLANEOUS
+  // JUSTIFIABLE HOMICIDE
+  // ASSAULT
+  // EMBEZZLEMENT
+  // FORGERY
+  // LIQUOR
+  // GAMBLING
+  // EXTORTION
+  // AGGRAVATED ASSAULT
+  // KIDNAPPING
+  // FAMILY OFFENSE
+  // OBSTRUCTING THE POLICE
+  // WEAPONS OFFENSES
+  // BURGLARY
+  // SEXUAL ASSAULT
+  // FRAUD
+  // SOLICITATION
+  // ARSON
+
   offenses: {
     property: [
-      { name: 'ARSON', state_codes: ['2099'], top: 'Property Crimes', color: chroma(colors.property).brighten(2).hex() },
-      { name: 'BURGLARY', state_codes: ['2201', '2202'], top: 'Property Crimes', color: chroma(colors.property).brighten(1).hex() },
-      { name: 'DAMAGE TO PROPERTY', state_codes: ['2900'], top: 'Property Crimes', color: chroma(colors.property).hex() },
-      { name: 'LARCENY', state_codes: ['2301', '2302', '2303', '2304', '2305', '2306', '2307'], top: 'Property Crimes', color: chroma(colors.property).darken(1).hex() },
-      { name: 'STOLEN VEHICLE', state_codes: ['2401', '2402', '2403'], top: 'Property Crimes', color: chroma(colors.property).darken(2).desaturate().hex() }
+      { name: 'ARSON', state_codes: ['2099'], top: 'Property Crimes', color: chroma(colors.arson).hex() },
+      { name: 'BURGLARY', state_codes: ['2201', '2202'], top: 'Property Crimes', color: chroma(colors.robbery).hex() },
+      { name: 'DAMAGE TO PROPERTY', state_codes: ['2900'], top: 'Property Crimes', color: chroma(colors.robbery).brighten(1).hex() },
+      { name: 'LARCENY', state_codes: ['2301', '2302', '2303', '2304', '2305', '2306', '2307'], top: 'Property Crimes', color: chroma(colors.larceny).hex() },
+      { name: 'STOLEN VEHICLE', state_codes: ['2401', '2402', '2403'], top: 'Property Crimes', color: chroma(colors.car).darken().hex() }
     ],
     violent: [
-      { name: 'ASSAULT', state_codes: ['1302'], top: 'Violent Crimes', color: chroma(colors.violent).hex() },
-      { name: 'AGGRAVATED ASSAULT', state_codes: ['1301', '1303'], top: 'Violent Crimes', color: chroma(colors.violent).darken(1).hex() },
-      { name: 'SEXUAL ASSAULT', state_codes: ['1171', '1172', '1173', '1174', '1175', '1176', '1177', '1178', '3601', '3692'], top: 'Violent Crimes', color: chroma(colors.violent).darken(2).hex() },
-      { name: 'HOMICIDE', state_codes: ['0901', '0902', '0903', '0904'], top: 'Violent Crimes', color: chroma(colors.murder).hex() },
+      { name: 'ASSAULT', state_codes: ['1302'], top: 'Violent Crimes', color: chroma(colors.assault).hex() },
+      { name: 'AGGRAVATED ASSAULT', state_codes: ['1301', '1303'], top: 'Violent Crimes', color: chroma(colors.assault).brighten(1).hex() },
+      { name: 'SEXUAL ASSAULT', state_codes: ['1171', '1172', '1173', '1174', '1175', '1176', '1177', '1178', '3601', '3692'], top: 'Violent Crimes', color: chroma(colors.assault).darken(2).hex() },
+      { name: 'HOMICIDE', state_codes: ['0901', '0902', '0903', '0904'], top: 'Violent Crimes', color: chroma(colors.homicide).brighten().hex() },
       // { name: 'JUSTIFIABLE HOMICIDE', state_codes: ['0904'], top: 'Violent Crimes', color: chroma(colors.murder).desaturate().darken().hex() },
-      { name: 'ROBBERY', state_codes: ['1201'], top: 'Violent Crimes', color: chroma(colors.violent).brighten().hex() }
+      { name: 'ROBBERY', state_codes: ['1201'], top: 'Violent Crimes', color: chroma(colors.robbery).hex() }
     ],
     other: [
-      { name: 'BAIL', state_codes: ['5001'], top: 'Other Crimes', color: chroma(colors.admin).hex() },
-      { name: 'DANGEROUS DRUGS', state_codes: ['3501', '3502',  '5501'], top: 'Other Crimes', color: chroma(colors.admin).brighten().hex() },
+      { name: 'OBSTRUCTING JUDICIARY', state_codes: ['5001'], top: 'Other Crimes', color: chroma(colors.bail).hex() },
+      { name: 'DANGEROUS DRUGS', state_codes: ['3501', '3502',  '5501'], top: 'Other Crimes', color: chroma(colors.drugs).hex() },
       // { name: 'DISORDERLY CONDUCT', state_codes: ['5301', '5302'], top: 'Other Crimes', color: chroma(colors.disorder).hex() },
-      { name: 'DRUNK DRIVING', state_codes: ['5421', '5422',], top: 'Other Crimes', color: chroma(colors.admin).brighten(3).saturate().hex() },
+      { name: 'DRUNK DRIVING', state_codes: ['5421', '5422',], top: 'Other Crimes', color: chroma(colors.car).hex() },
       // { name: 'FAMILY ABUSE/NEGLECT', state_codes: ['3801', '3802', '3803'], top: 'Other Crimes', color: chroma(colors.personal).hex() },
-      { name: 'FRAUD', state_codes: ['2601', '2602', '2603', '2604', '2605', '2606', '3071', '3072'], top: 'Other Crimes', color: chroma(colors.admin).brighten(2).hex() },
+      { name: 'FRAUD', state_codes: ['2601', '2602', '2603', '2604', '2605', '2606', '3071', '3072'], top: 'Other Crimes', color: chroma(colors.admin).hex() },
       { name: 'LIQUOR VIOLATIONS', state_codes: ['4101', '4102'], top: 'Other Crimes', color: chroma(colors.other).brighten().hex() },
       // { name: 'KIDNAPPING', state_codes: ['1001', '1002'], top: 'Other Crimes', color: chroma(colors.personal).darken().hex() },
       { name: 'MISC ARREST', state_codes: ['7399'], top: 'Other Crimes', color: chroma(colors.other).hex() },
