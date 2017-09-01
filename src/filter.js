@@ -32,7 +32,7 @@ const Filter = {
       "dayparts": [],
     }
 
-    filterHuman['date_range'] = [$('#from_date')[0].value, $('#to_date')[0].value]
+    filterHuman['date_range'] = [moment($('#from_date')[0].value).format('MM-DD-YYYY'), moment($('#to_date')[0].value).format('MM-DD-YYYY')]
 
     _.each($('input.offense-checkbox'), d => {
       if (d.checked) {
