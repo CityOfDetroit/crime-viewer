@@ -53,7 +53,7 @@ const Locate = {
    * @returns {Promise} res
    */
   getCensusBlocks: function(geometry) {
-    const endpoint = 'http://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/0/query?'
+    const endpoint = 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Census_Detroit/MapServer/0/query?'
     let params = {
       'where': '1=1',
       'geometryType': 'esriGeometryPolygon',
