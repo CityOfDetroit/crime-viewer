@@ -84,7 +84,7 @@ table td{
    -webkit-box-shadow: -25px -10px 15px 25px #777;
    -moz-box-shadow: -25px -10px 15px 25px #777;
    box-shadow: -25px -10px 15px 25px #777;
-   overflow: hidden;
+   overflow: scroll;
 }
 
 #menu .logo > *{
