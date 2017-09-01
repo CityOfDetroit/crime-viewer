@@ -46,7 +46,7 @@ var Draw = new MapboxDraw(drawOptions);
 
 map.addControl(Draw)
 
-let currentBoundary = 'council_districts'
+let currentBoundary = 'council_district'
 let data = null;
 let filteredData = null;
 let filterObject = {
@@ -201,6 +201,7 @@ map.on('load', function () {
       })
 
       jQuery("input[name!='currentArea']").change(function () {
+        console.log(this.value)
         if(filterObject.block_id.length > 0) {
           let blocks = filterObject.block_id
           filterObject = Filter.readInput()[0]
