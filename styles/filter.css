@@ -56,21 +56,25 @@ input[type=radio]:checked + label{
     left: 10px;
 }
 #filters-menu{
-    background: white;
     display: inline-block;
     position: fixed;
     top: 0px;
     z-index: 500;
     width: 75%;
-    height: 90px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 .filters{
     display: inline-block;
     margin:7px 35px;
 }
-
-.filters button {
+#primary-nav{
+    background: white;
+    z-index: 100;
+    position: relative;
+}
+#primary-nav input {
+    display: none;
+}
+#primary-nav label{
     font-size: 1.25em;
     font-weight: 600;
     display: inline-block;
@@ -79,33 +83,134 @@ input[type=radio]:checked + label{
     background: #279989;
     color: white;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 3px;
     margin: 13px;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     position: relative;
     z-index: 100;
     outline: none;
     cursor: pointer;
+    width: 80px;
+    text-align:center;
 }
 
-.filters-dropdown{
-    float: left;
-    position: absolute;
-    top: 50px;
-    background: white;
-    margin-left:15px;
-    padding: 15px;
-    max-width: 165px;
-    border-radius: 10px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
-    display: none;
+#primary-nav label.dropdown-button {
+    width: 170px;
 }
 
-.filters-dropdown article{
-    display: inline-block;
-    min-width: 55px;
+#primary-nav label.reset-button {
+    background: orange;
+    color: #222;
 }
 
+#primary-nav label .meta-button{
+    background: #ddd;
+    color: #222;
+    width: 100px;
+}
+
+#primary-nav .dropdown-arrow img{
+    margin-left: 5px;
+    max-width: 15px;
+}
+
+.rotate{
+    transform: translateY(-30%) rotate(180deg);
+}
+
+#primary-nav .meta-button {
+    background: #ddd;
+    color: #222;
+}
 .dropdown-title{
     display: block;
+}
+
+.meta-button {
+    display: block;
+    text-align: right;
+}
+
+#primary-panel, #date-and-time, #location, #categories{
+    display: none;
+}
+#primary-panel{
+    background: azure;
+}
+.drop-shadow{
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.inline-block{
+    display: inline-block;
+}
+
+.filter-subcat {
+    display: inline-block;
+    vertical-align: text-top;
+    width: 180px;
+    height: 100%;
+    background-color: #ddd;
+    padding: .5em;
+    margin: .5em;
+}
+
+.filter-subcat.wide {
+    width: 300px;
+}
+
+/* like the best size of t-shirt */
+.filter-subcat.xl {
+    width: 400px;
+}
+
+.filter-subcat.narrow {
+    width: 130px;
+}
+
+.filter-subcat-title {
+    position: relative;
+    top: 0;
+    margin-bottom: .5em;
+    font-size: 1em;
+    display: block;
+    position: relative;
+    font-weight: 900;
+}
+
+.filter-subcat-input {
+    display: block;
+    padding: 5px 1px;
+}
+
+input[type=checkbox] {
+    transform: scale(1.25);
+  }
+
+.filter-instructions {
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    font-style: 'italic';
+    /* font-weight: 900; */
+    margin-bottom: 1em;
+    font-size: .9em;
+    color: #222;
+}
+
+#locate {
+    width: 290px;
+}
+
+#readable_filter_text{
+    display: block;
+    /* position: relative;
+    font-size: .9em;
+    margin-top: .5em;
+    padding: .5em 1em; */
+}
+
+#readable_filter_text ul{
+    margin: .25em;
 }

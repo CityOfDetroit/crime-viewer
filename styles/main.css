@@ -44,14 +44,22 @@ table td{
     outline-width: 5px;
 }
 
-#map { 
+#map, #map-overlay{ 
   position: absolute; 
-  top: 0; 
+  top: 74px; 
   bottom: 0; 
   left: 25%;
-  width: calc(100% - 25%)
+  height: calc(100% - 74px);
+  width: calc(100% - 25%);
 }
 
+#map-overlay{
+  background: white;
+  z-index: 450;
+  opacity: 0.5;
+  cursor: not-allowed;
+  display: none;
+}
 /* marks address searched */
 .marker {
   background-image: url('../img/marker-15.svg');
@@ -88,7 +96,7 @@ table td{
    padding: 1px;
 }
 
-.search input{
+/* .search input{
    box-sizing: border-box;
    border: 0px;
    font-size: 13px;
@@ -101,6 +109,11 @@ table td{
    transition: width .4s ease-in-out;
    width: 100%;
    border-top:2px #e4e4e4 solid;
+} */
+
+.search {
+  position: relative;
+  display: inline;
 }
 
 .filter-checkbox {
@@ -156,6 +169,21 @@ table td{
 	margin-top:2px;
 }
 
+#about-content {
+  position: block;
+  font-size: 1.2em;
+  width: 90%;
+  height: 100%;
+  margin: 100px auto;
+  background-color: white;
+}
+
+#about-header {
+  padding-bottom: 5px;
+  border-bottom: 1px dotted black;
+  font-size: 2em;
+}
+
 /*@media screen and (min-width: 800px) {*/
    #menu .logo{
        padding:3px 10px;
@@ -193,5 +221,24 @@ table td{
       cursor: pointer;
       width: 17px;
       height: 17px;
+   }
+   .about-close img{
+      cursor: pointer;
+      width: 27px;
+      height: 27px;
+   }
+
+   .point-details-close img{
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      float: right;
+   }
+
+   .sidebar-title {
+     margin: .5em 0em;
+     font-size: 1.1em;
+     letter-spacing: 1px;
+     border-bottom: 1px dotted black;
    }
 /*}*/
