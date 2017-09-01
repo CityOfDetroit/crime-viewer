@@ -285,6 +285,7 @@ jQuery(document).ready(function () {
   jQuery('#show-table').click(function() {
     jQuery('#table-container').show();
     jQuery('#chart-container').hide();
+    jQuery('#line-chart-container').hide();
   });
 
   // todo: remove point details on x click
@@ -347,7 +348,7 @@ jQuery(document).ready(function () {
 
 
 
-  jQuery(".dropdown-button").click(function() {
+  jQuery("input.dropdown-button").click(function() {
     console.log(this)
     var panelID = jQuery(this).attr('data-panel');
     if(jQuery('#primary-nav').hasClass('panel-show')){
