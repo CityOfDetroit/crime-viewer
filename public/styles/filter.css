@@ -74,7 +74,7 @@ input[type=radio]:checked + label{
 #primary-nav input {
     display: none;
 }
-#primary-nav label{
+#primary-nav label, .tab-button button{
     font-size: 1.25em;
     font-weight: 600;
     display: inline-block;
@@ -94,8 +94,12 @@ input[type=radio]:checked + label{
     text-align:center;
 }
 
-#primary-nav label.dropdown-button {
+#primary-nav label.dropdown-button, .tab-button button {
     width: 170px;
+}
+
+.tab-button{
+    text-align: center;
 }
 
 #primary-nav label.reset-button {
@@ -118,10 +122,27 @@ input[type=radio]:checked + label{
     transform: translateY(-30%) rotate(180deg);
 }
 
-#primary-nav .meta-button {
+#primary-nav .meta-button{
     background: #ddd;
     color: #222;
 }
+
+.tab-button button.active, .tab-button button.active:hover {
+    background: #ddd;
+    color: grey;
+    cursor: default;
+}
+
+.tab-button button {
+    background: #279989;
+    color: white;
+}
+
+.tab-button button:hover,
+#primary-nav label.dropdown-button:hover{
+    background: #167668;
+}
+
 .dropdown-title{
     display: block;
 }

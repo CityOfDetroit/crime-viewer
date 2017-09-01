@@ -236,9 +236,10 @@ table td{
    }
 
    .sidebar-title {
-     margin: .5em 0em;
-     font-size: 1.1em;
+     margin: .75em 0em;
+     font-size: 1.25em;
      letter-spacing: 1px;
      border-bottom: 1px dotted black;
+     padding-bottom: .10em;
    }
 /*}*/

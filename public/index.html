@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<nav id="menu">
+	<nav id="menu" class="">
 		<div class="logo">
 			<img src="./img/green.png">
 			<h1>City of Detroit<br/>Crime Viewer</h1>
@@ -28,8 +28,11 @@
 					<span id="readable_filter_text"></span>
 					<div id="point_details"></div>	
 					<br/>
-					<button id="show-table">Show Table</button>
-					<button id="show-charts">Show Charts</button>
+					<div class="tab-button">
+						<button id="show-table" class="active">Show Table</button>
+						<button id="show-charts">Show Charts</button>
+					</div>
+					
 					<div id="table-container">
 						<h4 class="sidebar-title">Incidents by Crime Type</h4>
 						<table id="count_by_type">

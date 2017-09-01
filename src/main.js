@@ -279,12 +279,16 @@ jQuery(document).ready(function () {
     jQuery('#table-container').hide();
     jQuery('#chart-container').show();
     jQuery('#line-chart-container').show();
+    jQuery('#show-table').removeClass('active');
+    jQuery(this).addClass('active');
   });
 
   jQuery('#show-table').click(function() {
     jQuery('#table-container').show();
     jQuery('#chart-container').hide();
     jQuery('#line-chart-container').hide();
+    jQuery('#show-charts').removeClass('active');
+    jQuery(this).addClass('active');
   });
 
   // todo: remove point details on x click
