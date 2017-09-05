@@ -27,6 +27,31 @@ const Stats = {
     return _.countBy(arr, key);
   },
 
+
+  /**
+   * Prep data to draw a Highcharts Heatmap by counting incidents that have two properties (eg happened on a Monday during the 5pm hour)
+   * @param {array}
+   * @returns {array} - array of arrays where inner elements are matrix coordinates with format [day index, hour index, count of incidents]
+   */
+  makeDayHourCoords: function(arr) {
+    let group_by_day = _.groupBy(arr, function(d) { return d.properties.day_of_week });
+    let res = new Array();
+
+    for (var day in group_by_day) {
+      if (!group_by_day.hasOwnProperty(day)) continue;
+
+      let list_by_day = group_by_day[day];
+      let group_by_day_hour = _.countBy(list_by_day, 'properties.hour_of_day');
+
+      for (var hour in group_by_day_hour) {
+        let coords = new Array(parseInt(day) -1, parseInt(hour), group_by_day_hour[hour]);
+        res.push(coords);
+      }
+    }
+
+    return res;
+  },
+
   /**
    * Creates an HTML table from a stats object
    * @param {obj} - object of summary statistics, like the one returned by countByKey
