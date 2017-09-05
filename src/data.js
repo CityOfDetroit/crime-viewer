@@ -78,144 +78,45 @@ const Data = {
     { name: 'Overnight', hours: [23, 24, 1, 2, 3, 4], abbreviation: '11pm-4am' }
   ],
 
-  // via MICR Arrest Codes - Revision 01/28/2016
-  state_codes: {
-    "0901": "Murder: Family - Gun",
-    "0902": "Murder: Family - Other Weapon",
-    "0903": "Murder: Non-Family - Gun",
-    "0904": "Murder: Non-Family - Other Weapon",
-    "1001": "Kidnapping/Abduction: Kidnap Minor for Ransom",
-    "1002": "Kidnapping/Abduction: Kidnap Adult for Ransom",
-    "1171": "Sexual Penetration: Penis/Vagina - CSC 1st Degree",
-    "1172": "Sexual Penetration: Penis/Vagina - CSC 3rd Degree",
-    "1173": "Sexual Penetration: Oral/Anal - CSC 1st Degree",
-    "1174": "Sexual Penetration: Oral/Anal - CSC 3rd Degree",
-    "1175": "Sexual Penetration: Object - CSC 1st Degree",
-    "1176": "Sexual Penetration: Object - CSC 3rd Degree",
-    "1177": "Sexual Contact: Forcible - CSC 2nd Degree",
-    "1178": "Sexual Contact: Forcible - CSC 4th Degree",
-    "1201": "Robbery: Business - Gun",
-    "1301": "Aggravated Assault: Family - Gun",
-    "1302": "Aggravated Assault: Family - Other Weapon",
-    "1303": "Aggravated Assault: Family - Strong Arm",
-    "2099": "Arson: Other",
-    "2101": "Extortion: Threat to Injure Person",
-    "2201": "Burglary: Forced Entry - Safe or Vault",
-    "2202": "Burglary: Forced Entry - Residence",
-    "2203": "Burglary: Forced Entry - Non-residence",
-    "2301": "Larceny: Pocketpicking",
-    "2302": "Larceny: Purse Snatching - No Force",
-    "2303": "Larceny: Theft From Building",
-    "2304": "Larceny: Parts and Accessories from Vehicle",
-    "2305": "Larceny: Personal Property from Vehicle",
-    "2306": "Larceny: From Shipment",
-    "2307": "Larceny: From Coin Machines",
-    "2401": "Motor Vehicle Theft: Theft and Sale",
-    "2402": "Motor Vehicle Theft: Theft and Strip",
-    "2403": "Motor Vehicle Theft: Theft and Use in Other Crime",
-    "2501": "Forgery/Counterfeiting: Forgery of Checks",
-    "2601": "Fraud: Confidence Game",
-    "2602": "Fraud: Swindle",
-    "2603": "Fraud: Mail Fraud",
-    "2604": "Fraud: Impersonation",
-    "2605": "Fraud: Illegal Use of Credit Card",
-    "2606": "Fraud: Insufficient Funds - Bad Checks",
-    "2801": "Stolen Property: Sale of Stolen Property",
-    "2900": "Damage to Property",
-    "3071": "Retail Fraud: Misrepresentation 1st Degree",
-    "3072": "Retail Fraud: Misrepresentation 2nd Degree",
-    "3501": "Controlled Substance: Hallucinogen - Manufacture",
-    "3502": "Controlled Substance: Hallucinogen - Distribute",
-    "3601": "Sexual Penetration: Nonforcible - Blood/Affinity",
-    "3692": "Sexual Penetration: Nonforcible - CSC 1st/3rd Degree",
-    "3801": "Family Nonsupport: Neglect Family/Nonsupport Felony",
-    "3802": "Family Abuse Neglect: Nonviolent - Cruelty Towards Child",
-    "3803": "Family Abuse/Neglect: Nonviolent - Cruelty Towards Spouse",
-    "3901": "Gambling: Operating, Promoting or Assisting in Bookmaking",
-    "4001": "Commercialized Sex: Assist or Promote Prostitution - Keep House of Ill Fame",
-    "4101": "Liquor Violation: Manufacture",
-    "4102": "Liquor Violation: Sell",
-    "4801": "Obstructing Police: Resisting Officer",
-    "5001": "Obstructing Justice: Bail - Secured Bond",
-    "5201": "Concealed Weapon: Altering Identification",
-    "5203": "Concealed Weapon: Carrying Prohibited",
-    "5301": "Public Peace: Anarchism",
-    "5302": "Public Peace: Riot - Inciting",
-    "5421": "Operating Under the Influence of Liquor or Drugs: OUI - Off-road Vehicle",
-    "5422": "Operating Under the Influence of Liquor or Drugs: Permitted Person OUI - Off-road vehicle",
-    "5501": "Health and Safety: Drugs - Adulterated",
-    "7070": "Juvenile Runaway",
-    "5701": "Invasion of Privacy: Divulge Eavesdrop Info",
-    "5702": "Invasion of Privacy: Divulge Eavesdrop Order",
-    "7399": "Miscellaneous Arrest",
-    "7571": "Solicitation: Any Solicitation Except Prostitution"
-  },
-
-  // offense2: {
-  //   OtherCrimes: [
-  //     { name: 'DISORDERLY CONDUCT', color: chroma(colors.admin).hex() },
-  //   ]
-  // }
-  // STOLEN VEHICLE
-  // DANGEROUS DRUGS
-  // ROBBERY
-  // HOMICIDE
-  // LARCENY
-  // SEX OFFENSES
-  // OUIL
-  // RUNAWAY
-  // STOLEN PROPERTY
-  // DAMAGE TO PROPERTY
-  // OTHER
-  // OBSTRUCTING JUDICIARY
-  // MISCELLANEOUS
-  // JUSTIFIABLE HOMICIDE
-  // ASSAULT
-  // EMBEZZLEMENT
-  // FORGERY
-  // LIQUOR
-  // GAMBLING
-  // EXTORTION
-  // AGGRAVATED ASSAULT
-  // KIDNAPPING
-  // FAMILY OFFENSE
-  // OBSTRUCTING THE POLICE
-  // WEAPONS OFFENSES
-  // BURGLARY
-  // SEXUAL ASSAULT
-  // FRAUD
-  // SOLICITATION
-  // ARSON
-
   offenses: {
-    property: [
-      { name: 'ARSON', state_codes: ['2099'], top: 'Property Crimes', color: chroma(colors.arson).hex() },
-      { name: 'BURGLARY', state_codes: ['2201', '2202'], top: 'Property Crimes', color: chroma(colors.robbery).hex() },
-      { name: 'DAMAGE TO PROPERTY', state_codes: ['2900'], top: 'Property Crimes', color: chroma(colors.robbery).brighten(1).hex() },
-      { name: 'LARCENY', state_codes: ['2301', '2302', '2303', '2304', '2305', '2306', '2307'], top: 'Property Crimes', color: chroma(colors.larceny).hex() },
-      { name: 'STOLEN VEHICLE', state_codes: ['2401', '2402', '2403'], top: 'Property Crimes', color: chroma(colors.car).darken().hex() }
-    ],
     violent: [
-      { name: 'ASSAULT', state_codes: ['1302'], top: 'Violent Crimes', color: chroma(colors.assault).hex() },
-      { name: 'AGGRAVATED ASSAULT', state_codes: ['1301', '1303'], top: 'Violent Crimes', color: chroma(colors.assault).brighten(1).hex() },
-      { name: 'SEXUAL ASSAULT', state_codes: ['1171', '1172', '1173', '1174', '1175', '1176', '1177', '1178', '3601', '3692'], top: 'Violent Crimes', color: chroma(colors.assault).darken(2).hex() },
-      { name: 'HOMICIDE', state_codes: ['0901', '0902', '0903', '0904'], top: 'Violent Crimes', color: chroma(colors.homicide).brighten().hex() },
-      // { name: 'JUSTIFIABLE HOMICIDE', state_codes: ['0904'], top: 'Violent Crimes', color: chroma(colors.murder).desaturate().darken().hex() },
-      { name: 'ROBBERY', state_codes: ['1201'], top: 'Violent Crimes', color: chroma(colors.robbery).hex() }
-    ],
-    other: [
-      { name: 'OBSTRUCTING JUDICIARY', state_codes: ['5001'], top: 'Other Crimes', color: chroma(colors.bail).hex() },
-      { name: 'DANGEROUS DRUGS', state_codes: ['3501', '3502',  '5501'], top: 'Other Crimes', color: chroma(colors.drugs).hex() },
-      // { name: 'DISORDERLY CONDUCT', state_codes: ['5301', '5302'], top: 'Other Crimes', color: chroma(colors.disorder).hex() },
-      { name: 'DRUNK DRIVING', state_codes: ['5421', '5422',], top: 'Other Crimes', color: chroma(colors.car).hex() },
-      // { name: 'FAMILY ABUSE/NEGLECT', state_codes: ['3801', '3802', '3803'], top: 'Other Crimes', color: chroma(colors.personal).hex() },
-      { name: 'FRAUD', state_codes: ['2601', '2602', '2603', '2604', '2605', '2606', '3071', '3072'], top: 'Other Crimes', color: chroma(colors.admin).hex() },
-      { name: 'LIQUOR VIOLATIONS', state_codes: ['4101', '4102'], top: 'Other Crimes', color: chroma(colors.other).brighten().hex() },
-      // { name: 'KIDNAPPING', state_codes: ['1001', '1002'], top: 'Other Crimes', color: chroma(colors.personal).darken().hex() },
-      { name: 'MISC ARREST', state_codes: ['7399'], top: 'Other Crimes', color: chroma(colors.other).hex() },
-      // { name: 'RUNAWAY', state_codes: ['7070'], top: 'Other Crimes', color: chroma(colors.personal).saturate().hex() },
-      { name: 'WEAPONS OFFENSE', state_codes: ['5201', '5203'], top: 'Other Crimes', color: chroma(colors.other).darken().hex() }
-    ]
+    { name: 'JUSTIFIABLE HOMICIDE', color: chroma(colors.assault).hex() },
+    { name: 'ASSAULT', color: chroma(colors.assault).hex() },
+    { name: 'SEX OFFENSES', color: chroma(colors.assault).hex() },
+    { name: 'SEXUAL ASSAULT', color: chroma(colors.assault).hex() },    
+    { name: 'EXTORTION', color: chroma(colors.assault).hex() },
+    { name: 'AGGRAVATED ASSAULT', color: chroma(colors.assault).hex() },
+    { name: 'KIDNAPPING', color: chroma(colors.assault).hex() },
+    { name: 'HOMICIDE', color: chroma(colors.assault).hex() }
+  ],
+  property: [
+    { name: 'ARSON', color: chroma(colors.arson).hex() },     
+    { name: 'BURGLARY', color: chroma(colors.robbery).hex() },   
+    { name: 'DAMAGE TO PROPERTY', color: chroma(colors.admin).hex() },
+    { name: 'STOLEN PROPERTY', color: chroma(colors.admin).hex() },    
+    { name: 'STOLEN VEHICLE', color: chroma(colors.admin).hex() },
+    { name: 'ROBBERY', color: chroma(colors.admin).hex() },
+    { name: 'LARCENY', color: chroma(colors.admin).hex() }
+  ],
+  society: [
+    { name: 'OTHER', color: chroma(colors.other).hex() },      
+    { name: 'GAMBLING', color: chroma(colors.other).hex() },
+    { name: 'LIQUOR', color: chroma(colors.drugs).hex() },
+    { name: 'FAMILY OFFENSE', color: chroma(colors.other).hex() },
+    { name: 'OBSTRUCTING THE POLICE', color: chroma(colors.other).hex() },
+    { name: 'WEAPONS OFFENSES', color: chroma(colors.other).hex() },
+    { name: 'FRAUD', color: chroma(colors.other).hex() },
+    { name: 'SOLICITATION', color: chroma(colors.other).hex() }],
+  other: [
+    { name: 'EMBEZZLEMENT', color: chroma(colors.other).hex() },
+    { name: 'FORGERY', color: chroma(colors.other).hex() },
+    { name: 'OBSTRUCTING JUDICIARY', color: chroma(colors.other).hex() },
+    { name: 'MISCELLANEOUS', color: chroma(colors.other).hex() },
+    { name: 'OUIL', display: 'DRUNK DRIVING', color: chroma(colors.drugs).hex() },
+    { name: 'DANGEROUS DRUGS', display: 'DRUG', color: chroma(colors.drugs).darken().hex() },
+    { name: 'RUNAWAY', color: chroma(colors.other).hex() },
+    { name: 'DISORDERLY CONDUCT', color: chroma(colors.other).hex() }    
+  ]
   },
 
   fields: {

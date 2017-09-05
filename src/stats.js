@@ -272,26 +272,6 @@ const Stats = {
       html += `<li>Times of Day: <b>${humanFilter.dayparts.join(", ")}</b></li>`
     }
     filtered_view.innerHTML = html
-    // if (_.flatten(Object.values(humanFilter)).length == 0) {
-    //   let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
-    //   jQuery('#filtered_view').fadeOut(550);
-    //   jQuery('#details').animate({ height: currentViewHeight }, { complete: function () { jQuery('#filtered_view').empty() } });
-    //   return filtered_view;
-    // }
-    // else {
-    //   let html = `<hr><p><b>${numeral(features.length).format('0,0')}</b> incidents are displayed and match <b>these filters</b>:<ul>`
-    //   Object.entries(humanFilter).forEach(e => {
-    //     if (e[1].length > 0) {
-    //       html += `<li>${Helpers.toSentenceCase(e[0])}: ${e[1].join(", ")}`
-    //     }
-    //   })
-    //   html += '</ul>'
-    //   filtered_view.innerHTML = html;
-    //   jQuery('#filtered_view').fadeIn(500, function () { });
-    //   let currentViewHeight = jQuery('#loaded_view').outerHeight() + jQuery('#filtered_view').outerHeight() + jQuery('#point_details').outerHeight() + 15;
-    //   jQuery('#details').animate({ height: currentViewHeight }, { complete: function () { } });
-    //   return filtered_view;
-    // }
   },
 
   /** 
@@ -318,8 +298,8 @@ const Stats = {
 
     let display_cols = {
       "Report #": features[0].properties.report_number,
-      "Arrest Category": features[0].properties.offense_category,
-      "Offense Code": Data.state_codes[features[0].properties.state_offense_code],
+      "Arrest Category": Helpers.toSentenceCase(features[0].properties.offense_category),
+      "Charge Description": Helpers.toSentenceCase(features[0].properties.charge_description),
       "Timestamp": moment(features[0].properties.incident_timestamp).format("dddd, MMMM Do YYYY, h:mm a"),
       "Address": features[0].properties.address,
       "Neighborhood": `${features[0].properties.neighborhood} (District ${features[0].properties.council_district}, Precinct ${features[0].properties.precinct})`

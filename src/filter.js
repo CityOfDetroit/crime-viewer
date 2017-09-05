@@ -14,7 +14,7 @@ const Filter = {
   readInput: function() {
     let filterObject = {
       // offense code
-      'state_offense_code': [],
+      'offense_category': [],
       // time
       'hour_of_day': [],
       'day_of_week': [],
@@ -36,11 +36,9 @@ const Filter = {
 
     _.each($('input.offense-checkbox'), d => {
       if (d.checked) {
-        _.each(d.attributes['data-codes'].value.split(" "), c => {
-          filterObject['state_offense_code'].push(c)
-        })
-        filterHuman.categories.push(d.attributes['data-name'].value)        
-      }
+          filterObject['offense_category'].push(d.attributes['data-name'].value)
+          filterHuman.categories.push(d.attributes['data-name'].value)                  
+        }
     })
 
     // days of week
@@ -60,7 +58,6 @@ const Filter = {
         filterObject['hour_of_day'] = filterObject['hour_of_day'].concat(i.hours.map(i => i.toString()))
       }
     })
-
     return [filterObject, filterHuman]
   },
 

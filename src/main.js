@@ -51,7 +51,7 @@ let data = null;
 let filteredData = null;
 let filterObject = {
   // offense code
-  'state_offense_code': [],
+  'offense_category': [],
   // time
   'hour_of_day': [],
   'day_of_week': [],
@@ -79,7 +79,7 @@ map.on('load', function () {
     const ds = "9i6z-cm98"
     let params = {
       "$limit": 50000,
-      "$select": "crime_id,location,address,block_id,zip_code,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
+      "$select": "crime_id,location,address,block_id,zip_code,council_district,neighborhood,precinct,offense_category,charge_description,report_number,incident_timestamp,day_of_week,hour_of_day"
     };
     params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(28, response[0].incident_timestamp)}'`
     let url = Socrata.makeUrl(ds, params);
@@ -325,7 +325,7 @@ jQuery(document).ready(function () {
       Filter.resetEverything(map, Draw, data)
       filterObject = {
         // offense code
-        'state_offense_code': [],
+        'offense_category': [],
         // time
         'hour_of_day': [],
         'day_of_week': [],

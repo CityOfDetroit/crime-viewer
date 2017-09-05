@@ -12,9 +12,10 @@ function computeColors() {
     let colors = []
     Object.entries(Data.offenses).forEach(([k, v]) => {
         v.forEach(c => {
-            c.state_codes.forEach(o => {
-                colors.push([o, c.color])
-            })
+            colors.push([c.name, c.color])
+            // c.state_codes.forEach(o => {
+            //     colors.push([o, c.color])
+            // })
         })
     })
     return colors
@@ -69,7 +70,7 @@ const Init = {
             },
             "paint": {
                 "circle-color": {
-                    property: 'state_offense_code',
+                    property: 'offense_category',
                     type: 'categorical',
                     default: '#555',
                     stops: computeColors()
@@ -120,10 +121,10 @@ const Init = {
         Object.entries(Data.offenses).forEach(([k,v]) => {
             offenseHtml += `
                 <div class='filter-subcat'>
-                    <span class='filter-subcat-title'>${v[0].top}</span>
+                    <span class='filter-subcat-title'>${k.toUpperCase()}</span>
                     ${v.map (o => `
                     <div class='filter-subcat-input'>
-                    <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.state_codes.join(" ")}" data-name="${o.name}"/>
+                    <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.name}" data-name="${o.name}"/>
                     <label for="${o.name.toLowerCase().replace(' ','-')}-check">${Helpers.toSentenceCase(o.name)}</label></div>`).join("")}
                 </div>`
         })
