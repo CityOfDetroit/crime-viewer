@@ -2,6 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import numeral from 'numeral';
 import Highcharts from 'highcharts';
+require('highcharts/modules/heatmap')(Highcharts);
 
 import Helpers from './helpers.js';
 import Data from './data.js';
@@ -158,6 +159,10 @@ const Stats = {
     return chart;
   },
 
+  /** 
+   * Prints a line chart
+   * ref https://www.highcharts.com
+   */
   printAsLineChart: function(arr, key, chartId) {
     let summaryStats = _.countBy(arr, key);
     let properties = Object.keys(summaryStats).sort();
@@ -230,6 +235,63 @@ const Stats = {
     });
 
     return chart
+  },
+
+  /** 
+   * Prints a Highcharts Heatmap
+   * ref https://www.highcharts.com/demo/heatmap
+   */
+  printAsHeatmap: function(data, chartId) {
+    let chart = Highcharts.chart({
+      chart: {
+        renderTo: chartId,
+        type: 'heatmap'
+      },
+      title: {
+        text: '<b>Incidents by Day & Hour</b>',
+        style: {
+          fontSize: 19
+        },
+        align: 'center'
+      },
+      yAxis: {
+        categories: ['12a', '1a', '2a', '3a', '4a', '5a', '6a', '7a', '8a', '9a', '10a', '11a', '12p', '1p', '2p', '3p', '4p', '5p', '6p', '7p', '8p', '9p', '10p', '11p'],
+        reversed: true,
+        title: null
+      },
+      xAxis: {
+        categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+      },
+      colorAxis: {
+        min: 0,
+        minColor: '#FFFFFF',
+        maxColor: '#279989'
+      },
+      legend: {
+        // align: 'bottom',
+        // layout: 'horizontal',
+        enabled: false
+      },
+      tooltip: {
+        // formatter: function() {
+        //   return 'Sample text';
+        // },
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Incidents',
+        data: data,
+        dataLabels: {
+          enabled: true,
+          color: '#000000'
+        }
+      }]
+    });
+
+    return chart;
   },
 
   /** 

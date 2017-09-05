@@ -91,6 +91,26 @@ map.on('load', function () {
       let totalIncidents = Stats.countFeatures(data.features);
       let incidentsByCategory = Stats.countByKey(data.features, 'properties.offense_category');
 
+      // get the data into a 2D array for the heatmap - array of arrays formatted as [day index, hour index, count of incicdents] 
+      // @todo extra to stats function
+      let group_by_day = _.groupBy(data.features, function(d) { return d.properties.day_of_week });
+      let heatmap_coords = new Array();
+
+      for (var day in group_by_day) {
+          if (!group_by_day.hasOwnProperty(day)) continue;
+
+          let list_by_day = group_by_day[day];
+          let group_by_day_hour = _.countBy(list_by_day, 'properties.hour_of_day');
+
+          for (var hour in group_by_day_hour) {
+            let coords = new Array(parseInt(day) -1, parseInt(hour), group_by_day_hour[hour]);
+            heatmap_coords.push(coords);
+          }
+      }
+
+      // draw initial heatmap
+      Stats.printAsHeatmap(heatmap_coords, 'heatmap-container');
+
       // group timestamps by full day, add new json property
       for (let i = 0; i < data.features.length; i++) {
         data.features[i].properties.day = moment(data.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
@@ -280,6 +300,7 @@ jQuery(document).ready(function () {
     jQuery('#table-container').hide();
     jQuery('#chart-container').show();
     jQuery('#line-chart-container').show();
+    jQuery('#heatmap-container').show();
     jQuery('#show-table').removeClass('active');
     jQuery(this).addClass('active');
   });
@@ -288,6 +309,7 @@ jQuery(document).ready(function () {
     jQuery('#table-container').show();
     jQuery('#chart-container').hide();
     jQuery('#line-chart-container').hide();
+    jQuery('#heatmap-container').hide();
     jQuery('#show-charts').removeClass('active');
     jQuery(this).addClass('active');
   });
