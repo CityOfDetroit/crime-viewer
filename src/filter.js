@@ -97,20 +97,25 @@ const Filter = {
         filteredData.features = Filter.filterFeatures(filteredData.features, k, v)
       }
     });
-    console.log(boundary)
+
     map.getSource('incidents').setData(filteredData);
 
-    // refresh counts to redraw chart in Stats tab based on selected area filter
-    Stats.printAsHighchart(filteredData.features, `properties.${boundary}`, 'chart-container');    
-    
     // refresh counts to redraw table in Stats tab
     let incidentsByCategory = Stats.countByKey(filteredData.features, 'properties.offense_category');
     Stats.printAsTable(incidentsByCategory, 'tbody');
     for (let i = 0; i < filteredData.features.length; i++) {
       filteredData.features[i].properties.day = moment(filteredData.features[i].properties.incident_timestamp).format('YYYY-MM-DD');
     }
-    console.log(filteredData)
+
+    // refresh counts to redraw bar chart in Stats tab based on selected area filter
+    Stats.printAsHighchart(filteredData.features, `properties.${boundary}`, 'chart-container');    
+    
+    // refresh line chart dates
     Stats.printAsLineChart(filteredData.features, 'properties.day', 'line-chart-container');
+
+    // refresh heatmap
+    let freshIncidentsByDayHour = Stats.makeDayHourCoords(filteredData.features);
+    Stats.printAsHeatmap(freshIncidentsByDayHour, 'heatmap-container');
     
     // refresh count of current incidents
     Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'readable_filter_text');
