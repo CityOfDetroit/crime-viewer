@@ -293,15 +293,13 @@ const Stats = {
         maxColor: '#279989'
       },
       legend: {
-        // align: 'bottom',
-        // layout: 'horizontal',
         enabled: false
       },
       tooltip: {
-        // formatter: function() {
-        //   return 'Sample text';
-        // },
-        enabled: false
+        formatter: function() {
+          return numeral(this.point.value).format('0,0') + ' ' + this.series.name + ' on ' + Data.simple_days[this.series.xAxis.categories[this.point.x]] 
+            + ' during the ' + this.series.yAxis.categories[this.point.y] + ' hour';
+        }
       },
       credits: {
         enabled: false

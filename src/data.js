@@ -71,6 +71,16 @@ const Data = {
     { number: 7, name: 'Saturday', abbreviation: 'Sat' }
   ],
 
+  simple_days: {
+    'Sun': 'Sundays',
+    'Mon': 'Mondays',
+    'Tue': 'Tuesdays',
+    'Wed': 'Wednesdays',
+    'Thu': 'Thursdays',
+    'Fri': 'Fridays',
+    'Sat': 'Saturdays'
+  },
+
   parts_of_day: [
     { name: 'Morning', hours: [5, 6, 7, 8, 9, 10], abbreviation: '5-10am' },
     { name: 'Afternoon', hours: [11, 12, 13, 14, 15, 16], abbreviation: '11am-4pm' },
