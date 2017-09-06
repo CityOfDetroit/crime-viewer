@@ -126,6 +126,7 @@ map.on('load', function () {
         var features = map.queryRenderedFeatures(e.point, {
           layers: ['incidents_point']
         });
+
         if (features.length > 0) {
           map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
           Stats.printPointDetails(features, 'point_details');
@@ -174,24 +175,27 @@ map.on('load', function () {
         }
       });
       
-
       map.on('draw.create', function (e) {
         filterObject = Filter.readInput()[0]
         Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
           blocks.features.forEach(b => {
             filterObject.block_id.push(b.properties['geoid10'])
           })
+
           filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
           Draw.deleteAll()
+
           let unioned = turf.dissolve(blocks)
           unioned.features.forEach(f => {
             Draw.add(f)
           })
+
           map.fitBounds(turf.bbox(unioned), { padding: 50 })
           map.setPaintProperty('incidents_point', 'circle-opacity', { 'stops': [[9, 0.75], [19, 1]] })
           map.setPaintProperty('incidents_point', 'circle-stroke-opacity', { 'stops': [[9, 0.2], [19, 1]] })
           console.log(filterObject)
         })
+
         jQuery('#area-custom').prop('checked', false);        
       });
 
@@ -204,29 +208,32 @@ map.on('load', function () {
         }
       })
 
-      jQuery("input[name!='currentArea']").change(function () {
+      jQuery("input[name!='currentArea']").change(function() {
         console.log(this.value)
-        if(filterObject.block_id.length > 0) {
+
+        if (filterObject.block_id.length > 0) {
           let blocks = filterObject.block_id
           filterObject = Filter.readInput()[0]
           filterObject.block_id = blocks
-        }
-        else {
+        } else {
           filterObject = Filter.readInput()[0]
         }
+
         console.log(currentBoundary)
         filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
       })
 
-      jQuery("input[type=date]").change(function(){
+      jQuery("input[type=date]").change(function() {
         let fromDt = jQuery('#from_date')[0].value
         let toDt = jQuery('#to_date')[0].value + 'T23:59:59.000'
         let params = {
           "$limit": 50000,
           "$select": "crime_id,location,address,zip_code,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
         };
+
         params["$where"] = `incident_timestamp >= '${fromDt}' and incident_timestamp <= '${toDt}'`
         let url = Socrata.makeUrl("9i6z-cm98", params);
+
         Socrata.fetchData(url).then(d => {
           data = d
           // Stats.printLoadedView(fromDt, toDt, data)
@@ -234,22 +241,21 @@ map.on('load', function () {
             let blocks = filterObject.block_id
             filterObject = Filter.readInput()[0]
             filterObject.block_id = blocks
-          }
-          else {
+          } else {
             filterObject = Filter.readInput()[0]
           }
+
           console.log(currentBoundary)
           filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
         })
-
       })
     })
   })
+
     .catch(e => console.log("Booo", e));
 });
 
-jQuery(document).ready(function () {
-
+jQuery(document).ready(function() {
   // Populate sidebar
   Init.populateSidebar()
 
@@ -259,7 +265,8 @@ jQuery(document).ready(function () {
   //initiate scrollbar
   jQuery('.scrollbar-macosx').scrollbar();
   jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
-  jQuery(window).resize(function () {
+
+  jQuery(window).resize(function() {
     currentHeight = jQuery('#menu').height() - jQuery('.logo').height() - jQuery('.search').height() - jQuery('.tab-links').height();
     jQuery('.scroll-wrapper.tab-content').height(currentHeight - 10);
   });
@@ -309,8 +316,7 @@ jQuery(document).ready(function () {
       console.log(e)      
       Filter.newDrawnPolygon(Draw, map);
       hidePanel();
-    }
-    else {
+    } else {
       Draw.deleteAll();
       filterObject.block_id = []
       filteredData = Filter.updateData(map, Draw, data, filterObject, this.value)
@@ -319,14 +325,15 @@ jQuery(document).ready(function () {
     // Filter.updateData(map, Draw, data, Filter.readInput()[0])
   });
 
-
   jQuery(".meta-button").click(function(){
     if(this.id == 'print-button') {
       Print.printView(map, filteredData || data, Filter.readInput()[1])
     }
+
     if(this.id == 'about-button') {
       jQuery('#about-content').show();
     }
+
     if(this.id == 'reset-button') {
       Filter.resetEverything(map, Draw, data)
       filterObject = {
@@ -342,21 +349,25 @@ jQuery(document).ready(function () {
         'council_district': [],
         'block_id': []
       }
+
       filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
     }
   })
 
   function hidePanel() {
     jQuery('#map-overlay').fadeOut();
+    
     jQuery('#primary-panel').slideUp(400, function() {
       jQuery('#primary-panel .filters').css('display', 'none');
       jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
     }).removeClass('drop-shadow');
+
     jQuery('.rotate').removeClass('rotate');
   }
 
   jQuery("input.dropdown-button").click(function() {
     var panelID = jQuery(this).attr('data-panel');
+
     //if panel is already shown
     if(jQuery('#primary-nav').hasClass('panel-show')){
       //if button clicked is already shown
@@ -364,7 +375,7 @@ jQuery(document).ready(function () {
         hidePanel();
       }
       //if panel is already down, but button clicked is not yet shown
-      else{
+      else {
         jQuery('.rotate').removeClass('rotate');
         jQuery(panelID+'-arrow img').addClass('rotate');
         jQuery('#primary-panel').slideUp(400, function() {
@@ -375,12 +386,12 @@ jQuery(document).ready(function () {
             jQuery(panelID).css('display', 'inline-block');
             jQuery(this).addClass('drop-shadow');
           });
-        }).removeClass('drop-shadow');
-        
+        }).removeClass('drop-shadow');   
       }
     }
+
     //if panel is not shown
-    else{
+    else {
       jQuery(panelID).css('display', 'inline-block');
       jQuery('.rotate').removeClass('rotate');
       jQuery(panelID+'-arrow img').addClass('rotate');

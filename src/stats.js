@@ -30,7 +30,7 @@ const Stats = {
 
   /**
    * Prep data to draw a Highcharts Heatmap by counting incidents that have two properties (eg happened on a Monday during the 5pm hour)
-   * @param {array}
+   * @param {array} - data features currently displayed on the map
    * @returns {array} - array of arrays where inner elements are matrix coordinates with format [day index, hour index, count of incidents]
    */
   makeDayHourCoords: function(arr) {
@@ -348,15 +348,19 @@ const Stats = {
       <b>${numeral(features.length).format(0,0)} incidents</b> from <b>${humanFilter.date_range[0]}</b> to <b>${humanFilter.date_range[1]}</b>
       <ul>
     `
+
     if (humanFilter.categories.length > 0) {
       html += `<li>Categories: <b>${humanFilter.categories.join(", ")}</b></li>`
     }
+
     if (humanFilter.weekdays.length > 0) {
       html += `<li>Days of Week: <b>${humanFilter.weekdays.join(", ")}</b></li>`
     }
+    
     if (humanFilter.dayparts.length > 0) {
       html += `<li>Times of Day: <b>${humanFilter.dayparts.join(", ")}</b></li>`
     }
+
     filtered_view.innerHTML = html
   },
 
