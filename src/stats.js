@@ -77,8 +77,7 @@ const Stats = {
     let propertyColors = Data.offenses['property'];
     let violentColors = Data.offenses['violent'];
     let otherColors = Data.offenses['other'];
-    let societyColors = Data.offenses['society'];
-    allColorsLookup = allColorsLookup.concat(propertyColors, violentColors, societyColors, otherColors);
+    allColorsLookup = allColorsLookup.concat(propertyColors, violentColors, otherColors);
 
     // make a table row for every key/value pair
     for (var key in summaryStats) {

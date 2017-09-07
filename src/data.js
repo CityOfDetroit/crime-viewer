@@ -92,41 +92,39 @@ const Data = {
     violent: [
       { name: 'AGGRAVATED ASSAULT', color: chroma(colors.assault).darken().hex() },
       { name: 'ASSAULT', color: chroma(colors.assault).hex() },
-      { name: 'EXTORTION', color: chroma(colors.robbery).darken().hex() },
       { name: 'HOMICIDE', color: chroma(colors.homicide).hex() },
       { name: 'JUSTIFIABLE HOMICIDE', color: chroma(colors.homicide).darken().hex() },
-      { name: 'KIDNAPPING', color: chroma(colors.larceny).hex() },
+      { name: 'ROBBERY', color: chroma(colors.robbery).hex() },
       { name: 'SEXUAL ASSAULT', color: chroma(colors.assault).darken().hex() }
-  ],
-  property: [
-    { name: 'ARSON', color: chroma(colors.arson).hex() },     
-    { name: 'BURGLARY', color: chroma(colors.robbery).darken().hex() },   
-    { name: 'DAMAGE TO PROPERTY', color: chroma(colors.arson).brighten().hex() },
-    { name: 'LARCENY', color: chroma(colors.larceny).hex() }, 
-    { name: 'ROBBERY', color: chroma(colors.robbery).hex() },
-    { name: 'STOLEN PROPERTY', color: chroma(colors.property).hex() },    
-    { name: 'STOLEN VEHICLE', color: chroma(colors.car).hex() }
-  ],
-  society: [
-    { name: 'DANGEROUS DRUGS', display: 'DRUG', color: chroma(colors.drugs).darken().hex() },
-    { name: 'FAMILY OFFENSE', color: chroma(colors.other).hex() },
-    { name: 'FRAUD', color: chroma(colors.other).hex() },
-    { name: 'GAMBLING', color: chroma(colors.other).hex() },
-    { name: 'LIQUOR', color: chroma(colors.drugs).hex() },
-    { name: 'OTHER', color: chroma(colors.other).hex() },
-    { name: 'SEX OFFENSES', color: chroma(colors.assault).darken(2).hex() },    
-    { name: 'SOLICITATION', color: chroma(colors.admin).hex() },
-    { name: 'WEAPONS OFFENSES', color: chroma(colors.homicide).brighten().hex() }
-  ],
-  other: [
-    { name: 'DISORDERLY CONDUCT', color: chroma(colors.other).hex() },
-    { name: 'EMBEZZLEMENT', color: chroma(colors.other).hex() },
-    { name: 'FORGERY', color: chroma(colors.other).hex() },
-    { name: 'MISCELLANEOUS', color: chroma(colors.other).hex() },
-    { name: 'OBSTRUCTING JUDICIARY', color: chroma(colors.other).hex() },
-    { name: 'OBSTRUCTING THE POLICE', color: chroma(colors.other).hex() },    
-    { name: 'OUIL', display: 'DRUNK DRIVING', color: chroma(colors.drugs).hex() },
-    { name: 'RUNAWAY', color: chroma(colors.other).hex() }
+    ],
+    property: [
+      { name: 'ARSON', color: chroma(colors.arson).hex() },     
+      { name: 'BURGLARY', color: chroma(colors.robbery).darken().hex() },   
+      { name: 'DAMAGE TO PROPERTY', color: chroma(colors.arson).brighten().hex() },
+      { name: 'LARCENY', color: chroma(colors.larceny).hex() }, 
+      { name: 'STOLEN PROPERTY', color: chroma(colors.property).hex() },    
+      { name: 'STOLEN VEHICLE', color: chroma(colors.car).hex() }
+    ],
+    other: [
+      { name: 'DANGEROUS DRUGS', display: 'DRUG', color: chroma(colors.drugs).darken().hex() },
+      { name: 'DISORDERLY CONDUCT', color: chroma(colors.other).hex() },
+      { name: 'EMBEZZLEMENT', color: chroma(colors.other).hex() },
+      { name: 'EXTORTION', color: chroma(colors.robbery).darken().hex() },
+      { name: 'FAMILY OFFENSE', color: chroma(colors.other).hex() },
+      { name: 'FORGERY', color: chroma(colors.other).hex() },
+      { name: 'FRAUD', color: chroma(colors.other).hex() },
+      { name: 'GAMBLING', color: chroma(colors.other).hex() },
+      { name: 'KIDNAPPING', color: chroma(colors.larceny).hex() },
+      { name: 'LIQUOR', color: chroma(colors.drugs).hex() },
+      { name: 'MISCELLANEOUS', color: chroma(colors.other).hex() },
+      { name: 'OBSTRUCTING JUDICIARY', color: chroma(colors.other).hex() },
+      { name: 'OBSTRUCTING THE POLICE', color: chroma(colors.other).hex() },    
+      { name: 'OTHER', color: chroma(colors.other).hex() },
+      { name: 'OUIL', display: 'DRUNK DRIVING', color: chroma(colors.drugs).hex() },
+      { name: 'RUNAWAY', color: chroma(colors.other).hex() },
+      { name: 'SEX OFFENSES', color: chroma(colors.assault).darken(2).hex() },    
+      { name: 'SOLICITATION', color: chroma(colors.admin).hex() },
+      { name: 'WEAPONS OFFENSES', color: chroma(colors.homicide).brighten().hex() }
   ]
   },
 
