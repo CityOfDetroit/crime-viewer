@@ -5,10 +5,10 @@ import Helpers from './helpers.js';
 import chroma from 'chroma-js';
 const $ = require('jquery');
 
+/**
+ * @returns {array} colors An MapboxGL stops array for symbolizing offense codes
+ */
 function computeColors() {
-    /**
-     * @returns {array} colors An MapboxGL stops array for symbolizing offense codes
-     */
     let colors = []
     Object.entries(Data.offenses).forEach(([k, v]) => {
         v.forEach(c => {
@@ -18,6 +18,7 @@ function computeColors() {
             // })
         })
     })
+
     return colors
 }
 
@@ -28,7 +29,7 @@ const Init = {
      * @param {obj} data GeoJSON to be displayed on the map
      * @returns {undefined}
      */
-    initialLoad: function (map, data) {
+    initialLoad: function(map, data) {
         // add the source
         map.addSource('incidents', {
             "type": "geojson",
@@ -128,6 +129,7 @@ const Init = {
                     <label for="${o.name.toLowerCase().replace(' ','-')}-check">${Helpers.toSentenceCase(o.name)}</label></div>`).join("")}
                 </div>`
         })
+
         $('#categories').html(offenseHtml);
     }
 }

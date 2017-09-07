@@ -106,7 +106,7 @@ const Data = {
       { name: 'STOLEN VEHICLE', color: chroma(colors.car).hex() }
     ],
     other: [
-      { name: 'DANGEROUS DRUGS', display: 'DRUG', color: chroma(colors.drugs).darken().hex() },
+      { name: 'DANGEROUS DRUGS', color: chroma(colors.drugs).darken().hex() },
       { name: 'DISORDERLY CONDUCT', color: chroma(colors.other).hex() },
       { name: 'EMBEZZLEMENT', color: chroma(colors.other).hex() },
       { name: 'EXTORTION', color: chroma(colors.robbery).darken().hex() },
@@ -120,12 +120,12 @@ const Data = {
       { name: 'OBSTRUCTING JUDICIARY', color: chroma(colors.other).hex() },
       { name: 'OBSTRUCTING THE POLICE', color: chroma(colors.other).hex() },    
       { name: 'OTHER', color: chroma(colors.other).hex() },
-      { name: 'OUIL', display: 'DRUNK DRIVING', color: chroma(colors.drugs).hex() },
+      { name: 'OUIL', color: chroma(colors.drugs).hex() },
       { name: 'RUNAWAY', color: chroma(colors.other).hex() },
       { name: 'SEX OFFENSES', color: chroma(colors.assault).darken(2).hex() },    
       { name: 'SOLICITATION', color: chroma(colors.admin).hex() },
       { name: 'WEAPONS OFFENSES', color: chroma(colors.homicide).brighten().hex() }
-  ]
+    ]
   },
 
   fields: {
