@@ -81,7 +81,7 @@ map.on('load', function () {
       "$limit": 50000,
       "$select": "crime_id,location,address,block_id,zip_code,council_district,neighborhood,precinct,offense_category,charge_description,report_number,incident_timestamp,day_of_week,hour_of_day"
     };
-    params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(28, response[0].incident_timestamp)}'`
+    params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(7, response[0].incident_timestamp)}'`
     let url = Socrata.makeUrl(ds, params);
 
     Socrata.fetchData(url).then(theData => {
@@ -228,7 +228,7 @@ map.on('load', function () {
         let toDt = jQuery('#to_date')[0].value + 'T23:59:59.000'
         let params = {
           "$limit": 50000,
-          "$select": "crime_id,location,address,zip_code,block_id,council_district,neighborhood,precinct,state_offense_code,offense_category,offense_description,report_number,incident_timestamp,day_of_week,hour_of_day"
+          "$select": "crime_id,location,address,block_id,zip_code,council_district,neighborhood,precinct,offense_category,charge_description,report_number,incident_timestamp,day_of_week,hour_of_day"
         };
 
         params["$where"] = `incident_timestamp >= '${fromDt}' and incident_timestamp <= '${toDt}'`
