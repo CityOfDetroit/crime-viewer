@@ -394,9 +394,9 @@ jQuery(document).ready(function() {
     }
   });
 
-  // jQuery('#map-overlay').click(function() {
-  //   hidePanel();
-  // });
+  jQuery('#map-overlay').click(function() {
+    hidePanel();
+  });
 
   /*initiate slideout
   var slideout = new Slideout({
