@@ -1,9 +1,11 @@
+var $ = require('jquery');
+
 const Boundary = {
     boundaries: {
-        council_district: {'name': 'Council Districts', 'slug': 'council_district', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Council_Districts/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
-        neighborhood: {'name': 'Neighborhoods', 'slug': 'neighborhood', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
-        zip_code: {'name': 'Zip Codes', 'slug': 'zip_code', 'url': 'https://data.detroitmi.gov/resource/f439-mtjv.geojson' },
-        precinct: {'name': 'Precincts', 'slug': 'precinct', 'url': 'https://data.detroitmi.gov/resource/mena-2vrg.geojson' }
+        council_district: {'name': 'Council Districts', 'single': 'district', 'slug': 'council_district', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Council_Districts/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
+        neighborhood: {'name': 'Neighborhoods', 'single': 'neighborhood', 'slug': 'neighborhood', 'url': 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson' },
+        zip_code: {'name': 'Zip Codes', 'single': 'zip code', 'slug': 'zip_code', 'url': 'https://data.detroitmi.gov/resource/f439-mtjv.geojson' },
+        precinct: {'name': 'Precincts', 'single': 'precinct', 'slug': 'precinct', 'url': 'https://data.detroitmi.gov/resource/mena-2vrg.geojson' }
     },
     addBoundary: function(map, boundary) {
         map.addSource('boundary',{
@@ -47,7 +49,11 @@ const Boundary = {
     },
     changeBoundary: function(map, boundary) {
         map.getSource('boundary').setData(boundary['url'])
+        $('#area-pick-text').html(`Pick ${boundary['single']}`)
         return boundary['slug']
+    },
+    chooseFeature: function(map) {
+        map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(150,230,230,0)')
     }
 }
 

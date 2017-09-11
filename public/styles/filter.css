@@ -236,3 +236,7 @@ input[type=checkbox] {
 #readable_filter_text ul{
     margin: .25em;
 }
+
+#map-boundaries {
+    background: rgba(0,0,150,0.1);
+}
