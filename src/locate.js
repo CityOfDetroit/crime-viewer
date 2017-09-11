@@ -28,26 +28,42 @@ const Locate = {
    * Add a marker
    */
   addMarker: function(map, coords) {
-    map.addLayer({
-      "id": "marker",
-      "type": "symbol",
-      "source": {
-          "type": "geojson",
-          "data": {
-              "type": "FeatureCollection",
-              "features": [{
-                  "type": "Feature",
-                  "geometry": {
-                      "type": "Point",
-                      "coordinates": [coords.x, coords.y]
-                  }
-              }]
-          }
-      },
-      "layout": {
-          "icon-image": "circle-stroked-15"
-      }
-  });
+
+    if (map.isSourceLoaded('marker')) {
+      map.getSource('marker').setData({
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [coords.x, coords.y]
+            }
+        }]
+      })
+    }
+
+    else {
+      map.addLayer({
+        "id": "marker",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [coords.x, coords.y]
+                    }
+                }]
+            }
+        },
+        "layout": {
+            "icon-image": "circle-stroked-15"
+        }
+    });
+    }
   },
 
   /**

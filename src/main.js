@@ -142,17 +142,16 @@ map.on('load', function () {
       document.getElementById('locate').addEventListener('keypress', e => {
         if (e.key == 'Enter') {
           Locate.geocodeAddress(e.target.value).then(result => {
+            filterObject.block_id = []
+            Draw.deleteAll();            
             let coords = result['candidates'][0]['location']
             Locate.makeRadiusPolygon(coords, 1500, Draw)
             Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
               blocks.features.forEach(b => {
                 filterObject.block_id.push(b.properties['geoid10'])
               });
-
-              Draw.deleteAll();
+              Draw.deleteAll()
               filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary);
-
-              // Draw.deleteAll()
               let unioned = turf.dissolve(blocks)
               unioned.features.forEach(f => {
                 Draw.add(f)
@@ -303,6 +302,8 @@ jQuery(document).ready(function() {
 
   // swap map boundary and chart axis based on selected area
   jQuery('input[type=radio][name=currentArea]').change(function(e) {
+    map.removeLayer('marker')
+    map.removeSource('marker')
     if (this.value == 'custom') {
       console.log(e)      
       Filter.newDrawnPolygon(Draw, map);
