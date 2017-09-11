@@ -122,15 +122,12 @@ map.on('load', function () {
       // load the source data and point, highlight styles
       Init.initialLoad(map, data);
 
-      map.on('mousedown', function (e) {
-        var features = map.queryRenderedFeatures(e.point, {
-          layers: ['incidents_point']
-        });
+      map.on('touchstart', function (e) {
+        Helpers.queryMap(e, map)
+      });
 
-        if (features.length > 0) {
-          map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
-          Stats.printPointDetails(features, 'point_details');
-        }
+      map.on('mousedown', function (e) {
+        Helpers.queryMap(e, map)
       });
 
       map.on('mouseenter', 'incidents_point', function (e) {
@@ -164,13 +161,7 @@ map.on('load', function () {
               map.fitBounds(turf.bbox(unioned), { padding: 50 })
             });
 
-            // show a marker at the matched address
-            var el = document.createElement('div');
-            el.className = 'marker';
-            
-            new mapboxgl.Marker(el, { offset: [-50 / 2, -50 / 2] })
-            .setLngLat([coords.x, coords.y])
-            .addTo(map);
+            Locate.addMarker(map, coords)
           })
         }
       });
@@ -403,9 +394,9 @@ jQuery(document).ready(function() {
     }
   });
 
-  jQuery('#map-overlay').click(function() {
-    hidePanel();
-  });
+  // jQuery('#map-overlay').click(function() {
+  //   hidePanel();
+  // });
 
   /*initiate slideout
   var slideout = new Slideout({

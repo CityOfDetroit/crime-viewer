@@ -25,6 +25,32 @@ const Locate = {
     })
   },
   /**
+   * Add a marker
+   */
+  addMarker: function(map, coords) {
+    map.addLayer({
+      "id": "marker",
+      "type": "symbol",
+      "source": {
+          "type": "geojson",
+          "data": {
+              "type": "FeatureCollection",
+              "features": [{
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [coords.x, coords.y]
+                  }
+              }]
+          }
+      },
+      "layout": {
+          "icon-image": "circle-stroked-15"
+      }
+  });
+  },
+
+  /**
    * Take a LatLng and toss it against a MapServer/identify to see what polys it falls in.
    * @param {object} coords a coordinate object with x/y
    * @returns {Promise} res
