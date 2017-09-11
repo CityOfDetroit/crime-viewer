@@ -11,20 +11,8 @@ const Filter = {
    *  and a string which describes the currently selected filters in a way we can display
    * @return [array] - object for makeMapboxFilter and display string
    */
-  readInput: function() {
-    let filterObject = {
-      // offense code
-      'offense_category': [],
-      // time
-      'hour_of_day': [],
-      'day_of_week': [],
-      // location
-      'neighborhood': [],
-      'precinct': [],
-      'zip_code': [], 
-      'council_district': [],
-      'block_id': []
-    }
+  readInput: function(filterObject) {
+    console.log(filterObject)
     let filterHuman = {
       "date_range": [],
       "categories": [],
@@ -34,6 +22,7 @@ const Filter = {
 
     filterHuman['date_range'] = [moment($('#from_date')[0].value).format('MM-DD-YYYY'), moment($('#to_date')[0].value).format('MM-DD-YYYY')]
 
+    filterObject['offense_category'] = []
     _.each($('input.offense-checkbox'), d => {
       if (d.checked) {
           filterObject['offense_category'].push(d.attributes['data-name'].value)
@@ -41,6 +30,7 @@ const Filter = {
         }
     })
 
+    filterObject['day_of_week'] = []
     // days of week
     Data.days_of_week.forEach(i => {
       let elem = document.getElementById(`dow-${i.number}-check`)
@@ -50,6 +40,7 @@ const Filter = {
       }
     })
 
+    filterObject['hour_of_day'] = []
     // time of day
     Data.parts_of_day.forEach(i => {
       let elem = document.getElementById(`${i.name.toLowerCase()}-check`)
@@ -118,7 +109,7 @@ const Filter = {
     Stats.printAsHeatmap(freshIncidentsByDayHour, 'heatmap-container');
     
     // refresh count of current incidents
-    Stats.printFilteredView(filteredData.features, Filter.readInput()[1], 'readable_filter_text');
+    Stats.printFilteredView(filteredData.features, Filter.readInput(filters)[1], 'readable_filter_text');
 
     return filteredData;
   },

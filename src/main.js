@@ -107,8 +107,8 @@ map.on('load', function () {
       console.log(minTime, maxTime)
 
       // count incidents currently viewing
-      console.log(Filter.readInput()[1])
-      Stats.printFilteredView(data.features, Filter.readInput()[1], 'readable_filter_text')
+      console.log(Filter.readInput(filterObject)[1])
+      Stats.printFilteredView(data.features, Filter.readInput(filterObject)[1], 'readable_filter_text')
 
       // draw initial heatmap
       let incidentsByDayHour = Stats.makeDayHourCoords(data.features);
@@ -166,7 +166,8 @@ map.on('load', function () {
       });
       
       map.on('draw.create', function (e) {
-        filterObject = Filter.readInput()[0]
+        filterObject.block_id = []
+        filterObject = Filter.readInput(filterObject)[0]
         Locate.getCensusBlocks(Draw.getAll()).then(blocks => {
           blocks.features.forEach(b => {
             filterObject.block_id.push(b.properties['geoid10'])
@@ -200,15 +201,6 @@ map.on('load', function () {
 
       jQuery("input[name!='currentArea']").change(function() {
         console.log(this.value)
-
-        if (filterObject.block_id.length > 0) {
-          let blocks = filterObject.block_id
-          filterObject = Filter.readInput()[0]
-          filterObject.block_id = blocks
-        } else {
-          filterObject = Filter.readInput()[0]
-        }
-
         console.log(currentBoundary)
         filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
       })
@@ -226,16 +218,14 @@ map.on('load', function () {
 
         Socrata.fetchData(url).then(d => {
           data = d
-          // Stats.printLoadedView(fromDt, toDt, data)
-          if(filterObject && filterObject.block_id.length > 0) {
-            let blocks = filterObject.block_id
-            filterObject = Filter.readInput()[0]
-            filterObject.block_id = blocks
-          } else {
-            filterObject = Filter.readInput()[0]
-          }
-
-          console.log(currentBoundary)
+          filterObject = Filter.readInput(filterObject)[0]
+          tempFilterObject.block_id = filterObject.block_id
+          tempFilterObject.neighborhood = filterObject.block_id
+          tempFilterObject.precinct = filterObject.block_id
+          tempFilterObject.zips = filterObject.block_id
+          tempFilterObject.council_district = filterObject.block_id
+          filterObject = tempFilterObject
+          console.log(filterObject)
           filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
         })
       })
@@ -341,7 +331,6 @@ jQuery(document).ready(function() {
       })
     }
     if (this.value == 'custom') {
-      console.log(e)      
       Filter.newDrawnPolygon(Draw, map);
       hidePanel();
     } else {
@@ -350,12 +339,11 @@ jQuery(document).ready(function() {
       filteredData = Filter.updateData(map, Draw, data, filterObject, this.value)
       currentBoundary = Boundary.changeBoundary(map, Boundary.boundaries[this.value]) 
     }
-    // Filter.updateData(map, Draw, data, Filter.readInput()[0])
   });
 
   jQuery(".meta-button").click(function(){
     if(this.id == 'print-button') {
-      Print.printView(map, filteredData || data, Filter.readInput()[1])
+      Print.printView(map, filteredData || data, Filter.readInput(filterObject)[1])
     }
 
     if(this.id == 'about-button') {
