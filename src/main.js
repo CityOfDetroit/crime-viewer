@@ -300,10 +300,44 @@ jQuery(document).ready(function() {
     jQuery('#point_details').remove();
   });
 
+  // handler for select an area
+  jQuery('input[name=selectArea]').click(e => {
+    console.log(e.target)
+    map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(190,130,230,0.6)')
+    hidePanel();
+    // add click listener on boundary fill layer
+    map.on('mousedown', 'boundary_fill', function boundInFilter(e) {
+      switch (currentBoundary) {
+        case 'council_district':
+          filterObject.council_district.push(e.features[0].properties.number.toString())
+          break;
+        case 'precinct':
+          filterObject.precinct.push(e.features[0].properties.name)
+          break;
+        case 'zip_code':
+          filterObject.zip_code.push(e.features[0].properties.zipcode)
+          break;
+        case 'neighborhood':
+          filterObject.neighborhood.push(e.features[0].properties.name)
+          break;
+      }
+      map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(150,230,230,0)')
+      filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary) 
+    })
+    map.off('mousedown', 'boundary_fill', boundInFilter)
+  })
+
   // swap map boundary and chart axis based on selected area
   jQuery('input[type=radio][name=currentArea]').change(function(e) {
-    map.removeLayer('marker')
-    map.removeSource('marker')
+    filterObject.neighborhood = []
+    filterObject.council_district = []
+    filterObject.precinct = []
+    filterObject.block_id = []
+    filterObject.zip_code = []
+    if(map.isSourceLoaded('marker')) {
+      map.removeSource('marker')
+      map.removeLayer('marker')
+    }
     if (this.value == 'custom') {
       console.log(e)      
       Filter.newDrawnPolygon(Draw, map);
