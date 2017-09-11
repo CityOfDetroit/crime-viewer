@@ -85,6 +85,7 @@ table td{
    -moz-box-shadow: -25px -10px 15px 25px #777;
    box-shadow: -25px -10px 15px 25px #777;
    overflow: scroll;
+   min-width: 400px;
 }
 
 #menu .logo > *{
