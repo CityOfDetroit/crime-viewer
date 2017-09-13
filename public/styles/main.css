@@ -89,11 +89,11 @@ table td{
 }
 
 #menu .logo > *{
-   float:left;
+   display: inline-block;
 }
 
 #menu .logo img{
-   width: 65px;
+   width: 100px;
    padding: 1px;
 }
 
@@ -193,7 +193,9 @@ table td{
    #menu .logo h1{
        width: 235px;
        font-weight: bold;
-       font-size: 20px;
+       font-size: 30px;
+       margin-bottom: 0px;
+       vertical-align: top;
    }
    .disclaimer{
       width: 260px;

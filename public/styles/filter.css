@@ -119,6 +119,10 @@ input[type=radio]:checked + label{
     height: 35px;
 }
 
+#primary-nav label.meta-button:hover{
+    background: #bbb;
+}
+
 #primary-nav label.meta-button img{
     max-height: 25px;
     vertical-align: middle;
