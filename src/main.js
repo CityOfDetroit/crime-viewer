@@ -256,14 +256,14 @@ jQuery(document).ready(function() {
     jQuery('.disclaimer').fadeOut();
   });
 
-  // show about on button click
-  jQuery('#about').on("click", function(e) {
-    jQuery('#about-content').show();
-  });
-
   // hide about on x click
   jQuery('.about-close img').click(function() {
     jQuery('#about-content').hide();
+  });
+
+  // hide sharable URL on x click
+  jQuery('.share-close img').click(function() {
+    jQuery('#share-url').hide();
   });
 
   // toggle between chart and table on button clicks
@@ -297,13 +297,16 @@ jQuery(document).ready(function() {
     filterObject.precinct = []
     filterObject.block_id = []
     filterObject.zip_code = []
-    if(map.isSourceLoaded('marker')) {
+
+    if (map.isSourceLoaded('marker')) {
       map.removeSource('marker')
       map.removeLayer('marker')
     }
+
     if (this.value == 'pick') {
       map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(190,130,230,0.6)')
       hidePanel();
+
       // add click listener on boundary fill layer
       map.once('click', function (e) {
         let clicked = map.queryRenderedFeatures(e.point, {'layers': ['boundary_fill']})
@@ -323,13 +326,16 @@ jQuery(document).ready(function() {
             filterObject.neighborhood.push(clicked[0].properties.name)
             break;
         }
+
         map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(150,230,230,0)')
         console.log(filterObject)
+
         filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
         jQuery('#area-pick').prop('checked', false);        
         jQuery(`#area-${currentBoundary.replace('_', '-')}`).prop('checked', true);                
       })
     }
+
     if (this.value == 'custom') {
       Filter.newDrawnPolygon(Draw, map);
       hidePanel();
@@ -342,12 +348,16 @@ jQuery(document).ready(function() {
   });
 
   jQuery(".meta-button").click(function(){
-    if(this.id == 'print-button') {
+    if (this.id == 'print-button') {
       Print.printView(map, filteredData || data, Filter.readInput(filterObject)[1])
     }
 
-    if(this.id == 'about-button') {
+    if (this.id == 'about-button') {
       jQuery('#about-content').show();
+    }
+
+    if (this.id == 'share-button') {
+      jQuery('#share-url').show();
     }
 
     if(this.id == 'reset-button') {
