@@ -200,8 +200,7 @@ map.on('load', function () {
       })
 
       jQuery("input[name!='currentArea']").change(function() {
-        console.log(this.value)
-        console.log(currentBoundary)
+        filterObject = Filter.readInput(filterObject)[0]
         filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
       })
 
