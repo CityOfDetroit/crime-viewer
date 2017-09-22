@@ -50,11 +50,6 @@ const Print = {
             pdf.text(190, 40, `Showing these times: ${filter.weekdays.join(",")} ${filter.dayparts.join(",")}`)
         }
 
-        // get svg from highchart, not rendering to pdf yet
-        let lineChart = Stats.printAsLineChart(data.features, 'properties.day', 'line-chart-container');
-        let lineChartSVG = lineChart.exportChartLocal();
-        console.log(lineChartSVG);
-
         let mapDiv = document.getElementById('map')
         mapDiv.style.width = '1200px'
         mapDiv.style.height = '720px'
