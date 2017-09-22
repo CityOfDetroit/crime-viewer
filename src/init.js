@@ -121,14 +121,11 @@ const Init = {
         let offenseHtml = `<div class="filter-instructions">These filters display incidents based on <b>what</b> the arrest charge was.<br/>You can choose from several types of <b>violent, nonviolent, or other</b> crime categories.</div>`
         Object.entries(Data.offenses).forEach(([k,v]) => {
             offenseHtml += `
-                <div class='filter-subcat'><span class='filter-subcat-title'>${k.toUpperCase()}</span>
-                    <ul>
+                <div class='filter-subcat lg'><span class='filter-subcat-title'>${k.toUpperCase()}</span>
                     ${v.map (o => `
-                    <li><div class='filter-subcat-input'>
+                    <div class='filter-subcat-input'>
                     <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.name}" data-name="${o.name}"/>
                     <label for="${o.name.toLowerCase().replace(' ','-')}-check">${Helpers.toSentenceCase(o.name)}</label></div>`).join("")}
-                    </li>
-                    </ul>
                 </div>`
         })
 

@@ -5,6 +5,18 @@ input[type=radio] {
 .offense-checkbox, .dow-checkbox, .date-checkbox, .district-checkbox, .precinct-checkbox {
   display: none;
 }
+
+#dow_filters label {
+    font-size: 1.1em;
+    padding-right: .5em;
+}
+
+#map-boundaries label {
+    padding-bottom: .75em;
+    font-size: 1.1em;
+}
+
+.dow-checkbox
 .offense-checkbox + label, 
 .dow-checkbox + label, 
 .district-checkbox + label, 
@@ -12,10 +24,10 @@ input[type=radio] {
 input[type=radio] + label  {
     display: inline-block;
     position: relative;
-    font-size: 1.2em;
+    font-size: 1em;
     vertical-align: top;
     cursor: pointer;
-    padding:5px;
+    padding:0px;
 }
 .date-checkbox + label{
     width: 10em;
@@ -189,6 +201,11 @@ input[type=radio]:checked + label{
 
 .filter-subcat.wide {
     width: 300px;
+}
+
+
+.filter-subcat.lg {
+    width: 240px;
 }
 
 /* like the best size of t-shirt */

@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var html2canvas = require('html2canvas');
 var jsPDF = require('jspdf');
+
 require('jspdf-autotable');
 const $ = require('jquery')
 
@@ -51,7 +52,7 @@ const Print = {
 
         // get svg from highchart, not rendering to pdf yet
         let lineChart = Stats.printAsLineChart(data.features, 'properties.day', 'line-chart-container');
-        let lineChartSVG = lineChart.getSVG();
+        let lineChartSVG = lineChart.exportChartLocal();
         console.log(lineChartSVG);
 
         let mapDiv = document.getElementById('map')
@@ -94,6 +95,8 @@ const Print = {
                 }
             })
 
+            pdf.addSVG(lineChartSVG, 0, 0, 300, 300)
+            
             pdf.save()
         })
     }

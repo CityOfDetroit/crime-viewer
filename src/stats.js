@@ -3,6 +3,9 @@ import moment from 'moment';
 import numeral from 'numeral';
 import Highcharts from 'highcharts';
 require('highcharts/modules/heatmap')(Highcharts);
+require('highcharts/modules/exporting')(Highcharts);
+require('highcharts/modules/offline-exporting')(Highcharts);
+
 
 import Helpers from './helpers.js';
 import Data from './data.js';
@@ -252,6 +255,9 @@ const Stats = {
       },
       credits: {
         enabled: false
+      },
+      exporting: {
+        type: 'image/png'
       },
       series: [{
         name: 'Incidents',
