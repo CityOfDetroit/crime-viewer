@@ -66,16 +66,20 @@
 			<label for="location-dropdown-button" class="dropdown-button" >Location<span id="location-arrow" class="dropdown-arrow"><img src="./img/arrow.svg"/></span></label>
 			
 			<input type="button" id="reset-button" class="meta-button">
-			<label for="reset-button" class="meta-button reset-button">Reset</label>
+			<label for="reset-button" class="reset-button">Reset</label>
 
 			<input type="button" id="print-button" class="meta-button">
-			<label for="print-button" class="meta-button">Print</label>
+			<label for="print-button" class="meta-button"><img src="img/print.svg"></label>
 
 			<input type="button" id="about-button" class="meta-button">
-			<label for="about-button" class="meta-button">About</label>
+			<label for="about-button" class="meta-button"><img src="img/about.svg"></label>
 
 			<input type="button" id="share-button" class="meta-button">
-			<label for="share-button" class="meta-button">Share</label>
+			<label for="share-button" class="meta-button"><img src="img/share.svg"></label>
+			<div id="share-url" style="display:none;">
+				<span class="share-close"><img src="./img/close.svg"></span>
+				<p>https://cityofdetroit.github.io/crime-viewer/?param=SampleFilters</p>
+			</div>
 		</div>
 		<div id="primary-panel">
 			<section class="filters" id="categories">
@@ -128,6 +132,22 @@
 			</section>
 			<section class="filters" id="location">
 				<div class="filter-instructions">These filters display incidents based on <b>where</b> the incident took place.<br/>You can <b>search</b> a 1 mile radius around an address or intersection, <b>draw your own</b> custom area, or <b>choose</b> from pre-made boundaries:</div>
+				<div class='filter-subcat' id='map-boundaries'>
+					<span class='filter-subcat-title'>Current boundary:</span>
+					<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
+					<label for="area-council-district">Council districts</label>
+					<br/><input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
+					<label for="area-precinct">Police precincts</label>
+					<br/><input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
+					<label for="area-neighborhood">Neighborhoods</label>
+					<br/><input type="radio" data-control="" id="area-zip-code" name="currentArea" value="zip_code">
+					<label for="area-zip-code">Zip codes</label>
+				</div>
+				<div class='filter-subcat narrow'>
+					<span class='filter-subcat-title'>Pick from map</span>
+					<input type="radio" data-control="" id="area-pick" name="currentArea" value="pick">
+					<label for="area-pick" id="area-pick-text">Select district</label>
+				</div>
 				<div class='filter-subcat wide' id="geocode_search">
 					<span class='filter-subcat-title'>Search an address/intersection</span>
 					<input id="locate" name="search" placeholder="ex '8515 W Chicago', 'Van Dyke & Harper'" type="text">
@@ -136,26 +156,6 @@
 					<span class='filter-subcat-title'>Custom</span>
 					<input type="radio" data-control="" id="area-custom" name="currentArea" value="custom">
 					<label for="area-custom">Draw area</label>
-				</div>
-				<div class='filter-subcat narrow'>
-					<span class='filter-subcat-title'>Council districts</span>
-					<input type="radio" data-control="" id="area-council-district" name="currentArea" value="council_district" checked="checked">
-					<label for="area-council-district">Show</label>
-				</div>
-				<div class='filter-subcat narrow'>
-					<span class='filter-subcat-title'>Police precincts</span>
-					<input type="radio" data-control="" id="area-precinct" name="currentArea" value="precinct">
-					<label for="area-precinct">Show</label>
-				</div>
-				<div class='filter-subcat narrow'>
-					<span class='filter-subcat-title'>Neighborhoods</span>
-					<input type="radio" data-control="" id="area-neighborhood" name="currentArea" value="neighborhood">
-					<label for="area-neighborhood">Show</label>
-				</div>
-				<div class='filter-subcat narrow'>
-					<span class='filter-subcat-title'>Zip codes</span>
-					<input type="radio" data-control="" id="area-zip-code" name="currentArea" value="zip_code">
-					<label for="area-zip-code">Show</label>
 				</div>
 			</section>
 		</div>
@@ -187,7 +187,9 @@
 			get assigned to a specific block. We do this by randomly selecting a new point that is 1) within a certain distance
 			of the original crime and 2) a certain distance of the associated street segment. It does <b>not</b> accurately represent
 			where the incident happened.</p>
-			<h3>Who can I contact to learn more about the data?</h3>
+			<h3>Why do I see a jagged border after I draw a custom area or search for an address?</h3>
+			<p>Before incident addresses are anonymized as described above, we stamp each original location with its respective neighborhood, council district and Census Block (learn more about Census Blocks <a href="https://www.census.gov/geo/reference/gtc/gtc_block.html" target="_blank">here</a>). After the anonymization process, the Census Block is the smallest geographic unit we can accurately rely on for reporting. Therefore, when you filter the map by Location and choose to "Draw a Custom Area" or "Search within a mile radius of an Address/Intersection", we automatically adjust your area to fit to the Census Blocks contained within it.<p>
+			<h3>Who can I contact to learn more about the data?</h3 >
 			<p>Should you have questions about the data, you may contact the Commanding Officer of the Detroit Police Department's
 			Crime Intelligence Unit at 313-596-2250 or <a href="mailto:CrimeIntelligenceBureau@detroitmi.gov">CrimeIntelligenceBureau@detroitmi.gov</a>.</p>
 		</div>

@@ -89,11 +89,11 @@ table td{
 }
 
 #menu .logo > *{
-   float:left;
+   display: inline-block;
 }
 
 #menu .logo img{
-   width: 65px;
+   width: 100px;
    padding: 1px;
 }
 
@@ -185,6 +185,26 @@ table td{
   font-size: 2em;
 }
 
+#share-url {
+  /*width: 800px;*/
+  position: absolute;
+  right: 45px;
+  top: 80px;
+  z-index: 20;
+  background: white;
+  /*padding: 5px 10px 5px 10px;*/
+  box-shadow: 0px 0px 1px 1px rgba(150,150,150,0.7);
+  -webkit-box-shadow: 0 0 1px 1px rgba(150,150,150,0.7);
+  -moz-box-shadow: 0 0 1px 1px rgba(150,150,150,0.7));
+}
+
+#share-url p {
+  text-align: left;
+  width: 100%;
+  z-index: 20;
+  padding: 7px;
+}
+
 /*@media screen and (min-width: 800px) {*/
    #menu .logo{
        padding:3px 10px;
@@ -193,7 +213,9 @@ table td{
    #menu .logo h1{
        width: 235px;
        font-weight: bold;
-       font-size: 20px;
+       font-size: 30px;
+       margin-bottom: 0px;
+       vertical-align: top;
    }
    .disclaimer{
       width: 260px;
@@ -228,14 +250,19 @@ table td{
       width: 27px;
       height: 27px;
    }
-
+   .share-close img{
+      cursor: pointer;
+      width: 17px;
+      height: 17px;
+      float: right;
+      z-index: 10;
+   }
    .point-details-close img{
       cursor: pointer;
       width: 18px;
       height: 18px;
       float: right;
    }
-
    .sidebar-title {
      margin: .75em 0em;
      font-size: 1.25em;

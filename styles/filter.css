@@ -2,9 +2,10 @@ input[type=radio] {
     display: none;
 }
 
-.dow-checkbox, .date-checkbox, .district-checkbox, .precinct-checkbox {
+.offense-checkbox, .dow-checkbox, .date-checkbox, .district-checkbox, .precinct-checkbox {
   display: none;
 }
+.offense-checkbox + label, 
 .dow-checkbox + label, 
 .district-checkbox + label, 
 .precinct-checkbox + label,
@@ -26,6 +27,7 @@ input[type=radio] + label  {
     width: 3em;
     height: 3em;
 }
+.offense-checkbox + label,
 .date-checkbox + label img, .date-checkbox + label span,
 .dow-checkbox + label,
 .district-checkbox + label,
@@ -37,12 +39,14 @@ input[type=radio] + label {
 .district-checkbox + label{
     margin-left: 1.2em;
 }
+.offense-checkbox + label:hover,
 .date-checkbox + label:hover,
 .dow-checkbox + label:hover,
 .district-checkbox + label:hover,
 .precinct-checkbox + label:hover {
     opacity: 0.75;
 }
+.offense-checkbox:checked + label,
 .date-checkbox:checked + label img, .date-checkbox:checked + label span,
 .dow-checkbox:checked + label,
 .district-checkbox:checked + label,
@@ -107,10 +111,21 @@ input[type=radio]:checked + label{
     color: #222;
 }
 
-#primary-nav label .meta-button{
+#primary-nav label.meta-button{
     background: #ddd;
     color: #222;
-    width: 100px;
+    padding:5px;
+    width: 35px;
+    height: 35px;
+}
+
+#primary-nav label.meta-button:hover{
+    background: #bbb;
+}
+
+#primary-nav label.meta-button img{
+    max-height: 25px;
+    vertical-align: middle;
 }
 
 #primary-nav .dropdown-arrow img{
@@ -120,11 +135,6 @@ input[type=radio]:checked + label{
 
 .rotate{
     transform: translateY(-30%) rotate(180deg);
-}
-
-#primary-nav .meta-button{
-    background: #ddd;
-    color: #222;
 }
 
 .tab-button button.active, .tab-button button.active:hover {
@@ -235,4 +245,8 @@ input[type=checkbox] {
 
 #readable_filter_text ul{
     margin: .25em;
+}
+
+#map-boundaries {
+    background: rgba(0,0,150,0.1);
 }
