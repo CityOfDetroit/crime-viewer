@@ -7,7 +7,6 @@ input[type=radio] {
 }
 
 #dow_filters label {
-    font-size: 1.1em;
     padding-right: .5em;
 }
 
@@ -16,7 +15,6 @@ input[type=radio] {
     font-size: 1.1em;
 }
 
-.dow-checkbox
 .offense-checkbox + label, 
 .dow-checkbox + label, 
 .district-checkbox + label, 
@@ -91,27 +89,27 @@ input[type=radio]:checked + label{
     display: none;
 }
 #primary-nav label, .tab-button button{
-    font-size: 1.25em;
+    font-size: 1em;
     font-weight: 600;
     display: inline-block;
     vertical-align: middle;
     border: none;
     background: #279989;
     color: white;
-    padding: 10px;
+    padding: 0.5em;
     border-radius: 3px;
-    margin: 13px;
+    margin: 0.9em;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     position: relative;
     z-index: 100;
     outline: none;
     cursor: pointer;
-    width: 80px;
+    width: 5em;
     text-align:center;
 }
 
 #primary-nav label.dropdown-button, .tab-button button {
-    width: 170px;
+    width: 8em;
 }
 
 .tab-button{
@@ -138,11 +136,12 @@ input[type=radio]:checked + label{
 #primary-nav label.meta-button img{
     max-height: 25px;
     vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
 }
 
 #primary-nav .dropdown-arrow img{
     margin-left: 5px;
-    max-width: 15px;
+    max-width: 0.85em;
 }
 
 .rotate{
