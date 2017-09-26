@@ -33,6 +33,16 @@ h4{
   margin:5px 0;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+  border-bottom: solid 2px orange;
+}
+
+a:hover {
+  border-bottom: solid 2px #279989;
+}
+
 table td{
   font-size: 16px;
 }
