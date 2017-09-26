@@ -23,7 +23,7 @@ const Helpers = {
    */
   queryMap: function(e, map) {
     var features = map.queryRenderedFeatures(e.point, {
-      layers: ['incidents_point']
+      layers: ['incidents_point', 'incidents_point_ezclick']
     });
 
     console.log(features)
@@ -31,6 +31,12 @@ const Helpers = {
     if (features.length > 0) {
       map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
       Stats.printPointDetails(features, 'point_details');
+      let details = document.querySelector("#point_details")
+      let img = document.querySelector("#point_details img")
+      img.addEventListener('mousedown', function() {
+        details.innerHTML = '';
+        map.setFilter("incidents_highlighted", ["==", 'crime_id', ''])
+      })
     }
   }
 }
