@@ -346,11 +346,11 @@ const Stats = {
     console.log(humanFilter)
     let filtered_view = document.getElementById(divId);
     let html = `
-      <h4 class="sidebar-title">
-      Currently showing:
-      <span class="point-details-close"><img src="./img/close.svg"></span>
-      </h4>
-      <b>${numeral(features.length).format(0,0)} incidents</b> from <b>${humanFilter.date_range[0]}</b> to <b>${humanFilter.date_range[1]}</b>
+      <div id="now-showing">
+        <h4 class="sidebar-title">
+        Currently showing:<span class="point-details-close"><img src="./img/close.svg"></span>
+        </h4>
+        <b>${numeral(features.length).format(0,0)} incidents</b> from <b>${humanFilter.date_range[0]}</b> to <b>${humanFilter.date_range[1]}</b>
       <ul>
     `
 
@@ -366,7 +366,13 @@ const Stats = {
       html += `<li>Times of Day: <b>${humanFilter.dayparts.join(", ")}</b></li>`
     }
 
-    filtered_view.innerHTML = html
+    filtered_view.innerHTML = html + '</ul></div>'
+
+    let close = document.querySelector(".point-details-close img")
+    close.addEventListener('mousedown', function() {
+      let showing = document.querySelector("#now-showing")
+      showing.innerHTML = ''
+    })
   },
 
   /** 

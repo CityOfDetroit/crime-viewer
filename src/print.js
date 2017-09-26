@@ -89,9 +89,7 @@ const Print = {
                     }
                 }
             })
-
-            pdf.addSVG(lineChartSVG, 0, 0, 300, 300)
-            
+                        
             pdf.save()
         })
     }

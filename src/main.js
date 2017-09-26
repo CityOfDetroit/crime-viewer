@@ -257,6 +257,7 @@ jQuery(document).ready(function() {
 
   // hide about on x click
   jQuery('.about-close img').click(function() {
+    console.log(this)
     jQuery('#about-content').hide();
   });
 
@@ -282,11 +283,6 @@ jQuery(document).ready(function() {
     jQuery('#heatmap-container').hide();
     jQuery('#show-charts').removeClass('active');
     jQuery(this).addClass('active');
-  });
-
-  // todo: remove point details on x click
-  jQuery('.point-details-close img').click(function() {
-    jQuery('#point_details').remove();
   });
 
   // swap map boundary and chart axis based on selected area
