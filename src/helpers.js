@@ -23,7 +23,7 @@ const Helpers = {
    */
   queryMap: function(e, map) {
     var features = map.queryRenderedFeatures(e.point, {
-      layers: ['incidents_point']
+      layers: ['incidents_point', 'incidents_point_ezclick']
     });
 
     console.log(features)

@@ -63,6 +63,27 @@ const Init = {
 
         // add a layer
         map.addLayer({
+            "id": "incidents_point_ezclick",
+            "source": "incidents",
+            "type": "circle",
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "circle-color": "rgba(0,0,0,0.01)",
+                "circle-radius": {
+                    'base': 1.25,
+                    'stops': [
+                        [8, 9],
+                        [17, 27],
+                        [19, 36]
+                    ]
+                }
+            }
+        });
+
+        // add a layer
+        map.addLayer({
             "id": "incidents_point",
             "source": "incidents",
             "type": "circle",
@@ -90,7 +111,7 @@ const Init = {
                         [19, 1]
                     ]
                 },
-                "circle-stroke-color": 'rgba(0,0,0,1)',
+                "circle-stroke-color": 'rgba(0,0,0,0.001)',
                 "circle-stroke-opacity": {
                     'stops': [
                         [9, 0.2],
@@ -99,8 +120,8 @@ const Init = {
                 },
                 "circle-stroke-width": {
                     'stops': [
-                        [9, 0.2],
-                        [19, 1]
+                        [9, 3.2],
+                        [19, 5]
                     ]
                 }
             }

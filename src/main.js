@@ -137,6 +137,14 @@ map.on('load', function () {
       map.on('mouseout', 'incidents_point', function (e) {
         map.getCanvas().style.cursor = ''
       });
+      
+      map.on('mouseenter', 'incidents_point_ezclick', function (e) {
+        map.getCanvas().style.cursor = 'crosshair'
+      });
+
+      map.on('mouseout', 'incidents_point_ezclick', function (e) {
+        map.getCanvas().style.cursor = ''
+      });
 
       // locate an address and draw a radius around it
       document.getElementById('locate').addEventListener('keypress', e => {
