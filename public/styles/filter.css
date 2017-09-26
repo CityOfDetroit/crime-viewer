@@ -7,7 +7,6 @@ input[type=radio] {
 }
 
 #dow_filters label {
-    font-size: 1.1em;
     padding-right: .5em;
 }
 
@@ -16,7 +15,6 @@ input[type=radio] {
     font-size: 1.1em;
 }
 
-.dow-checkbox
 .offense-checkbox + label, 
 .dow-checkbox + label, 
 .district-checkbox + label, 
