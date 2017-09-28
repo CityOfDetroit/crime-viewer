@@ -98,7 +98,7 @@ input[type=radio]:checked + label{
     color: white;
     padding: 0.5em;
     border-radius: 3px;
-    margin: 0.9em;
+    margin: 0.9em 0.4em;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     position: relative;
     z-index: 100;
@@ -109,7 +109,7 @@ input[type=radio]:checked + label{
 }
 
 #primary-nav label.dropdown-button, .tab-button button {
-    width: 8em;
+    width: 7em;
 }
 
 .tab-button{
