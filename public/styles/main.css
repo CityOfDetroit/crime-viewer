@@ -290,10 +290,14 @@ table td{
    }
 /*}*/
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1120px) {
     #primary-nav label, .tab-button button {
         font-size: 0.85em;
-    }/*
+    }
+    #filter-menu{
+      max-width: 70vw;
+    }
+    /*
     #menu{
         width: 20em;
     }*/
