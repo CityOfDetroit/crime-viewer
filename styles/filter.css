@@ -74,7 +74,8 @@ input[type=radio]:checked + label{
     position: fixed;
     top: 0px;
     z-index: 500;
-    width: 75%;
+    width: 100%;
+    max-width: 75vw;
 }
 .filters{
     display: inline-block;
@@ -84,6 +85,8 @@ input[type=radio]:checked + label{
     background: white;
     z-index: 100;
     position: relative;
+    padding-left:1em;
+    padding-bottom:0.3em;
 }
 #primary-nav input {
     display: none;
@@ -106,6 +109,7 @@ input[type=radio]:checked + label{
     cursor: pointer;
     width: 5em;
     text-align:center;
+    transition: width 0.1s;
 }
 
 #primary-nav label.dropdown-button, .tab-button button {
@@ -209,7 +213,7 @@ input[type=radio]:checked + label{
 
 /* like the best size of t-shirt */
 .filter-subcat.xl {
-    width: 400px;
+    width: 280px;
 }
 
 .filter-subcat.narrow {
@@ -240,11 +244,11 @@ input[type=checkbox] {
     display: block;
     top: 0;
     left: 0;
-    font-style: 'italic';
-    /* font-weight: 900; */
+    font-style: italic;
     margin-bottom: 1em;
     font-size: .9em;
     color: #222;
+    padding-right: 5em;
 }
 
 #locate {
