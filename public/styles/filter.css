@@ -228,7 +228,7 @@ input[type=radio]:checked + label{
 
 .filter-subcat-input {
     display: block;
-    padding: 5px 1px;
+    padding: 5px -1px;
 }
 
 input[type=checkbox] {
