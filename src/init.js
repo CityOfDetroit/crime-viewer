@@ -70,7 +70,7 @@ const Init = {
                 "visibility": "visible"
             },
             "paint": {
-                "circle-color": "rgba(0,0,0,0.01)",
+                "circle-color": "rgba(0,0,0,0)",
                 "circle-radius": {
                     'base': 1.25,
                     'stops': [
@@ -111,7 +111,7 @@ const Init = {
                         [19, 1]
                     ]
                 },
-                "circle-stroke-color": 'rgba(0,0,0,0.001)',
+                "circle-stroke-color": 'rgba(0,0,0,1)',
                 "circle-stroke-opacity": {
                     'stops': [
                         [9, 0.2],
@@ -120,8 +120,8 @@ const Init = {
                 },
                 "circle-stroke-width": {
                     'stops': [
-                        [9, 3.2],
-                        [19, 5]
+                        [9, 0.1],
+                        [19, 2]
                     ]
                 }
             }

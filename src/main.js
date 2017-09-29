@@ -225,14 +225,22 @@ map.on('load', function () {
 
         Socrata.fetchData(url).then(d => {
           data = d
-          filterObject = Filter.readInput(filterObject)[0]
+          
+          let tempFilterObject = filterObject
           tempFilterObject.block_id = filterObject.block_id
-          tempFilterObject.neighborhood = filterObject.block_id
-          tempFilterObject.precinct = filterObject.block_id
-          tempFilterObject.zips = filterObject.block_id
-          tempFilterObject.council_district = filterObject.block_id
-          filterObject = tempFilterObject
-          console.log(filterObject)
+          tempFilterObject.neighborhood = filterObject.neighborhood
+          tempFilterObject.precinct = filterObject.precinct
+          tempFilterObject.zips = filterObject.zips
+          tempFilterObject.council_district = filterObject.council_district
+
+          filterObject = Filter.readInput(filterObject)[0]
+
+          filterObject.block_id = tempFilterObject.block_id || []
+          filterObject.neighborhood = tempFilterObject.neighborhood || []
+          filterObject.precinct = tempFilterObject.precinct || []
+          filterObject.zips = tempFilterObject.zips || []
+          filterObject.council_district = tempFilterObject.council_district || []
+
           filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
         })
       })
