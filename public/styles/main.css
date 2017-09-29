@@ -93,9 +93,10 @@ table td{
    -webkit-box-shadow: -25px -10px 15px 25px #777;
    -moz-box-shadow: -25px -10px 15px 25px #777;
    box-shadow: -25px -10px 15px 25px #777;
-   overflow: scroll;
-   width: 20%;
-   min-width: 260px;
+   overflow: auto;
+   width: 25%;
+   min-width: 20em;
+   padding-right: 0.5em;
 }
 
 #menu .logo > *{
@@ -103,17 +104,18 @@ table td{
 }
 
 #menu .logo img{
-   width: 50px;
-   padding: 1px;
+   width: 6em;
+   padding: 0.25em;
+  vertical-align: top;
 }
-
+/*
 #menu h2 {
   margin: 0;
   position: relative;
   bottom: .5em;
 }
 
-/* .search input{
+ .search input{
    box-sizing: border-box;
    border: 0px;
    font-size: 13px;
@@ -227,14 +229,14 @@ table td{
    }
 
    #menu .logo h1{
-       width: 235px;
+       width: 7em;
        font-weight: bold;
-       font-size: 30px;
+       font-size: 1.5em;
        margin-bottom: 0px;
-       vertical-align: top;
+       margin-top:1.5em;
    }
    .disclaimer{
-      width: 260px;
+      width: 25em;
       position: absolute;
       right: 5px;
       bottom: 25px;
@@ -287,3 +289,12 @@ table td{
      padding-bottom: .10em;
    }
 /*}*/
+
+@media screen and (max-width: 1150px) {
+    #primary-nav label, .tab-button button {
+        font-size: 0.85em;
+    }/*
+    #menu{
+        width: 20em;
+    }*/
+}

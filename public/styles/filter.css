@@ -74,7 +74,7 @@ input[type=radio]:checked + label{
     position: fixed;
     top: 0px;
     z-index: 500;
-    width: 75%;
+    width: 100%;
 }
 .filters{
     display: inline-block;
@@ -84,6 +84,8 @@ input[type=radio]:checked + label{
     background: white;
     z-index: 100;
     position: relative;
+    padding-left:1em;
+    padding-bottom:0.3em;
 }
 #primary-nav input {
     display: none;
@@ -106,6 +108,7 @@ input[type=radio]:checked + label{
     cursor: pointer;
     width: 5em;
     text-align:center;
+    transition: width 0.1s;
 }
 
 #primary-nav label.dropdown-button, .tab-button button {
