@@ -191,10 +191,11 @@ table td{
 #about-content {
   position: block;
   font-size: 1.2em;
-  width: 90%;
-  height: 100%;
-  margin: 100px auto;
+  height: 100vh;
+  margin: 3em auto;
   background-color: white;
+  padding:0 10em;
+  overflow-y: auto;
 }
 
 #about-header {
