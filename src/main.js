@@ -78,7 +78,7 @@ map.on('load', function () {
   Socrata.getLatestDate().then(response => {
     const ds = "9i6z-cm98"
     let params = {
-      "$limit": 50000,
+      "$limit": 100000,
       "$select": "crime_id,location,address,block_id,zip_code,council_district,neighborhood,precinct,offense_category,charge_description,report_number,incident_timestamp,day_of_week,hour_of_day"
     };
     params["$where"] = `incident_timestamp >= '${Helpers.xDaysAgo(7, response[0].incident_timestamp)}'`
@@ -216,7 +216,7 @@ map.on('load', function () {
         let fromDt = jQuery('#from_date')[0].value
         let toDt = jQuery('#to_date')[0].value + 'T23:59:59.000'
         let params = {
-          "$limit": 50000,
+          "$limit": 100000,
           "$select": "crime_id,location,address,block_id,zip_code,council_district,neighborhood,precinct,offense_category,charge_description,report_number,incident_timestamp,day_of_week,hour_of_day"
         };
 
