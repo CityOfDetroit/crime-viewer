@@ -273,8 +273,11 @@ jQuery(document).ready(function() {
 
   // hide about on x click
   jQuery('.about-close img').click(function() {
-    console.log(this)
     jQuery('#about-content').hide();
+    let ctrls = document.querySelectorAll(".mapboxgl-ctrl-icon")
+    ctrls.forEach(e => {
+      e.style.display = 'block'
+    })
   });
 
   // hide sharable URL on x click
@@ -365,6 +368,10 @@ jQuery(document).ready(function() {
 
     if (this.id == 'about-button') {
       jQuery('#about-content').show();
+      let ctrls = document.querySelectorAll(".mapboxgl-ctrl-icon")
+      ctrls.forEach(e => {
+        e.style.display = 'none'
+      })
     }
 
     if (this.id == 'share-button') {
