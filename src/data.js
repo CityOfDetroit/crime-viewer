@@ -122,7 +122,7 @@ const Data = {
       { name: 'OBSTRUCTING JUDICIARY', color: chroma(colors.other).hex() },
       { name: 'OBSTRUCTING THE POLICE', color: chroma(colors.other).hex() },    
       { name: 'OTHER', color: chroma(colors.other).hex() },
-      { name: 'OPERATING UNDER THE INFLUENCE OF LIQUOR OR DRUGS', color: chroma(colors.drugs).hex() },
+      { name: 'OPERATING UNDER THE INFLUENCE', color: chroma(colors.drugs).hex() },
       { name: 'RUNAWAY', color: chroma(colors.other).hex() },
       { name: 'SEX OFFENSES', color: chroma(colors.assault).darken(2).hex() },    
       { name: 'SOLICITATION', color: chroma(colors.admin).hex() },

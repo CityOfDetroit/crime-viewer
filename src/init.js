@@ -145,8 +145,8 @@ const Init = {
                 <div class='filter-subcat lg'><span class='filter-subcat-title'>${k.toUpperCase()}</span>
                     ${v.map (o => `
                     <div class='filter-subcat-input'>
-                    <input type ="checkbox" id="${o.name.toLowerCase().replace(' ','-')}-check" class="offense-checkbox" data-codes="${o.name}" data-name="${o.name}"/>
-                    <label for="${o.name.toLowerCase().replace(' ','-')}-check">${Helpers.toSentenceCase(o.name)}</label></div>`).join("")}
+                    <input type ="checkbox" id="${o.name.toLowerCase().replace(/\s/g, '-')}-check" class="offense-checkbox" data-codes="${o.name}" data-name="${o.name}"/>
+                    <label for="${o.name.toLowerCase().replace(/\s/g, '-')}-check">${Helpers.toSentenceCase(o.name)}</label></div>`).join("")}
                 </div>`
         })
 
