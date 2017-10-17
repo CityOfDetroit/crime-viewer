@@ -21,6 +21,7 @@ import Boundary from './boundary.js';
 import Data from './data.js';
 import Init from './init.js';
 import Print from './print.js';
+import Router from './router.class.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjajZ6YngxeTUwbTU4Mndxa2lydzE0MmlkIn0.tccRHH0Pt2yjRz16ioQH7g';
 
@@ -376,6 +377,15 @@ jQuery(document).ready(function() {
 
     if (this.id == 'share-button') {
       jQuery('#share-url').show();
+
+      // get current map params
+      let z = map.getZoom();
+      let c = map.getCenter();
+
+      // attempt to update app route
+      let router = new Router();
+      router.updateURLParams({ 'zoom': z, 'lng': c['lng'], 'lat': c['lat'] });
+      router.loadURLRouting();
     }
 
     if(this.id == 'reset-button') {
