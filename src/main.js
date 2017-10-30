@@ -23,15 +23,20 @@ import Init from './init.js';
 import Print from './print.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjajZ6YngxeTUwbTU4Mndxa2lydzE0MmlkIn0.tccRHH0Pt2yjRz16ioQH7g';
+console.log('Browser supports MapboxGL:', mapboxgl.supported());
 
-// define the map
-var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/cityofdetroit/cj6zbpw6n2gxq2ro5hfc3n1ip',
-  center: [-83.131, 42.350],
-  zoom: 10.75,
-  preserveDrawingBuffer: true
-});
+// if your browser is supported, define the map, else throw an alert
+if (!mapboxgl.supported()) {
+  alert('Your browser does not support Mapbox GL, a Javascript library required to build this mapping tool. Please update your browser.');
+} else {
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/cityofdetroit/cj6zbpw6n2gxq2ro5hfc3n1ip',
+    center: [-83.131, 42.350],
+    zoom: 10.75,
+    preserveDrawingBuffer: true
+  });
+}
 
 var modes = MapboxDraw.modes;
 modes.static = StaticMode;
