@@ -1,8 +1,4 @@
-input[type=radio] {
-    display: none;
-}
-
-.offense-checkbox, .dow-checkbox, .date-checkbox, .district-checkbox, .precinct-checkbox {
+input[type=radio], .offense-checkbox, .dow-checkbox, .date-checkbox, .district-checkbox, .precinct-checkbox {
   /* display: none; */
 }
 
@@ -28,10 +24,11 @@ input[type=radio] + label  {
     padding:0px;
 }
 .date-checkbox + label{
-    width: 10em;
-    float: left;
+    /*width: 10em;
+    float: left;*/
     display: inline-block;
     cursor: pointer;
+    vertical-align: middle;
 }
 .date-checkbox + label img{
     width: 3em;
@@ -43,8 +40,8 @@ input[type=radio] + label  {
 .district-checkbox + label,
 .precinct-checkbox + label,
 input[type=radio] + label {
-    font-weight: bold;
-    opacity: 0.2;
+    /*font-weight: bold;
+    opacity: 0.2;*/
 }
 .district-checkbox + label{
     margin-left: 1.2em;
@@ -54,7 +51,7 @@ input[type=radio] + label {
 .dow-checkbox + label:hover,
 .district-checkbox + label:hover,
 .precinct-checkbox + label:hover {
-    opacity: 0.75;
+    /*opacity: 0.75;*/
 }
 .offense-checkbox:checked + label,
 .date-checkbox:checked + label img, .date-checkbox:checked + label span,
@@ -62,7 +59,7 @@ input[type=radio] + label {
 .district-checkbox:checked + label,
 .precinct-checkbox:checked + label,
 input[type=radio]:checked + label{
-    opacity: 1;
+    /*opacity: 1;*/
 }
 .date-checkbox + label span{
     position: relative;
@@ -165,7 +162,8 @@ input[type=radio]:checked + label{
 }
 
 .tab-button button:hover,
-#primary-nav label.dropdown-button:hover{
+#primary-nav label.dropdown-button:hover,
+#primary-nav label.dropdown-button.active{
     background: #167668;
 }
 
