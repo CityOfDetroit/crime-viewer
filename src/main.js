@@ -305,8 +305,8 @@ jQuery(document).ready(function() {
     jQuery('#chart-container').show();
     jQuery('#line-chart-container').show();
     jQuery('#heatmap-container').show();
-    jQuery('#show-table').removeClass('active');
-    jQuery(this).addClass('active');
+    jQuery('#show-table').show();
+    jQuery(this).hide();
   });
 
   jQuery('#show-table').click(function() {
@@ -314,8 +314,8 @@ jQuery(document).ready(function() {
     jQuery('#chart-container').hide();
     jQuery('#line-chart-container').hide();
     jQuery('#heatmap-container').hide();
-    jQuery('#show-charts').removeClass('active');
-    jQuery(this).addClass('active');
+    jQuery('#show-charts').show();
+    jQuery(this).hide();
   });
 
   // swap map boundary and chart axis based on selected area
@@ -420,12 +420,15 @@ jQuery(document).ready(function() {
       jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
     }).removeClass('drop-shadow');
 
+    jQuery('#filters-menu label').removeClass('active');
     jQuery('.rotate').removeClass('rotate');
   }
 
   jQuery("input.dropdown-button").click(function() {
     var panelID = jQuery(this).attr('data-panel');
-
+    var trimmedLabel = panelID.substring(1);
+    jQuery('#filters-menu label').removeClass('active');
+    jQuery('label[for=' + trimmedLabel + '-dropdown-button').addClass('active');
     //if panel is already shown
     if(jQuery('#primary-nav').hasClass('panel-show')){
       //if button clicked is already shown
