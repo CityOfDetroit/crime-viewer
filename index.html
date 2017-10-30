@@ -4,12 +4,14 @@
 <head>
 	<!-- Global Site Tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107915075-2"></script>
+
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 		gtag('config', 'UA-107915075-2');
 	</script>
+
 	<meta charset='utf-8'>
 	<title>Detroit Crime Viewer</title>
 	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
@@ -25,6 +27,8 @@
 </head>
 
 <body>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-supported/v1.2.0/mapbox-gl-supported.js'></script>
+
 	<nav id="menu" class="">
 		<div class="logo">
 			<img src="./img/green.png">
@@ -61,6 +65,7 @@
 			</div>
 		</div>
 	</nav>
+
 	<!--Map-->
 	<nav id="filters-menu">
 		<div id="primary-nav" class="drop-shadow">
@@ -89,6 +94,7 @@
 				<p>https://cityofdetroit.github.io/crime-viewer/?param=SampleFilters</p>
 			</div>
 		</div>
+
 		<div id="primary-panel">
 			<section class="filters" id="categories">
 			</section>
@@ -168,9 +174,10 @@
 			</section>
 		</div>
 	</nav>
-	<div id='map-overlay'>
-		
+
+	<div id='map-overlay'>	
 	</div>
+
 	<div id='map'>
 		<div class="disclaimer">
 			<p><span class="disclaimer-close"><img src="./img/close.svg"></span><strong>Disclaimer:</strong><br/>In order to protect
