@@ -25,13 +25,9 @@ import Print from './print.js';
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjajZ6YngxeTUwbTU4Mndxa2lydzE0MmlkIn0.tccRHH0Pt2yjRz16ioQH7g';
 console.log('Browser supports MapboxGL:', mapboxgl.supported());
 
-let n = Helpers.getBrowserSpecs.name;
-let v = parseInt(Helpers.getBrowserSpecs.version);
-console.log(n, v);
-
-// check for desktop support for Object.Entries() and Fetch API
-if ((n == 'Chrome' && v < 58) || (n == 'Firefox' && v < 47) || (n == 'IE')) {
-  alert("We notice you're using an unsupported web browser. For the best experience, please upgrade to the newest version or re-open the Crime Viewer on your Desktop using Chrome 58+ or Firefox 47+.");
+// check that Fetch API and Object.Entries() are supported
+if (!window.hasOwnProperty('fetch') || !Object.hasOwnProperty('entries')) {
+  alert("Your browser does not support modern Javascript features required to build this tool. For the best experience, we recommend using the newest version of Chrome or Firefox.");
 }
 
 // if your browser supports mapboxgl, then define the map

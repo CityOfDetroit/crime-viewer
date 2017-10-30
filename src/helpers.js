@@ -41,6 +41,7 @@ const Helpers = {
   },
 
   /**
+   * Unused for now in lieu of checking for specific properties of window and Object
    * ref https://stackoverflow.com/questions/5916900/how-can-you-detect-the-version-of-a-browser
    */
   getBrowserSpecs: (function() {
