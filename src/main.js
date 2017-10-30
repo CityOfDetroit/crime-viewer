@@ -30,8 +30,8 @@ let v = parseInt(Helpers.getBrowserSpecs.version);
 console.log(n, v);
 
 // check for desktop support for Object.Entries() and Fetch API
-if ((n == 'Chrome' && v < 58) || (n == 'Firefox' && v < 47)) {
-  alert("We notice you're using an outdated web browser. For the best experience, please upgrade and re-open the Crime Viewer on your Desktop using Chrome 58+ or Firefox 47+.");
+if ((n == 'Chrome' && v < 58) || (n == 'Firefox' && v < 47) || (n == 'IE')) {
+  alert("We notice you're using an unsupported web browser. For the best experience, please upgrade to the newest version or re-open the Crime Viewer on your Desktop using Chrome 58+ or Firefox 47+.");
 }
 
 // if your browser supports mapboxgl, then define the map
