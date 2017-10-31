@@ -136,6 +136,11 @@ const Filter = {
     map.flyTo({ center: [-83.131, 42.350], zoom: 10.75})
     // copy of original data
     map.getSource('incidents').setData(data);
+    let uniqueTimestamps = [...new Set(data['features'].map(item => item.properties['incident_timestamp']))];
+    let minTime = _.min(uniqueTimestamps);
+    let maxTime = _.max(uniqueTimestamps);
+    jQuery('#from_date').val(minTime.slice(0, 10))
+    jQuery('#to_date').val(maxTime.slice(0, 10))
     // clear all Draw
     draw.deleteAll()
     // reset all filters

@@ -58,6 +58,7 @@ map.addControl(Draw)
 
 let currentBoundary = 'council_district'
 let data = null;
+let ogData = null;
 let filteredData = null;
 let filterObject = {
   // offense code
@@ -95,6 +96,7 @@ map.on('load', function () {
     let url = Socrata.makeUrl(ds, params);
 
     Socrata.fetchData(url).then(theData => {
+      ogData = theData
       data = theData
 
       // calculate some summary stats
@@ -394,7 +396,9 @@ jQuery(document).ready(function() {
     }
 
     if(this.id == 'reset-button') {
-      Filter.resetEverything(map, Draw, data)
+      console.log(data)
+      Filter.resetEverything(map, Draw, ogData)
+      
       filterObject = {
         // offense code
         'offense_category': [],
@@ -409,7 +413,7 @@ jQuery(document).ready(function() {
         'block_id': []
       }
 
-      filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
+      filteredData = Filter.updateData(map, Draw, ogData, filterObject, currentBoundary)
     }
   })
 
