@@ -36,7 +36,7 @@ if (!mapboxgl.supported()) {
 } else {
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/cityofdetroit/cj6zbpw6n2gxq2ro5hfc3n1ip',
+    style: 'mapbox://styles/cityofdetroit/cj9fqy8y48aq02smdgong5vc0',
     center: [-83.131, 42.350],
     zoom: 10.75,
     preserveDrawingBuffer: true
@@ -328,10 +328,11 @@ jQuery(document).ready(function() {
     }
 
     if (this.value == 'pick') {
-      map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(190,130,230,0.6)')
+      map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(190,130,230,0.25)')
       map.setLayoutProperty('incidents_point', 'visibility', 'none')
+      map.jumpTo({ center: [-83.131, 42.350], zoom: 10.75 })
+      map.setLayoutProperty(`${currentBoundary}_labels`, 'visibility', 'visible')
       hidePanel();
-
       // add click listener on boundary fill layer
       map.once('click', function (e) {
         let clicked = map.queryRenderedFeatures(e.point, {'layers': ['boundary_fill']})
@@ -358,6 +359,8 @@ jQuery(document).ready(function() {
         jQuery('#area-pick').prop('checked', false);        
         jQuery(`#area-${currentBoundary.replace('_', '-')}`).prop('checked', true);
         map.setLayoutProperty('incidents_point', 'visibility', 'visible')
+        map.setLayoutProperty(`${currentBoundary}_labels`, 'visibility', 'none')
+        
         
       })
     }
