@@ -329,6 +329,7 @@ jQuery(document).ready(function() {
 
     if (this.value == 'pick') {
       map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(190,130,230,0.6)')
+      map.setLayoutProperty('incidents_point', 'visibility', 'none')
       hidePanel();
 
       // add click listener on boundary fill layer
@@ -352,11 +353,12 @@ jQuery(document).ready(function() {
         }
 
         map.setPaintProperty('boundary_fill', 'fill-color', 'rgba(150,230,230,0)')
-        console.log(filterObject)
 
         filteredData = Filter.updateData(map, Draw, data, filterObject, currentBoundary)
         jQuery('#area-pick').prop('checked', false);        
-        jQuery(`#area-${currentBoundary.replace('_', '-')}`).prop('checked', true);                
+        jQuery(`#area-${currentBoundary.replace('_', '-')}`).prop('checked', true);
+        map.setLayoutProperty('incidents_point', 'visibility', 'visible')
+        
       })
     }
 

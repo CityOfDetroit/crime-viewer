@@ -115,9 +115,7 @@ const Data = {
       { name: 'FRAUD', color: chroma(colors.other).hex() },
       { name: 'GAMBLING', color: chroma(colors.other).hex() },
       { name: 'KIDNAPPING', color: chroma(colors.larceny).hex() },
-      { name: 'LIQUOR', color: chroma(colors.drugs).hex() }
-    ],
-    " ": [ // hack to wrap text in other col in dropdown filter picker
+      { name: 'LIQUOR', color: chroma(colors.drugs).hex() },
       { name: 'MISCELLANEOUS', color: chroma(colors.other).hex() },
       { name: 'OBSTRUCTING JUDICIARY', color: chroma(colors.other).hex() },
       { name: 'OBSTRUCTING THE POLICE', color: chroma(colors.other).hex() },    
