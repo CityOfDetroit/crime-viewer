@@ -25,7 +25,7 @@ import Print from './print.js';
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjajZ6YngxeTUwbTU4Mndxa2lydzE0MmlkIn0.tccRHH0Pt2yjRz16ioQH7g';
 console.log('Browser supports MapboxGL:', mapboxgl.supported());
 
-// check that Fetch API and Object.Entries() are supported
+// check that fetch and Object.entries() are supported
 if (!window.hasOwnProperty('fetch') || !Object.hasOwnProperty('entries')) {
   alert("Your browser does not support modern Javascript features required to build this tool. For the best experience, we recommend using the newest version of Chrome or Firefox.");
 }
@@ -45,15 +45,14 @@ if (!mapboxgl.supported()) {
 
 var modes = MapboxDraw.modes;
 modes.static = StaticMode;
-var Draw = new MapboxDraw({ modes: modes });
 
+var Draw = new MapboxDraw({ modes: modes });
 let drawOptions = {
   displayControlsDefault: false,
   modes: modes
 }
 
 var Draw = new MapboxDraw(drawOptions);
-
 map.addControl(Draw)
 
 let currentBoundary = 'council_district'
@@ -116,10 +115,8 @@ map.on('load', function () {
       let maxTime = _.max(uniqueTimestamps);
       jQuery('#from_date').val(minTime.slice(0, 10))
       jQuery('#to_date').val(maxTime.slice(0, 10))
-      console.log(minTime, maxTime)
 
       // count incidents currently viewing
-      console.log(Filter.readInput(filterObject)[1])
       Stats.printFilteredView(data.features, Filter.readInput(filterObject)[1], 'readable_filter_text')
 
       // draw initial heatmap
@@ -134,6 +131,7 @@ map.on('load', function () {
       // load the source data and point, highlight styles
       Init.initialLoad(map, data);
 
+      // handle map events
       map.on('touchstart', function (e) {
         Helpers.queryMap(e, map)
       });
@@ -204,7 +202,6 @@ map.on('load', function () {
           map.fitBounds(turf.bbox(unioned), { padding: 50 })
           map.setPaintProperty('incidents_point', 'circle-opacity', { 'stops': [[9, 0.75], [19, 1]] })
           map.setPaintProperty('incidents_point', 'circle-stroke-opacity', { 'stops': [[9, 0.2], [19, 1]] })
-          console.log(filterObject)
         })
 
         jQuery('#area-custom').prop('checked', false);        
@@ -362,8 +359,6 @@ jQuery(document).ready(function() {
         jQuery(`#area-${currentBoundary.replace('_', '-')}`).prop('checked', true);
         map.setLayoutProperty('incidents_point', 'visibility', 'visible')
         map.setLayoutProperty(`${currentBoundary}_labels`, 'visibility', 'none')
-        
-        
       })
     }
 
@@ -396,9 +391,7 @@ jQuery(document).ready(function() {
     }
 
     if(this.id == 'reset-button') {
-      console.log(data)
       Filter.resetEverything(map, Draw, ogData)
-      
       filterObject = {
         // offense code
         'offense_category': [],
@@ -419,12 +412,10 @@ jQuery(document).ready(function() {
 
   function hidePanel() {
     jQuery('#map-overlay').fadeOut();
-    
     jQuery('#primary-panel').slideUp(400, function() {
       jQuery('#primary-panel .filters').css('display', 'none');
       jQuery('#primary-nav').removeClass('panel-show').addClass('drop-shadow');
     }).removeClass('drop-shadow');
-
     jQuery('#filters-menu label').removeClass('active');
     jQuery('.rotate').removeClass('rotate');
   }
@@ -472,13 +463,4 @@ jQuery(document).ready(function() {
   jQuery('#map-overlay').click(function() {
     hidePanel();
   });
-
-  /*initiate slideout
-  var slideout = new Slideout({
-    'panel': document.getElementById('map'),
-    'menu': document.getElementById('menu'),
-    'padding': 256,
-    'tolerance': 70
-  });
-  */
 });

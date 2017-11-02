@@ -3,9 +3,6 @@ import moment from 'moment';
 import numeral from 'numeral';
 import Highcharts from 'highcharts';
 require('highcharts/modules/heatmap')(Highcharts);
-require('highcharts/modules/exporting')(Highcharts);
-require('highcharts/modules/offline-exporting')(Highcharts);
-
 
 import Helpers from './helpers.js';
 import Data from './data.js';
@@ -95,12 +92,11 @@ const Stats = {
       } else {
         colorCode = '#000'
       }
+      
+      let colorPreview = "<div style='background-color:" + colorCode + ";'></div>"; 
 
-      let colorPreview = "<div style='background-color:" + colorCode + ";'></div>";
-
-      // make the actual row
+      // make the actual row, add it to the table
       tr += "<td>" + colorPreview + Helpers.toSentenceCase(key) + "</td>" + "<td>" + numeral(summaryStats[key]).format('0,0') + "</td></tr>";
-
       tbody.innerHTML += tr;
     }
 
@@ -255,9 +251,6 @@ const Stats = {
       },
       credits: {
         enabled: false
-      },
-      exporting: {
-        type: 'image/png'
       },
       series: [{
         name: 'Incidents',

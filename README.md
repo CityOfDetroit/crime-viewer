@@ -1,10 +1,10 @@
 # crime-viewer
 
-View, filter and summarize incident data from the police department.
+View, filter and summarize incident data from the police department. This tool has been built with Detroit's neighborhood radio patrols in mind, and beta versions have been tested by patrol members who regularly track and report on crime statistics in their neighborhoods.
 
 ## Development
 
-We're mostly building this with Mapbox GL, Slideout.js, jQuery, and Lodash. Behind the scenes, we use Babel to compile, Browserify and Watchify to bundle, and Uglify to minify our code. Unit testing is handled with Mocha.js, Should.js and Node's assert.
+We're mostly building this with Mapbox GL, Highcharts, jQuery, and Lodash. Behind the scenes, we use Babel to compile, Browserify and Watchify to bundle, and Uglify to minify our code. Unit testing is handled with Mocha.js, Should.js and Node's assert.
 
 ### Prereqs
 

@@ -1,13 +1,10 @@
 var _ = require('lodash');
 var html2canvas = require('html2canvas');
 var jsPDF = require('jspdf');
+import chroma from 'chroma-js';
 
 require('jspdf-autotable');
-const $ = require('jquery')
-
-import chroma from 'chroma-js';
-import Highcharts from 'highcharts';
-require('highcharts/modules/exporting')(Highcharts);
+const $ = require('jquery');
 
 import Stats from './stats.js';
 import Data from './data.js';
@@ -22,6 +19,7 @@ function computeColors() {
             colors[c.name] = chroma(c.color).rgb()
         })
     })
+
     return colors
 }
 
@@ -77,7 +75,6 @@ const Print = {
                 drawCell: function(cell, data) {
                     if (data.column.dataKey === 0) {
                         let rgb = colors[cell.raw] || [0,0,0]
-
                         pdf.setFillColor(rgb[0], rgb[1], rgb[2])
                         pdf.circle((cell.x - 10), (cell.y + cell.height/2), 5, 'F')
 

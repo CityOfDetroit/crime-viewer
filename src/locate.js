@@ -19,13 +19,15 @@ const Locate = {
       'SingleLine': address,
       'f': 'pjson'
     };
+
     return fetch(geocodeURL + $.param(params)).then((r) => {
       var res = r.json()
       return res
     })
   },
+
   /**
-   * Add a marker
+   * Add a marker to the map
    */
   addMarker: function(map, coords) {
 
@@ -40,9 +42,7 @@ const Locate = {
             }
         }]
       })
-    }
-
-    else {
+    } else {
       map.addLayer({
         "id": "marker",
         "type": "symbol",
@@ -62,7 +62,7 @@ const Locate = {
         "layout": {
             "icon-image": "circle-stroked-15"
         }
-    });
+      });
     }
   },
 
@@ -84,11 +84,13 @@ const Locate = {
       'imageDisplay': '500, 500, 96',
       'f': 'json'
     }
+
     return fetch(boundsEndpoint + $.param(params)).then((r) => {
       var res = r.json()
       return res
     })
   },
+
   /**
    * Create a promise for an endpoint that returns intersecting census blocks.
    * @param {polygon} geometry A GeoJSON geometry.
@@ -107,11 +109,13 @@ const Locate = {
       'geometryPrecision': 5,
       'f': 'geojson'
     }
+
     return fetch(endpoint + $.param(params)).then((r) => {
       var res = r.json()
       return res
     })
   },
+
   /**
    * Given a set of coordinates, attach a new Polygon to MapboxDraw
    * @param {object} coords x/y to draw radius from

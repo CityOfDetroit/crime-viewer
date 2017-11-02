@@ -39,28 +39,6 @@ const Data = {
     { number: '12', name: '12th Precinct' }
   ],
 
-  months: [
-    { number: 1, name: 'January', abbreviation: 'Jan' },
-    { number: 2, name: 'February', abbreviation: 'Feb' },
-    { number: 3, name: 'March', abbreviation: 'Mar' },
-    { number: 4, name: 'April', abbreviation: 'Apr' },
-    { number: 5, name: 'May', abbreviation: 'May' },
-    { number: 6, name: 'June', abbreviation: 'June' },
-    { number: 7, name: 'July', abbreviation: 'July' },
-    { number: 8, name: 'August', abbreviation: 'Aug' },
-    { number: 9, name: 'September', abbreviation: 'Sept' },
-    { number: 10, name: 'October', abbreviation: 'Oct' },
-    { number: 11, name: 'November', abbreviation: 'Nov' },
-    { number: 12, name: 'December', abbreviation: 'Dec' }
-  ],
-
-  seasons: [
-    { name: 'Spring', months: [3, 4, 5] },
-    { name: 'Summer', months: [6, 7, 8] },
-    { name: 'Fall', months: [9, 10, 11] },
-    { name: 'Winter', months: [12, 1, 2] }
-  ],
-
   days_of_week: [
     { number: 1, name: 'Sunday', abbreviation: 'Sun' },
     { number: 2, name: 'Monday', abbreviation: 'Mon' },

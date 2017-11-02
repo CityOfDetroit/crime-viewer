@@ -1,21 +1,18 @@
+import chroma from 'chroma-js';
+const $ = require('jquery');
+
 import Data from './data.js';
 import Boundary from './boundary.js';
 import Helpers from './helpers.js';
 
-import chroma from 'chroma-js';
-const $ = require('jquery');
-
 /**
- * @returns {array} colors An MapboxGL stops array for symbolizing offense codes
+ * @returns {array} colors as MapboxGL stops array for symbolizing offense codes
  */
 function computeColors() {
     let colors = []
     Object.entries(Data.offenses).forEach(([k, v]) => {
         v.forEach(c => {
             colors.push([c.name, c.color])
-            // c.state_codes.forEach(o => {
-            //     colors.push([o, c.color])
-            // })
         })
     })
 

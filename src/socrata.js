@@ -21,10 +21,13 @@ const Socrata = {
       '$select': 'incident_timestamp',
       '$limit': 1
     }
+
     for (let p in params)
       ret.push(p + '=' + encodeURIComponent(params[p]))
+
     const qs = ret.join('&')
     let url = `https://data.detroitmi.gov/resource/${ds}.json?${qs}`
+    
     return fetch(url).then((r) => {
       let res = r.json()
       return res

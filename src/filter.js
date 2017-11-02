@@ -12,7 +12,6 @@ const Filter = {
    * @return [array] - object for makeMapboxFilter and display string
    */
   readInput: function(filterObject) {
-    console.log(filterObject)
     let filterHuman = {
       "date_range": [],
       "categories": [],
@@ -125,6 +124,7 @@ const Filter = {
       return values.indexOf(eval(`d.properties.${key}`)) > -1 
     })
   },
+  
   /**
    * Reset everything
    * @param {mapboxgl.Map} map mapboxgl.Map instance
