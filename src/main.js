@@ -4,8 +4,6 @@ var StaticMode = require('@mapbox/mapbox-gl-draw-static-mode');
 var turf = require('@turf/turf');
 var moment = require('moment');
 var _ = require('lodash');
-var Slideout = require('slideout');
-
 import chroma from 'chroma-js';
 
 global.jQuery = require('jquery');
@@ -23,7 +21,6 @@ import Init from './init.js';
 import Print from './print.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjajZ6YngxeTUwbTU4Mndxa2lydzE0MmlkIn0.tccRHH0Pt2yjRz16ioQH7g';
-console.log('Browser supports MapboxGL:', mapboxgl.supported());
 
 // check that fetch and Object.entries() are supported
 if (!window.hasOwnProperty('fetch') || !Object.hasOwnProperty('entries')) {
