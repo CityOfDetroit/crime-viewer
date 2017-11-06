@@ -286,6 +286,7 @@ jQuery(document).ready(function() {
         e.style.display = 'block'
       })
     });
+    jQuery('#content-overlay').fadeIn();
   }
 
   // hide sharable URL on x click
@@ -395,7 +396,6 @@ jQuery(document).ready(function() {
         '<h3>How can I share feedback?</h3>'+
         '<p>Please share your ideas, suggestions, and any bugs you experience while using this tool through <a href="https://app.smartsheet.com/b/form/4b5e8883ad654704b7d04d1f9c747896" target="_blank">this web form</a>. . Your response will be received by our project team.');
       activateClose();
-      jQuery('#content-overlay').fadeIn();
       let ctrls = document.querySelectorAll(".mapboxgl-ctrl-icon")
       ctrls.forEach(e => {
         e.style.display = 'none'
