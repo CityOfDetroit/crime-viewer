@@ -394,7 +394,61 @@ jQuery(document).ready(function() {
         '<h3>Who can I contact to learn more about the data?</h3 >'+
         '<p>Should you have questions about the data, you may contact the Commanding Officer of the Detroit Police Department&#x2019;s Crime Intelligence Unit at 313-596-2250 or <a href="mailto:CrimeIntelligenceBureau@detroitmi.gov">CrimeIntelligenceBureau@detroitmi.gov</a>.</p>'+
         '<h3>How can I share feedback?</h3>'+
-        '<p>Please share your ideas, suggestions, and any bugs you experience while using this tool through <a href="https://app.smartsheet.com/b/form/4b5e8883ad654704b7d04d1f9c747896" target="_blank">this web form</a>. . Your response will be received by our project team.');
+        '<p>Please share your ideas, suggestions, and any bugs you experience while using this tool through <a href="https://app.smartsheet.com/b/form/4b5e8883ad654704b7d04d1f9c747896" target="_blank">this web form</a>. Your response will be received by our project team.');
+      activateClose();
+      let ctrls = document.querySelectorAll(".mapboxgl-ctrl-icon")
+      ctrls.forEach(e => {
+        e.style.display = 'none'
+      })
+    }
+
+    if (this.id == 'help-button') {
+      jQuery('#content-box').html('<span class="about-close"><img src="./img/close.svg"></span>'+
+        '<h2 id="about-header">User Guide</h2>' +
+        '<p>Confused about where to start or how to filter down to just the crime stats you need?</p>' +
+        '<p>This is a visual guide of frequently asked questions to help you navigate the Crime Viewer&#x2019;s user interface and key functions.</p>' + 
+        
+        '<h3>What am I looking at?</h3>' +
+        '<p>The Crime Viewer has three main components:</p>' +
+        '<ol><li>Map of crime incidents, whose specific locations are masked according to the <b>Disclaimer</b> in the bottom right</li><li>Sidebar that summarizes the points on the map through tables and charts</li><li>Buttons across the top to filter the data, print a report, or learn more about the tool</li></ol>' +
+        '<p><b>Currently showing</b> in sidebar summarizes the total number of points loaded on the map at any given time, the date range, and any selected filters.</p>' +
+        '<p>Points on the map are color-coded by arrest charge, and the <b>Incidents by Crime Type</b> table acts as a legend.</p>' +
+
+        '<h3>What data are loaded by default?</h3>' +
+        '<p>The initial map shows the 7 most recent days of crime incidents and Council District boundaries for reference. All crime types, all days of week, and all times of day are shown by default. The number of the incidents for the most recent day will likely appear lower than previous days because of delayed reports.</p>' +
+
+        '<h3>How do I move the map?</h3>' +
+        '<p>Use the navigation controls in the top right:<p>' +
+        '<ul><li><b>+</b>/<b>-</b> or <b>scroll</b> to zoom</li><li><img style="width:2%;" src="./img/mapboxgl-ctrl-geolocate.svg"></img> to go to your current location</li><li><b>Click + hold</b> to drag the center postion of the map</li></ul>' +
+
+        '<h3>How do I learn more about a specific incident?</h3>' +
+        '<p>When you click on a point, it will have a red halo and <b>Incident details</b> about that point will appear in the sidebar.</p>' +
+        '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/point.png"></img></p>' +
+
+        '<h3>What criteria can I filter the data on?</h3>' +
+        '<p>You can filter crime incidents by:</p>' +
+        '<ul><li><b>Crime Types</b> to pick specific arrest charge categories</li>' +
+        '<li><b>Date/Time</b> to change the date range, select days of the week and times of the day</li>' +
+        '<li><b>Location</b> to display a different reference boundary, select a specific place based on that boundary, search within a 1 mile radius of an address, or draw a custom boundary</li></ul>' +
+        '<p>Your filter selections will control both the points loaded on the map and the summary statistics shown in the sidebar.</p>' +
+
+        '<h3>How do I find crime incidents for a certain time period?</h3>' +
+        '<p>Expand <b>Date/Time</b><img src="./img/down.png"></img>. Pick Day of Week and Time of Day.</p>' +
+        '<p>Notice that your choices effect both the points displayed on the map and the time-based charts in the sidebar.</p>' +
+        '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/time-filter.png"></img></p>' +
+
+        '<h3>How do I find crime incidents in my neighborhood?</h3>' +
+        '<p>Expand <b>Location</b><img src="./img/down.png"></img>. Change <b>Current boundary</b> to Neighborhoods and then <b>Pick from map</b>.</p>' +
+
+        '<h3>How do I draw a custom area?</h3>' +
+        '<p>Draw your own custom area if you are looking for crime incidents in a place that does not otherwise align with popular City boundaries.</p>' +
+        '<p>Follow these steps:</p>' +
+        '<ol><li>Expand <b>Location</b><img src="./img/down.png"></img></li>' +
+        '<li>Select <b>Custom</b> Draw area</li>' +
+        '<li>Click once to create your first corner</li>' +
+        '<li>Drag the orange dotted line to make a border, click once to create another corner, and repeat</li>' +
+        '<li>Double-click to close your area</li></ol>' +
+        '<p>Your complete shape will auto-adjust to the shape of the Census Blocks contained within it, because the Census Block is the smallest geography that preserves the pre-anonymized incident location.</p>');
       activateClose();
       let ctrls = document.querySelectorAll(".mapboxgl-ctrl-icon")
       ctrls.forEach(e => {
