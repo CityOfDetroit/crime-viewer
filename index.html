@@ -87,6 +87,9 @@
 			<input type="button" id="about-button" class="meta-button">
 			<label for="about-button" class="meta-button"><img src="img/about.svg"></label>
 
+			<input type="button" id="help-button" class="meta-button">
+			<label for="help-button" class="meta-button"><img src="img/user_guide.svg"></label>
+
 			<!--input type="button" id="share-button" class="meta-button">
 			<label for="share-button" class="meta-button"><img src="img/share.svg"></label>
 			<div id="share-url" style="display:none;">
@@ -175,7 +178,11 @@
 		</div>
 	</nav>
 
-	<div id='map-overlay'>	
+	<div id="map-overlay">	
+	</div>
+	<div id="content-overlay" style="display: none">
+		<div id="content-box">
+		</div>
 	</div>
 
 	<div id='map'>
@@ -183,28 +190,6 @@
 			<p><span class="disclaimer-close"><img src="./img/close.svg"></span><strong>Disclaimer:</strong><br/>In order to protect
 				the privacy of crime victims, both the addresses and geographic coordinates (longitude and latitude) are masked. See
 				the about page <img src="./img/about.svg" style="width:12px;"> to learn more.</p>
-		</div>
-		<div id="about-content" style="display:none;">
-			<p><span class="about-close"><img src="./img/close.svg"></span></p>
-			<h2 id="about-header">About</h2>
-			<h3>Welcome to the City of Detroit's Crime Viewer</h3>
-			<p>The <a target="_blank" href="http://www.detroitmi.gov/police">City of Detroit's Police Department (DPD)</a> and Department of Innovation and Technology (DoIT) are building a tool for residents to visualize crime data. By putting information in the hands of residents, we hope to work together to promote a safer community.</p>
-			<h3>Where does the data come from?</h3>
-			<p>The incident data that power this tool are provided by the Detroit Police Department (DPD) and made publicly available on the <a target="_blank" href="https://data.detroitmi.gov/">City of Detroit's open data portal</a>. Find the data and methodology description at <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">DPD: All Crime Incidents, December 6, 2016 - Present</a>.</p>
-			<h3>How often is the dataset updated?</h3>
-			<p>The dataset only reflects incidents that have been submitted to the <a target="_blank" href="http://www.micrstats.state.mi.us/MICR/Home.aspx">Michigan Incident Crime Reporting</a> tool (the date of submission is reflected in the "IBR Date" field on open data). The incident data represented here are preliminary in nature and subject to change. <b>In particular</b>, this means that crime will be underrepresented for very recent days (since the incidents have not yet been reported).</p>
-			<h3>How are the data anonymized?</h3>
-			<p>The addresses and datapoints which appear in this tool are anonymized; instead of a specific street address, data points
-			get assigned to a specific block. We do this by randomly selecting a new point that is 1) within a certain distance
-			of the original crime and 2) a certain distance of the associated street segment. It does <b>not</b> accurately represent
-			where the incident happened.</p>
-			<h3>Why do I see a jagged border after I draw a custom area or search for an address?</h3>
-			<p>Before incident addresses are anonymized as described above, we stamp each original location with its respective neighborhood, council district and Census Block (learn more about Census Blocks <a href="https://www.census.gov/geo/reference/gtc/gtc_block.html" target="_blank">here</a>). After the anonymization process, the Census Block is the smallest geographic unit we can accurately rely on for aggregated reporting. Therefore, when you filter the map by Location and choose to "Draw a Custom Area" or "Search within a mile radius of an Address/Intersection", we automatically adjust your area to fit to the Census Blocks contained within it.<p>
-			<h3>Who can I contact to learn more about the data?</h3 >
-			<p>Should you have questions about the data, you may contact the Commanding Officer of the Detroit Police Department's
-			Crime Intelligence Unit at 313-596-2250 or <a href="mailto:CrimeIntelligenceBureau@detroitmi.gov">CrimeIntelligenceBureau@detroitmi.gov</a>.</p>
-			<h3>How can I share feedback?</h3>
-			<p>Please share your ideas, suggestions, and any bugs you experience while using this tool through <a href="https://app.smartsheet.com/b/form/4b5e8883ad654704b7d04d1f9c747896" target="_blank">this web form</a>. Your response will be received by our project team.</p>
 		</div>
 	</div>
 	<script src="./bundle.js"></script>

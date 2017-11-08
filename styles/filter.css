@@ -209,6 +209,22 @@ input[type=radio]:checked + label{
     width: 240px;
 }
 
+ul.filter-subcat-list{
+    padding: 0px;
+}
+
+#categories>.filter-subcat.lg:nth-child(4){
+    width: 550px;
+}
+
+#categories>.filter-subcat.lg:nth-child(4) ul.filter-subcat-list{
+    columns: 2;
+}
+
+#categories>.filter-subcat.lg:nth-child(4) ul.filter-subcat-list li.filter-subcat-input{
+    width: 255px;
+}
+
 /* like the best size of t-shirt */
 .filter-subcat.xl {
     width: 280px;

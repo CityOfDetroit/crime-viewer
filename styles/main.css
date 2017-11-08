@@ -54,7 +54,7 @@ table td{
     outline-width: 5px;
 }
 
-#map, #map-overlay{ 
+#map, #map-overlay, #content-overlay{ 
   position: absolute; 
   top: 74px; 
   bottom: 0; 
@@ -63,10 +63,35 @@ table td{
   width: calc(100% - 20%);
 }
 
-#map-overlay{
+#content-overlay{
+  background: rgba(0,0,0,0.75);
+  z-index: 100;
+  width: 75%;
+  left: 25%;
+}
+
+#content-box{    
   background: white;
+  margin: 0 auto;
+  height: 70%;
+  width: 70%;
+  position: relative;
+  top: 15%;
+  overflow-y: auto;
+  padding:0.5em 2.5em;
+  z-index: 110;
+}
+
+.about-close{
+  position: absolute;
+  right: 2.5em;
+  top: 1.5em;
+  z-index: 500;
+}
+
+#map-overlay{
+  background: rgba(0,0,0,0.75);
   z-index: 450;
-  opacity: 0.5;
   cursor: not-allowed;
   display: none;
 }
