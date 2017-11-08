@@ -405,8 +405,9 @@ jQuery(document).ready(function() {
     if (this.id == 'help-button') {
       jQuery('#content-box').html('<span class="about-close"><img src="./img/close.svg"></span>'+
         '<h2 id="about-header">User Guide</h2>' +
+        '<img style="width:10%;float:right;" src="./img/green.png"></img></p>' +
         '<p>Confused about where to start or how to filter down to just the crime stats you need?</p>' +
-        '<p>This is a visual guide of frequently asked questions to help you navigate the Crime Viewer&#x2019;s user interface and key functions.</p>' + 
+        '<p>These are frequently asked questions to help you navigate the Crime Viewer&#x2019;s user interface and key functions.</p>' + 
         
         '<h3>What am I looking at?</h3>' +
         '<p>The Crime Viewer has three main components:</p>' +
@@ -415,7 +416,7 @@ jQuery(document).ready(function() {
         '<p>Points on the map are color-coded by arrest charge, and the <b>Incidents by Crime Type</b> table acts as a legend.</p>' +
 
         '<h3>What data are loaded by default?</h3>' +
-        '<p>The initial map shows the 7 most recent days of crime incidents and Council District boundaries for reference. All crime types, all days of week, and all times of day are shown by default. The number of the incidents for the most recent day will likely appear lower than previous days because of delayed reports.</p>' +
+        '<p>The initial map shows the 7 most recent days of crime incidents and Council District boundaries for reference. All crime types, all days of week, and all times of day are shown by default. The number of the incidents for the most recent day is lower than previous days because a full days worth of incidents have not yet been reported.</p>' +
 
         '<h3>How do I move the map?</h3>' +
         '<p>Use the navigation controls in the top right:<p>' +
@@ -427,28 +428,37 @@ jQuery(document).ready(function() {
 
         '<h3>What criteria can I filter the data on?</h3>' +
         '<p>You can filter crime incidents by:</p>' +
-        '<ul><li><b>Crime Types</b> to pick specific arrest charge categories</li>' +
+        '<ul><li><b>Crime Types</b> to pick specific arrest charge categories, grouped by Property, Violent, and Other crimes</li>' +
         '<li><b>Date/Time</b> to change the date range, select days of the week and times of the day</li>' +
         '<li><b>Location</b> to display a different reference boundary, select a specific place based on that boundary, search within a 1 mile radius of an address, or draw a custom boundary</li></ul>' +
         '<p>Your filter selections will control both the points loaded on the map and the summary statistics shown in the sidebar.</p>' +
+        '<p>Use the <b>Reset</b> button to clear your current filter selections and go back to the default.</p>' +
 
-        '<h3>How do I find crime incidents for a certain time period?</h3>' +
+        '<h3>How do I find crime patterns for certain days or times?</h3>' +
         '<p>Expand <b>Date/Time</b><img src="./img/down.png"></img>. Pick Day of Week and Time of Day.</p>' +
         '<p>Notice that your choices effect both the points displayed on the map and the time-based charts in the sidebar.</p>' +
         '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/time-filter.png"></img></p>' +
 
+        '<h3>How far back in time can I find crime incidents using this tool?</h3>' +
+        '<p>This tool includes data from December 6, 2016 to present. For the best user experience, we recommend looking at about a months worth of incidents at a time. Loading many data points at once will slow down the application.</p>' +
+        '<p>If you want to do analysis over a long period of time, you may prefer to work directly with the raw data. Find it on our Open Data Portal at <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">DPD: All Crime Incidents, December 6, 2016 - Present</a></p>' +
+        '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/date-picker.png"></img></p>' +
+
         '<h3>How do I find crime incidents in my neighborhood?</h3>' +
         '<p>Expand <b>Location</b><img src="./img/down.png"></img>. Change <b>Current boundary</b> to Neighborhoods and then <b>Pick from map</b>.</p>' +
+        '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/neighborhoods.png"></img></p>' +
 
         '<h3>How do I draw a custom area?</h3>' +
-        '<p>Draw your own custom area if you are looking for crime incidents in a place that does not otherwise align with popular City boundaries.</p>' +
+        '<p>We offer the option to draw your own custom area if you are looking for crime incidents in a place that does not otherwise align with popular City boundaries, like Neighborhoods or Council Districts.</p>' +
         '<p>Follow these steps:</p>' +
         '<ol><li>Expand <b>Location</b><img src="./img/down.png"></img></li>' +
         '<li>Select <b>Custom</b> Draw area</li>' +
         '<li>Click once to create your first corner</li>' +
         '<li>Drag the orange dotted line to make a border, click once to create another corner, and repeat</li>' +
         '<li>Double-click to close your area</li></ol>' +
-        '<p>Your complete shape will auto-adjust to the shape of the Census Blocks contained within it, because the Census Block is the smallest geography that preserves the pre-anonymized incident location.</p>');
+        '<p style="text-align:center;"><img style="height:350px;margin-right:20px;" src="./img/screenshots/dyo1.png"></img><img style="height:350px;" src="./img/screenshots/dyo2.png"></img></p>' +
+        '<p>Once you close your custom shape, it will auto-adjust to the shape of the Census Blocks contained within it, because the Census Block is the smallest geography that preserves the pre-anonymized incident location.</p>' +
+        '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/dyo3.png"></img></p>');
       activateClose();
       let ctrls = document.querySelectorAll(".mapboxgl-ctrl-icon")
       ctrls.forEach(e => {
