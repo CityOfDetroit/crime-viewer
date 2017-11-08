@@ -415,7 +415,7 @@ jQuery(document).ready(function() {
         '<p><b>Currently showing</b> in sidebar summarizes the total number of points loaded on the map at any given time, the date range, and any selected filters.</p>' +
         '<p>Points on the map are color-coded by arrest charge, and the <b>Incidents by Crime Type</b> table acts as a legend.</p>' +
 
-        '<h3>What data are loaded by default?</h3>' +
+        '<h3>What data are shown by default?</h3>' +
         '<p>The initial map shows the 7 most recent days of crime incidents and Council District boundaries for reference. All crime types, all days of week, and all times of day are shown by default. The number of the incidents for the most recent day is lower than previous days because a full days worth of incidents have not yet been reported.</p>' +
 
         '<h3>How do I move the map?</h3>' +
@@ -439,14 +439,19 @@ jQuery(document).ready(function() {
         '<p>Notice that your choices effect both the points displayed on the map and the time-based charts in the sidebar.</p>' +
         '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/time-filter.png"></img></p>' +
 
-        '<h3>How far back in time can I find crime incidents using this tool?</h3>' +
+        '<h3>How far back in time can I look at incidents using this tool?</h3>' +
         '<p>This tool includes data from December 6, 2016 to present. For the best user experience, we recommend looking at about a months worth of incidents at a time. Loading many data points at once will slow down the application.</p>' +
         '<p>If you want to do analysis over a long period of time, you may prefer to work directly with the raw data. Find it on our Open Data Portal at <a target="_blank" href="https://data.detroitmi.gov/Public-Safety/DPD-All-Crime-Incidents-December-6-2016-Present/6gdg-y3kf">DPD: All Crime Incidents, December 6, 2016 - Present</a></p>' +
         '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/date-picker.png"></img></p>' +
 
-        '<h3>How do I find crime incidents in my neighborhood?</h3>' +
+        '<h3>How do I find incidents in my neighborhood?</h3>' +
         '<p>Expand <b>Location</b><img src="./img/down.png"></img>. Change <b>Current boundary</b> to Neighborhoods and then <b>Pick from map</b>.</p>' +
         '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/neighborhoods.png"></img></p>' +
+
+        '<h3>How do I find incidents near where I live?</h3>' +
+        '<p>Expand <b>Location</b><img src="./img/down.png"></img>. Under <b>Search for an address/intersection</b>, enter an address in the City of Detroit like the examples.</p>' +
+        '<p>A grey circle marks your matched address and a 1-mile radius is drawn around it. The border of the radius is not a perfect circle, but rather auto-adjusted to the shape of the Census Blocks contained within it, because the Census Block is the smallest geography that preserves the pre-anonymized incident location.</p>' +
+        '<p style="text-align:center;"><img style="width:90%;" src="./img/screenshots/address.png"></img></p>' +
 
         '<h3>How do I draw a custom area?</h3>' +
         '<p>We offer the option to draw your own custom area if you are looking for crime incidents in a place that does not otherwise align with popular City boundaries, like Neighborhoods or Council Districts.</p>' +
