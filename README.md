@@ -1,10 +1,14 @@
 # crime-viewer
 
-View, filter and summarize incident data from the police department. This tool has been built with Detroit's neighborhood radio patrols in mind, and beta versions have been tested by patrol members who regularly track and report on crime statistics in their neighborhoods.
+View, filter and summarize incident data from the police department.
+
+This tool has been built with Detroit's neighborhood radio patrols in mind, and beta versions have been tested by patrol members who regularly monitor and report on crime statistics in their neighborhoods.
+
+Share bugs, ideas, and feedback with our project team through [Github Issues](https://github.com/CityOfDetroit/crime-viewer/issues) or this [web form](https://app.smartsheet.com/b/form/4b5e8883ad654704b7d04d1f9c747896).
 
 ## Development
 
-We're mostly building this with Mapbox GL, Highcharts, jQuery, and Lodash. Behind the scenes, we use Babel to compile, Browserify and Watchify to bundle, and Uglify to minify our code. Unit testing is handled with Mocha.js, Should.js and Node's assert.
+We build this with Mapbox GL, Highcharts, jQuery, and Lodash. Behind the scenes, we use Babel to compile, Browserify and Watchify to bundle, and Uglify to minify our code. Unit testing is handled with Mocha.js, Should.js and Node's assert.
 
 ### Prereqs
 
@@ -12,7 +16,7 @@ You should have [Node](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/)
 
 This project assumes three global dependencies: Browserify, Watchify and Uglify
 
-If you don't have them, install them:
+If you don't have them yet, install them:
 ```
 npm install -g browserify watchify uglify-js
 ```
