@@ -1,19 +1,33 @@
 import chroma from 'chroma-js';
 
-const colors = {
-  bail: "#9b874a",
-  admin: "#9d63cb",
-  drugs: "#4ba98c",
-  homicide: "red",
-  car: "#7088c8",
-  larceny: "#7fb235",
-  assault: "#c55d93",
-  robbery: "#c69932",
-  property: "#56a959",
-  arson: "#ce5c2f",
-  other: "#444"
+const colors = 
+// {
+//   bail: "#9b874a",
+//   admin: "#9d63cb",
+//   drugs: "#4ba98c",
+//   homicide: "red",
+//   car: "#7088c8",
+//   larceny: "#7fb235",
+//   assault: "#c55d93",
+//   robbery: "#c69932",
+//   property: "#56a959",
+//   arson: "#ce5c2f",
+//   other: "#444"
+// }
+{
+  bail: "#E58606",
+  admin: "#5D69B1",
+  drugs: "#52BCA3",
+  car: "#99C945",
+  fraud: "#CC61B0",
+  property: "#24796C",
+  robbery: "#DAA51B",
+  assault: "#2F8AC4",
+  larceny: "#764E9F",
+  homicide: "#ED645A",
+  arson: "#CC3A8E",
+  other: "#A5AA99"
 }
-  
 const Data = {
   council_districts: [
     { number: 1, name: 'District 1' },
@@ -70,10 +84,10 @@ const Data = {
     violent: [
       { name: 'AGGRAVATED ASSAULT', color: chroma(colors.assault).darken().hex() },
       { name: 'ASSAULT', color: chroma(colors.assault).hex() },
-      { name: 'HOMICIDE', color: chroma(colors.homicide).hex() },
-      { name: 'JUSTIFIABLE HOMICIDE', color: chroma(colors.homicide).darken().hex() },
+      { name: 'HOMICIDE', color: chroma(colors.homicide).darken().hex() },
+      { name: 'JUSTIFIABLE HOMICIDE', color: chroma(colors.homicide).hex() },
       { name: 'ROBBERY', color: chroma(colors.robbery).hex() },
-      { name: 'SEXUAL ASSAULT', color: chroma(colors.assault).darken().hex() }
+      { name: 'SEXUAL ASSAULT', color: chroma(colors.assault).darken(2).hex() }
     ],
     property: [
       { name: 'ARSON', color: chroma(colors.arson).hex() },     
@@ -90,7 +104,7 @@ const Data = {
       { name: 'EXTORTION', color: chroma(colors.robbery).darken().hex() },
       { name: 'FAMILY OFFENSE', color: chroma(colors.other).hex() },
       { name: 'FORGERY', color: chroma(colors.other).hex() },
-      { name: 'FRAUD', color: chroma(colors.other).hex() },
+      { name: 'FRAUD', color: chroma(colors.fraud).hex() },
       { name: 'GAMBLING', color: chroma(colors.other).hex() },
       { name: 'KIDNAPPING', color: chroma(colors.larceny).hex() },
       { name: 'LIQUOR', color: chroma(colors.drugs).hex() },
@@ -98,11 +112,11 @@ const Data = {
       { name: 'OBSTRUCTING JUDICIARY', color: chroma(colors.other).hex() },
       { name: 'OBSTRUCTING THE POLICE', color: chroma(colors.other).hex() },    
       { name: 'OTHER', color: chroma(colors.other).hex() },
-      { name: 'OPERATING UNDER THE INFLUENCE', color: chroma(colors.drugs).hex() },
+      { name: 'OPERATING UNDER THE INFLUENCE OF LIQUOR OR DRUGS', color: chroma(colors.drugs).hex() },
       { name: 'RUNAWAY', color: chroma(colors.other).hex() },
-      { name: 'SEX OFFENSES', color: chroma(colors.assault).darken(2).hex() },    
+      { name: 'SEX OFFENSES', color: chroma(colors.assault).hex() },    
       { name: 'SOLICITATION', color: chroma(colors.admin).hex() },
-      { name: 'WEAPONS OFFENSES', color: chroma(colors.homicide).brighten().hex() }
+      { name: 'WEAPONS OFFENSES', color: chroma(colors.homicide).hex() }
     ]
   },
 
