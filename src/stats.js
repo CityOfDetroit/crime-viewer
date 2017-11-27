@@ -405,8 +405,16 @@ const Stats = {
     // if there's multiple offenses for a single crime id
 
     if (features.length > 1 && Array.from(new Set(_.map(features, 'properties.crime_id'))).length == 1) {
-      display_cols['Arrest Category'] = `Multiple offenses: ${Helpers.toSentenceCase(features[0].properties.offense_category)}; ${Helpers.toSentenceCase(features[1].properties.offense_category)}`;
-      display_cols['Charge Description'] = `Multiple offenses: ${Helpers.toSentenceCase(features[0].properties.charge_description)}; ${Helpers.toSentenceCase(features[1].properties.charge_description)}`;
+      display_cols['Arrest Category'] = `
+        ${features.map(f => 
+          `${Helpers.toSentenceCase(f.properties.offense_category)}`
+        ).join("<br/>")
+      }`
+      display_cols['Charge Description'] = `
+        ${features.map(f => 
+          `${Helpers.toSentenceCase(f.properties.charge_description)}`
+        ).join("<br/>")
+      }`
     }
 
     detail.innerHTML = `
