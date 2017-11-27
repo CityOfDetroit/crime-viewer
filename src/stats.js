@@ -7,6 +7,7 @@ require('highcharts/modules/heatmap')(Highcharts);
 import Helpers from './helpers.js';
 import Data from './data.js';
 
+
 const Stats = {
   /**
    * Counts number of features on the map
@@ -398,6 +399,12 @@ const Stats = {
       "Address": features[0].properties.address,
       "Neighborhood": `${features[0].properties.neighborhood} (District ${features[0].properties.council_district}, Precinct ${features[0].properties.precinct})`
     };
+
+    // if there's multiple offenses for a single crime id
+    if (features.length == 2) {
+      display_cols['Arrest Category'] = `Multiple offenses: ${Helpers.toSentenceCase(features[0].properties.offense_category)}; ${Helpers.toSentenceCase(features[1].properties.offense_category)}`;
+      display_cols['Charge Description'] = `Multiple offenses: ${Helpers.toSentenceCase(features[0].properties.charge_description)}; ${Helpers.toSentenceCase(features[1].properties.charge_description)}`;
+    }
 
     detail.innerHTML = `
     <h4 class="sidebar-title">

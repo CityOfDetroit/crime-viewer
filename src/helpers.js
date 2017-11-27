@@ -2,6 +2,7 @@ var moment = require('moment');
 var _ = require('lodash');
 
 import Stats from './stats.js';
+import Filter from './filter.js';
 
 const Helpers = {
   xDaysAgo: function(int, date) {
@@ -27,9 +28,12 @@ const Helpers = {
       layers: ['incidents_point', 'incidents_point_ezclick']
     });
 
-    if (features.length > 0) {
-      map.setFilter("incidents_highlighted", ['==', 'crime_id', features[0].properties.crime_id]);
-      Stats.printPointDetails(features, 'point_details');
+    // account multiple offenses at the same crime id
+    var filteredFeatures = Filter.getUniqueFeatures(features, 'offense_category');
+
+    if (filteredFeatures.length > 0) {
+      map.setFilter("incidents_highlighted", ['==', 'crime_id', filteredFeatures[0].properties.crime_id]);
+      Stats.printPointDetails(filteredFeatures, 'point_details');
       let details = document.querySelector("#point_details")
       let img = document.querySelector("#point_details img")
       img.addEventListener('mousedown', function() {
