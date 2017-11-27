@@ -389,8 +389,6 @@ const Stats = {
    * @returns {}
    */
   printPointDetails: function (features, divId) {
-    console.log(features)
-    console.log(new Set(_.map(features, 'properties.crime_id')))
     let detail = document.getElementById(divId);
 
     let display_cols = {
