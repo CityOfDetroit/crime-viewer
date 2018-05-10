@@ -6,7 +6,7 @@ body {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
-body:after{
+/* body:after{
   content: "beta";
   position: fixed;
   width: 80px;
@@ -26,7 +26,7 @@ body:after{
   transform:rotate(-45deg);
   z-index: 2500;
   box-shadow: 1px 3px 10px #333;
-}
+} */
 
 h4{
   font-size: 16px;
