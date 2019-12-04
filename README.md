@@ -1,59 +1,68 @@
-# crime-viewer
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-View, filter and summarize incident data from the police department.
+## Available Scripts
 
-This tool has been built with Detroit's neighborhood radio patrols in mind, and beta versions have been tested by patrol members who regularly monitor and report on crime statistics in their neighborhoods.
+In the project directory, you can run:
 
-Share bugs, ideas, and feedback with our project team through [Github Issues](https://github.com/CityOfDetroit/crime-viewer/issues) or this [web form](https://app.smartsheet.com/b/form/4b5e8883ad654704b7d04d1f9c747896).
+### `yarn start`
 
-## Development
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-We build this with Mapbox GL, Highcharts, jQuery, and Lodash. Behind the scenes, we use Babel to compile, Browserify and Watchify to bundle, and Uglify to minify our code. Unit testing is handled with Mocha.js, Should.js and Node's assert.
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-### Prereqs
+### `yarn test`
 
-You should have [Node](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/) installed.
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-This project assumes three global dependencies: Browserify, Watchify and Uglify
+### `yarn build`
 
-If you don't have them yet, install them:
-```
-npm install -g browserify watchify uglify-js
-```
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-To run tests, you should also install Mocha.js globally:
-```
-npm install -g mocha
-```
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-### Install
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Clone this project:
-```
-git clone https://github.com/CityOfDetroit/crime-viewer.git
-cd crime-viewer
-npm install
-```
+### `yarn eject`
 
-### Build
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-Run `npm run watch` and open `public/index.html` in your browser.
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-This is listening for changes in `src/main.js` and will automatically rebuild, so you just need to refresh your browser to see changes.
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-Or, more conveniently, try:
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-- Python 3.x: `npm run watch & python -m http.server 9966`
-- Python 2.x: `npm run watch & python -m SimpleHTTPServer 9966`
+## Learn More
 
-This will watch & serve the page at `http://localhost:9966/`.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-### Deploy
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Run `npm run deploy`. This pipes `src/main.js` through Uglify to minify it, writes to `public/bundle.js`, and then publishes the `public/` directory to `gh-pages`.
+### Code Splitting
 
-### Tests
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-Run `npm test`. This runs `mocha test` plus a Babel compiler and looks for test files in the `test/` dir.
+### Analyzing the Bundle Size
 
-Check out [Mocha.js](https://mochajs.org) docs for how to write tests. Mocha is set up here to work with Node.js' built-in [assert](https://nodejs.org/api/assert.html) module and we've also installed [should.js](https://github.com/shouldjs/should.js).
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `yarn build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
