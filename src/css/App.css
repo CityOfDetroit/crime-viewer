@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,700,800,900&display=swap');
+@import url('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css');
+
+body {
+  background: rgba(245,245,245,0.5);
+}
+
+body:after{
+  content: "beta";
+  position: fixed;
+  width: 70px;
+  height: 20px;
+  background: #B0D27B;
+  top: 5px;
+  left: -20px;
+  text-align: center;
+  font-size: 13px;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-weight: normal;
+  color: #000;
+  line-height: 19px;
+  -ms-transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
+  transform:rotate(-45deg);
+  z-index: 2500;
+  box-shadow: 1px 3px 10px #aaa;
+}
+
+#map {
+  height: 100vh
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 0;
+  margin-bottom: .5em;
+  font-family: "Montserrat";
+  font-weight: 900;
+}
+
+.hul {
+  border-bottom: 5px solid#FBB63B;
+  margin-bottom: 0;
+}
+
+.rowDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filterSection {
+  padding: 5px;
+}
+
+/* #map{
+  height: 100%;
+}
+
+.load{
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+#map-area{
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+}
+
+.search-container{
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-btn-container, .search-button-placeholder{    
+  height: 40px;
+  width: 40px;
+  background: #feb70d;
+  margin-right: 3px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: -.13em;
+}
+
+.pa2 .ant-select-selection__placeholder{
+  top: 62% !important;
+}
+
+.pa2 input{
+  border: 2px solid #004445 !important;
+  border-radius: 0px !important;
+  height: 40px !important;
+}
+
+.pa2 input:focus{
+  box-shadow: 0 0 0 2px rgba(0, 68, 69, 0.2)
+}
+
+.menu-container{
+  min-height: 100vh;
+  width: 80%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 1000;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  transition: -webkit-transform 300ms;
+  transition: transform 300ms;
+  transition: transform 300ms, -webkit-transform 300ms;
+  font-family: 'Montserrat';
+}
+
+.menu-container.isOpen{
+  box-shadow: 0 5px 5px rgba(0,0,0,.75);
+}
+
+.isOpen{
+  -webkit-transform: none;
+          transform: none;
+}
+
+.menu-header-container{
+  display: flex;
+  width: 100%;
+  padding: 12px 20px 0px 20px;
+}
+
+.menu-header{
+  border-bottom: 3px solid #feb70d;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  margin: 1px 0 0 5px;
+  text-align: left;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 24px;
+  width: 230px;
+}
+
+.menu-btn {
+  margin-top: 3px;
+}
+
+.menu-btn span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin-top: 3px;
+  background-color: #18252a;
+  float: left;
+  transform-origin: center center;
+}
+
+.menu-container h2{
+  font-weight: 900;
+}
+
+.menu-container ul{
+  list-style: none;
+  font-size: 1.5em;
+  padding-left: 20px;
+  margin-top: 20px;
+}
+
+.menu-container ul li{
+  margin-bottom: 10px;
+  line-height: 1.5em;
+}
+
+.menu-container ul li a{
+  color: #18252a;
+}
+
+#sidebar{
+  font-family: 'Roboto Condensed';
+  position: absolute;
+  background: white;
+  z-index: 200;
+  bottom: -100%;
+  height: 100%;
+  width: 100%;
+  transform: translateY(-70px);
+  transition: transform .2s,-webkit-transform .2s;
+  display: flex;
+  flex-direction: column;
+}
+#sidebar .parcel-address{
+  font-family: 'Montserrat';
+  font-weight: 900;
+  border-bottom: 3px solid #feb70d;
+}
+#sidebar .details-container{
+  width: 100%;
+  padding: 1em;
+  background: white;
+}
+#sidebar table{
+  width: 100%;
+  font-size: 0.9em;
+}
+#sidebar table tr td{
+  border-bottom: none !important;
+  padding: 10px;
+  font-size: 1.1em;
+}
+#sidebar table tr:nth-child(even){
+  background: #f2f2f2;
+}
+
+#full-mly{
+  width: 100vw;
+  height: 100vh;;
+}
+
+#full-mly .ZoomContainer{
+  bottom: 130px;
+}
+
+.BearingIndicatorContainer
+{display: none;}
+
+#street-view-btn{
+  position: absolute;
+  bottom: 90px;
+  right: 10px;
+  z-index: 111;
+  cursor: pointer;
+  width: 175px;
+  background: #004445;
+  padding: 5px;
+  text-align: center;
+}
+
+#street-view-btn span{
+  font-family: 'Montserrat';
+  display: inline-block;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.25em;
+  vertical-align: top;
+  color: white;
+  padding-left: 5px;
+}
+
+#street-view-btn svg{
+  height: 1.25em;
+  vertical-align: middle; 
+}
+
+#zoning-accordion{
+  padding: 20px;
+  font-family: 'Roboto Condensed';
+}
+
+.about-container{
+  padding: 20px;
+}
+
+.search-button-placeholder svg{
+  width: 15px;
+}
+
+.accordion__heading{
+  padding: 10px;
+  font-weight: 900;
+  color: #18252a;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.accordion__panel{
+  padding: 5px;
+}
+
+.accordion__item svg {
+  width: 10px;
+  position: absolute;
+  right: 11%;
+  margin-top: 3px;
+}
+
+.accordion__button {
+  max-width: 90%;
+}
+
+.accordion__button[aria-expanded="true"] svg{
+  transform: rotate(180deg);
+}
+
+div#accordion__heading-3, div#accordion__heading-4,
+div#accordion__heading-5, div#accordion__heading-8,
+div#accordion__heading-9, div#accordion__heading-10,
+div#accordion__heading-12, div#accordion__heading-13{
+  color: white
+}
+
+.show{
+  display:block;
+}
+.hidden{
+  display: none;
+}
+
+@media screen and (max-width: 650px) {
+  .App {
+    overflow-x: hidden;
+  }
+}
+
+
+@media screen and (min-width: 650px) {
+  .App {
+    display: grid;
+    grid-template: repeat(12, 1fr) / repeat(10, 1fr);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Roboto Condensed', sans-serif;
+    grid-template-areas: 'sidebar map'
+  }
+  
+  .map-area {
+    grid-area: map;
+    grid-column: 4/12;
+    grid-row: 1/7;
+    z-index: 1;
+  }
+
+  #map{
+    height: 100vh;
+    width:100vw;
+  }
+  
+  #sidebar {
+    grid-area: sidebar;
+    grid-column: 1/4;
+    grid-row: 1/13;
+    z-index: 2;
+    background: rgba(255,255,255,1);
+    overflow-y: scroll;
+  }
+
+  #sidebar #mly{
+    height: 50vh;
+  }
+} */
