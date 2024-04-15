@@ -26,7 +26,7 @@ const Incident = ({ incident, stripe }) => {
   let fields = {
     Date: moment(incident.incident_timestamp * 1000).format("ddd, MMMM Do YYYY"),
     Time: moment(incident.incident_timestamp * 1000).format("h:mm a"),
-    Offense: arrestCodes[incident.arrest_charge].description,
+    Offense: arrestCodes[incident.arrest_charge]?.description || "UNKNOWN",
     "Report #": incident.report_number
   };
 
