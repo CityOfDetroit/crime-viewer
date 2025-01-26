@@ -56,12 +56,12 @@ const ZoomToArea = ({ children }) => {
 
 function App() {
   let [intersection, setIntersection] = useState(null);
-  let [modal, setModal] = useState(true);
+  let [modal, setModal] = useState(false);
 
   // default time range is the last 14 days
   let [timeRange, setTimeRange] = useState([
     moment()
-      .subtract(14, "days")
+      .subtract(90, "days")
       .unix(),
     moment().unix()
   ]);

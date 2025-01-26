@@ -3,7 +3,7 @@ import {Modal, Icon, Container, Message} from 'semantic-ui-react'
 
 const WelcomeModal = () => (
   <>
-    <Modal.Header as='h2' style={{fontFamily: 'Montserrat', display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: 0}}>
+    <Modal.Header style={{fontFamily: 'Montserrat', display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: 0}}>
       <h2 style={{margin: 0}}>Welcome to the City of Detroit Crime Viewer</h2>
     </Modal.Header>
     

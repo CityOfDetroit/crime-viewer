@@ -24,10 +24,10 @@ const Incident = ({ incident, stripe }) => {
   };
 
   let fields = {
-    Date: moment(incident.incident_timestamp * 1000).format("ddd, MMMM Do YYYY"),
-    Time: moment(incident.incident_timestamp * 1000).format("h:mm a"),
-    Offense: arrestCodes[incident.arrest_charge]?.description || "UNKNOWN",
-    "Report #": incident.report_number
+    Date: moment(incident.incident_occurred_at * 1000).format("ddd, MMMM Do YYYY"),
+    Time: moment(incident.incident_occurred_at * 1000).format("h:mm a"),
+    Offense: incident.offense_description || "UNKNOWN",
+    "Report #": incident.incident_entry_id
   };
 
   return (
@@ -51,7 +51,7 @@ const Incident = ({ incident, stripe }) => {
 const Intersection = ({ intersection }) => {
   let incidents = intersection.properties.incidents;
   if (typeof intersection.properties.incidents === "string") {
-    incidents = JSON.parse(intersection.properties.incidents).sort((a, b) => a.incident_timestamp > b.incident_timestamp);
+    incidents = JSON.parse(intersection.properties.incidents).sort((a, b) => a.incident_occurred_at > b.incident_occurred_at);
   }
 
   let cardStyle = {
@@ -82,7 +82,7 @@ const Intersection = ({ intersection }) => {
       </Card.Content>
       <Card.Content style={{ maxHeight: "40vh", overflowY: "auto" }}>
         {incidents.map((i, j) => (
-          <Incident incident={i} key={i.report_number + j} stripe={j % 2 === 0} />
+          <Incident incident={i} key={i.incident_entry_id + j} stripe={j % 2 === 0} />
         ))}
       </Card.Content>
       <Card.Content extra>
