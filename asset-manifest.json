@@ -1,26 +1,30 @@
 {
   "files": {
-    "main.css": "/crime-viewer/static/css/main.70d02d0f.chunk.css",
-    "main.js": "/crime-viewer/static/js/main.cbb2ab55.chunk.js",
-    "main.js.map": "/crime-viewer/static/js/main.cbb2ab55.chunk.js.map",
-    "runtime-main.js": "/crime-viewer/static/js/runtime-main.79fdd06b.js",
-    "runtime-main.js.map": "/crime-viewer/static/js/runtime-main.79fdd06b.js.map",
-    "static/css/2.1ddb3d7a.chunk.css": "/crime-viewer/static/css/2.1ddb3d7a.chunk.css",
-    "static/js/2.f737d2f1.chunk.js": "/crime-viewer/static/js/2.f737d2f1.chunk.js",
-    "static/js/2.f737d2f1.chunk.js.map": "/crime-viewer/static/js/2.f737d2f1.chunk.js.map",
+    "main.css": "/crime-viewer/static/css/main.59d49856.css",
+    "main.js": "/crime-viewer/static/js/main.1ceca8ee.js",
+    "static/media/brand-icons.svg": "/crime-viewer/static/media/brand-icons.6729d29753e000c17489.svg",
+    "static/media/icons.svg": "/crime-viewer/static/media/icons.62d9dae4e0040e81c980.svg",
+    "static/media/outline-icons.svg": "/crime-viewer/static/media/outline-icons.9c4845b4b41ef40a22fa.svg",
+    "static/media/icons.eot": "/crime-viewer/static/media/icons.a01e3f2d6c83dc3aee17.eot",
+    "static/media/icons.ttf": "/crime-viewer/static/media/icons.c656b8caa454ed19b9a2.ttf",
+    "static/media/brand-icons.eot": "/crime-viewer/static/media/brand-icons.d68fa3e67dbb653a13ce.eot",
+    "static/media/brand-icons.ttf": "/crime-viewer/static/media/brand-icons.65a2fb6d9aaa164b41a0.ttf",
+    "static/media/brand-icons.woff": "/crime-viewer/static/media/brand-icons.cac87dc00c87a5d74711.woff",
+    "static/media/brand-icons.woff2": "/crime-viewer/static/media/brand-icons.278156e41e0ad908cf7f.woff2",
+    "static/media/icons.woff": "/crime-viewer/static/media/icons.425399f81e4ce7cbd967.woff",
+    "static/media/icons.woff2": "/crime-viewer/static/media/icons.38c6d8bab26db77d8c80.woff2",
+    "static/media/outline-icons.eot": "/crime-viewer/static/media/outline-icons.752905fa5edf21fc52a1.eot",
+    "static/media/outline-icons.ttf": "/crime-viewer/static/media/outline-icons.5367103510b27b784827.ttf",
+    "static/media/flags.png": "/crime-viewer/static/media/flags.99f63ae7a743f21ab308.png",
+    "static/media/green.png": "/crime-viewer/static/media/green.cc13376dd0607d8de6de.png",
+    "static/media/outline-icons.woff": "/crime-viewer/static/media/outline-icons.ddae9b1ba9b0b42f5880.woff",
+    "static/media/outline-icons.woff2": "/crime-viewer/static/media/outline-icons.687a4990ea22bb1a49d4.woff2",
     "index.html": "/crime-viewer/index.html",
-    "precache-manifest.94c01588c8f2d49eebbbb85e0812e074.js": "/crime-viewer/precache-manifest.94c01588c8f2d49eebbbb85e0812e074.js",
-    "service-worker.js": "/crime-viewer/service-worker.js",
-    "static/css/2.1ddb3d7a.chunk.css.map": "/crime-viewer/static/css/2.1ddb3d7a.chunk.css.map",
-    "static/css/main.70d02d0f.chunk.css.map": "/crime-viewer/static/css/main.70d02d0f.chunk.css.map",
-    "static/media/semantic.min.css": "/crime-viewer/static/media/outline-icons.ef60a4f6.woff",
-    "static/media/green.png": "/crime-viewer/static/media/green.1c1583a9.png"
+    "main.59d49856.css.map": "/crime-viewer/static/css/main.59d49856.css.map",
+    "main.1ceca8ee.js.map": "/crime-viewer/static/js/main.1ceca8ee.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.79fdd06b.js",
-    "static/css/2.1ddb3d7a.chunk.css",
-    "static/js/2.f737d2f1.chunk.js",
-    "static/css/main.70d02d0f.chunk.css",
-    "static/js/main.cbb2ab55.chunk.js"
+    "static/css/main.59d49856.css",
+    "static/js/main.1ceca8ee.js"
   ]
 }
