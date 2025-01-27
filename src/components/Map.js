@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import _ from "lodash";
+import _, { set } from "lodash";
 import arrestCodes from "../data/arrestCodes";
 import { baseStyle } from "../styles/mapstyle";
 import maplibregl from "maplibre-gl";
@@ -8,8 +8,9 @@ import maplibregl from "maplibre-gl";
 const Map = ({ intersection, setIntersection, timeRange, crimeTypes }) => {
   let [theMap, setTheMap] = useState(null);
 
+  let [moved, setMoved] = useState(false);
+
   useEffect(() => {
-    console.log(baseStyle);
 
     var map = new maplibregl.Map({
       container: "map", // container id
@@ -40,52 +41,10 @@ const Map = ({ intersection, setIntersection, timeRange, crimeTypes }) => {
         },
       });
 
-      let updateIntersections = () => {
-        console.log("updating intersections");
-        console.log(timeRange);
-        let features = map.queryRenderedFeatures({
-          layers: ["rms_crime_incidents"],
-        });
-        console.log(features);
-        let filtered = features.filter(
-          (f) =>
-            f.properties.incident_occurred_at >= timeRange[0] &&
-            f.properties.incident_occurred_at <= timeRange[1]
-        );
-        let grouped = _.groupBy(filtered, "geometry.coordinates");
-        let coordinateFeatures = Object.keys(grouped).map((c) => {
-          return {
-            type: "Feature",
-            geometry: grouped[c][0].geometry,
-            properties: {
-              id: c.toString(),
-              count: grouped[c].length,
-              incidents: grouped[c].map((gc) => gc.properties),
-            },
-          };
-        });
-        console.log(coordinateFeatures);
-        setTimeout(
-          () =>
-            map.getSource("intersections").setData({
-              type: "FeatureCollection",
-              features: coordinateFeatures,
-            }),
-          1000
-        );
-      };
-
-      console.log(timeRange);
-
       map.addLayer({
         id: "rms-incidents",
         source: "rms",
         "source-layer": "rms_crime_incidents",
-        filter: [
-          "all",
-          [">=", "incident_occurred_at", timeRange[0]],
-          ["<=", "incident_occurred_at", timeRange[1]],
-        ],
         type: "circle",
         paint: {
           "circle-opacity": 0.0,
@@ -147,8 +106,8 @@ const Map = ({ intersection, setIntersection, timeRange, crimeTypes }) => {
         map.getCanvas().style.cursor = "default";
       });
 
-      map.on("moveend", (e) => {
-        setTimeout(() => updateIntersections(), 500);
+      map.on("moveend", () => {
+        setMoved(true);
       });
 
       setTimeout(() => map.setZoom(14.001), 500);
@@ -160,60 +119,74 @@ const Map = ({ intersection, setIntersection, timeRange, crimeTypes }) => {
       console.log("no map initialized...");
       return;
     }
+  }, [theMap]);
 
-    // let arrestCharges = [];
-    // _.toPairs(crimeTypes).forEach((ct) => {
-    //   let match = Object.keys(arrestCodes).filter(
-    //     (k) =>
-    //       arrestCodes[k].area === ct[0] &&
-    //       ct[1].indexOf(arrestCodes[k].category) > -1
-    //   );
-    //   arrestCharges = arrestCharges.concat(match);
-    // });
+  useEffect(() => {
+    if (!theMap) {
+      console.log("no map initialized...");
+      return;
+    }
 
-    // let chargeFilter = ["!=", "arrest_charge", "nothing"];
+    let features = theMap.queryRenderedFeatures({
+      layers: ["rms-incidents"],
+    });
+    features = features.filter((f) => {
+      // time filter
+      return (
+        f.properties.incident_occurred_at >= timeRange[0] &&
+        f.properties.incident_occurred_at <= timeRange[1]
+      );
+    });
 
-    // if (arrestCharges.length > 0) {
-    //   chargeFilter = ["in", "arrest_charge"].concat(arrestCharges);
-    // }
+    if (crimeTypes) {
+      let arrestCharges = [];
+      _.toPairs(crimeTypes).forEach((ct) => {
+        let match = Object.keys(arrestCodes).filter(
+          (k) =>
+            arrestCodes[k].area === ct[0] &&
+            ct[1].indexOf(arrestCodes[k].category) > -1
+        );
+        arrestCharges = arrestCharges.concat(match);
+      });
 
-    let timeFilter = [
-      "all",
-      [">=", "incident_occurred_at", timeRange[0]],
-      ["<=", "incident_occurred_at", timeRange[1]],
-    ]
+      console.log("arrestCharges", arrestCharges);
 
-    theMap.setFilter("rms-incidents", timeFilter);
+      if (arrestCharges.length > 0) {
+        features = features.filter((f) => {
+          return arrestCharges.indexOf(f.properties.arrest_charge) > -1;
+        });
+      }
+    }
 
-    // setTimeout(() => {
-    //   let features = theMap.queryRenderedFeatures({
-    //     layers: ["rms-incidents"],
-    //   });
-    //   let grouped = _.groupBy(features, "geometry.coordinates");
-    //   let coordinateFeatures = Object.keys(grouped).map((c) => {
-    //     return {
-    //       type: "Feature",
-    //       geometry: grouped[c][0].geometry,
-    //       properties: {
-    //         id: c.toString(),
-    //         count: grouped[c].length,
-    //         incidents: grouped[c].map((gc) => gc.properties),
-    //       },
-    //     };
-    //   });
-    //   theMap
-    //     .getSource("intersections")
-    //     .setData({ type: "FeatureCollection", features: coordinateFeatures });
-    //   if (intersection) {
-    //     let filtered = coordinateFeatures.filter(
-    //       (cf) => cf.properties.id === intersection.properties.id
-    //     );
-    //     if (filtered.length > 0) {
-    //       setIntersection(filtered[0]);
-    //     }
-    //   }
-    // }, 500);
-  }, [timeRange, theMap]);
+    let grouped = _.groupBy(features, "geometry.coordinates");
+    let coordinateFeatures = Object.keys(grouped).map((c) => {
+      return {
+        type: "Feature",
+        geometry: grouped[c][0].geometry,
+        properties: {
+          id: c.toString(),
+          count: grouped[c].length,
+          incidents: grouped[c].map((gc) => gc.properties),
+        },
+      };
+    });
+
+
+
+    theMap
+      .getSource("intersections")
+      .setData({ type: "FeatureCollection", features: coordinateFeatures });
+    if (intersection) {
+      let filtered = coordinateFeatures.filter(
+        (cf) => cf.properties.id === intersection.properties.id
+      );
+      if (filtered.length > 0) {
+        setIntersection(filtered[0]);
+      }
+    }
+
+    setMoved(false);
+  }, [timeRange, crimeTypes, moved]);
 
   return <div id="map" style={{ gridArea: "m" }} />;
 };

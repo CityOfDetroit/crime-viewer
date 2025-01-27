@@ -4,6 +4,7 @@ import moment from "moment";
 import { Card, Icon, Table } from "semantic-ui-react";
 
 const Incident = ({ incident, stripe }) => {
+
   let incidentStyle = {
     background: stripe ? "#eee" : "#ddd",
     padding: 5
@@ -26,8 +27,8 @@ const Incident = ({ incident, stripe }) => {
   let fields = {
     Date: moment(incident.incident_occurred_at * 1000).format("ddd, MMMM Do YYYY"),
     Time: moment(incident.incident_occurred_at * 1000).format("h:mm a"),
-    Offense: incident.offense_description || "UNKNOWN",
-    "Report #": incident.incident_entry_id
+    Offense: arrestCodes[incident.arrest_charge]?.description || "UNKNOWN",
+    "Report #": incident.report_number
   };
 
   return (
@@ -76,7 +77,7 @@ const Intersection = ({ intersection }) => {
         <Card.Header style={cardHeaderStyle}>
           <Icon name="crosshairs" size="large" />
           <h2 className="hul" style={headerStyle}>
-            {incidents[0].inter} & {incidents[0].main}
+            {incidents[0].nearest_intersection}
           </h2>
         </Card.Header>
       </Card.Content>

@@ -9,7 +9,6 @@ const WelcomeModal = () => (
     
     <Modal.Content>
     <Message>
-      <Message.Header>Note: This tool is currently in BETA mode.</Message.Header>
       <Message.Content>
       Please submit all feedback to <a href="https://app.smartsheet.com/b/form/4b5e8883ad654704b7d04d1f9c747896">this web form</a>.      </Message.Content>
     </Message>
@@ -17,7 +16,7 @@ const WelcomeModal = () => (
     <p style={{fontSize: '1.25em'}}><Icon name='filter'/>Adjust the <b>date range</b> or the list of <b>crime types</b> below to change which incidents appear on the map.</p>
     <p style={{fontSize: '1.25em'}}><Icon name='search' />You can <b>search for an address</b> using the search bar in the top left of the map, or click the <b>geolocate</b> <Icon name='crosshairs'/> button to zoom to your current location.</p>
     <p style={{fontSize: '1.25em'}}>Click <b>an intersection on the map</b> to bring up more information about the incidents which occurred there and match the current set of filters.</p>
-    <p style={{fontSize: '1.25em'}}>Do you want to access the raw data behind this tool? Visit the <b><a href="https://data.detroitmi.gov/datasets/rms-crime-incidents">RMS Crime Incidents dataset</a></b> on the City's open data portal.</p>
+    <p style={{fontSize: '1.25em'}}>Do you want to access the raw data behind this tool? Visit the <b><a href="https://data.detroitmi.gov/datasets/8e532daeec1149879bd5e67fdd9c8be0_0/explore">RMS Crime Incidents dataset</a></b> on the City's open data portal.</p>
     <Message>
       <Message.Header>A note on anonymization</Message.Header>
       <Message.Content>
